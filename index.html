@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niclas van der Straeten</title>
+  <meta name="description" content="Buche ein kostenloses Erstgespräch, besuche NovIQ oder nimm direkt Kontakt auf." />
+  <link rel="preload" href="assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <main id="main" class="card">
+    <header class="profile">
+      <img class="avatar" src="assets/niclas-portrait.png" alt="Profilbild von Niclas van der Straeten"
+           width="112" height="112"
+           onerror="this.classList.add('avatar--fallback'); this.removeAttribute('src');" />
+      <h1 class="name">Niclas van der Straeten</h1>
+      <p class="bio">Founder <strong>@NovIQ</strong> | KI-Beratung<br />KI &middot; Business &middot; Sport &middot; Lifestyle</p>
+
+      <nav class="socials" aria-label="Social Media">
+        <ul id="socials-list" class="socials-list"></ul>
+      </nav>
+    </header>
+
+    <section class="link-section" aria-labelledby="business-heading">
+      <h2 id="business-heading" class="section-label">Für Unternehmen</h2>
+      <ul id="main-links" class="links-list"></ul>
+    </section>
+
+    <section class="link-section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading" class="section-label">Kontakt</h2>
+      <ul id="contact-links" class="links-list"></ul>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; <span id="year"></span> Niclas van der Straeten</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
