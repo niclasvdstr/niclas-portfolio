@@ -71,7 +71,7 @@ const contactLinks = [
     url: buildMailtoUrl(),
     type: "email",
     variant: "glass",
-    image: "assets/E-Mail-Logo.png",
+    icon: "mail-outline",
   },
 ];
 
@@ -88,6 +88,8 @@ const socialLinks = [
 const ICONS = {
   mail:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
+  "mail-outline":
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>',
   chevron:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
   youtube:

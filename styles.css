@@ -285,6 +285,29 @@ body::after {
   display: block;
 }
 
+/* Dezente Glas-Kachel für E-Mail Icon */
+.btn__icon--mail-outline {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.055)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 8px 18px rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.btn__icon--mail-outline svg {
+  width: 24px;
+  height: 24px;
+}
+
 .btn__text {
   display: flex;
   flex-direction: column;
