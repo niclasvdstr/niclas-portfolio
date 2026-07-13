@@ -52,7 +52,7 @@ const mainLinks = [
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
-    image: "assets/NovIQ-Consulting-KI-Beratung.png",
+    image: "assets/LogoLight.png",
   },
 ];
 
@@ -71,7 +71,7 @@ const contactLinks = [
     url: buildMailtoUrl(),
     type: "email",
     variant: "glass",
-    icon: "mail",
+    image: "assets/E-Mail-Logo.png",
   },
 ];
 
