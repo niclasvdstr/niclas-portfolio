@@ -17,23 +17,6 @@ const CONFIG = {
   noviqUrl: "https://www.noviq-consulting.de",
 };
 
-/* ---- Abgeleitete Links ---- */
-function buildWhatsappUrl() {
-  const num = String(CONFIG.whatsappNumber).replace(/[^\d]/g, "");
-  const base = `https://wa.me/${num}`;
-  return CONFIG.whatsappMessage
-    ? `${base}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`
-    : base;
-}
-
-function buildMailtoUrl() {
-  const params = new URLSearchParams();
-  if (CONFIG.emailSubject) params.set("subject", CONFIG.emailSubject);
-  if (CONFIG.emailBody) params.set("body", CONFIG.emailBody);
-  const query = params.toString();
-  return `mailto:${CONFIG.email}${query ? `?${query}` : ""}`;
-}
-
 /* =========================================================
    Link-Daten
    ========================================================= */
@@ -48,30 +31,11 @@ const mainLinks = [
   },
   {
     title: "NovIQ Website besuchen",
-    subtitle: "Strategische KI-Beratung",
+    subtitle: "Strategische KI-Beratung für Unternehmen",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
-    image: "assets/LogoLight.png",
-  },
-];
-
-const contactLinks = [
-  {
-    title: "WhatsApp",
-    subtitle: "Direkt Kontakt aufnehmen",
-    url: buildWhatsappUrl(),
-    type: "whatsapp",
-    variant: "glass",
-    image: "assets/Whatsapp-Logo.png",
-  },
-  {
-    title: "E-Mail",
-    subtitle: "Für ausführliche Anfragen",
-    url: buildMailtoUrl(),
-    type: "email",
-    variant: "glass",
-    icon: "mail-outline",
+    image: "assets/NovIQ-Consulting-KI-Beratung.png",
   },
 ];
 
@@ -177,11 +141,9 @@ function createSocial({ title, url, icon }) {
 
 function render() {
   const mainEl = document.getElementById("main-links");
-  const contactEl = document.getElementById("contact-links");
   const socialEl = document.getElementById("socials-list");
 
   mainLinks.forEach((l) => mainEl.append(createButton(l)));
-  contactLinks.forEach((l) => contactEl.append(createButton(l)));
   socialLinks.forEach((l) => socialEl.append(createSocial(l)));
 
   const yearEl = document.getElementById("year");

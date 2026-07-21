@@ -29,26 +29,32 @@
 }
 
 :root {
-  --bg-1: #0b1220;
-  --bg-2: #131c30;
-  --bg-accent: #241f52;
+  /* Light, professional palette (cool neutral, monochrome-led) */
+  --bg-1: #f7f8fa;
+  --bg-2: #eceef2;
+  --surface: #ffffff;
+  --tile: #f4f5f7;
 
-  --text: #f8fafc;
-  --text-muted: #cbd5e1;
+  --text: #101828;
+  --text-muted: #667085;
+  --label: #98a2b3;
 
-  /* Primary CTA (Calendly) — the only strong accent on the page */
-  --primary-1: #3474ff;
-  --primary-2: #2455df;
+  --border: #e4e7ec;
+  --border-hover: #d0d5dd;
+
+  /* Primary CTA — confident blue accent */
+  --ink: #101828;
+  --ink-hover: #1d2433;
+  --primary: #0050f6;
+  --primary-hover: #0042cc;
   --primary-text: #ffffff;
 
-  /* Glass secondary buttons */
-  --glass-border: rgba(255, 255, 255, 0.18);
-  --glass-border-hover: rgba(255, 255, 255, 0.3);
+  --social: #475467;
 
-  --focus-ring: #93c5fd;
-  --radius: 18px;
-  --gap: 14px;
-  --max-w: 540px;
+  --focus-ring: #0050f6;
+  --radius: 14px;
+  --gap: 12px;
+  --max-w: 480px;
 }
 
 * {
@@ -74,50 +80,21 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* Content sits slightly above mathematical centre for a tighter composition */
   justify-content: flex-start;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(1100px 720px at 50% 4%, rgba(75, 74, 210, 0.20), rgba(75, 74, 210, 0.06) 30%, transparent 54%),
-    radial-gradient(1000px 780px at 68% 60%, rgba(35, 126, 255, 0.07), transparent 42%),
-    linear-gradient(180deg, #0c1428 0%, #0d192d 52%, #091323 100%);
+    radial-gradient(1100px 640px at 50% -16%, #ffffff, transparent 60%),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
   background-attachment: fixed;
   line-height: 1.5;
-}
-
-/* ---------- Soft background light fields ---------- */
-body::before,
-body::after {
-  content: "";
-  position: fixed;
-  pointer-events: none;
-  border-radius: 999px;
-  filter: blur(90px);
-  z-index: 0;
-}
-body::before {
-  width: clamp(260px, 60vw, 460px);
-  height: clamp(260px, 60vw, 460px);
-  top: 12%;
-  left: calc(50% - clamp(260px, 60vw, 460px));
-  background: rgba(71, 92, 255, 0.42);
-  opacity: 0.22;
-}
-body::after {
-  width: clamp(220px, 52vw, 380px);
-  height: clamp(220px, 52vw, 380px);
-  top: 50%;
-  left: calc(50% + clamp(20px, 6vw, 80px));
-  background: rgba(31, 151, 255, 0.26);
-  opacity: 0.18;
 }
 
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--primary-1);
+  background: var(--ink);
   color: #fff;
   padding: 10px 16px;
   border-radius: 8px;
@@ -154,16 +131,16 @@ body::after {
 }
 
 .avatar {
-  width: clamp(96px, 24vw, 116px);
-  height: clamp(96px, 24vw, 116px);
+  width: clamp(88px, 23vw, 108px);
+  height: clamp(88px, 23vw, 108px);
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
-  border: 2px solid rgba(52, 116, 255, 0.55);
+  border: 3px solid #ffffff;
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.35),
-    0 0 0 6px rgba(52, 116, 255, 0.1);
-  background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+    0 10px 28px rgba(16, 24, 40, 0.14),
+    0 0 0 1px var(--border);
+  background: var(--tile);
 }
 .avatar--fallback {
   display: block;
@@ -171,9 +148,10 @@ body::after {
 
 .name {
   margin: 0;
-  font-size: clamp(1.45rem, 5vw, 1.85rem);
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--text);
 }
 
 .bio {
@@ -181,6 +159,10 @@ body::after {
   max-width: 34ch;
   color: var(--text-muted);
   font-size: clamp(0.92rem, 2.6vw, 1rem);
+}
+.bio strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* ---------- Social icons ---------- */
@@ -197,10 +179,10 @@ body::after {
   height: 46px;
   display: inline-grid;
   place-items: center;
-  border-radius: 14px;
+  border-radius: 13px;
   background: transparent;
   border: 1px solid transparent;
-  color: rgba(255, 255, 255, 0.84);
+  color: var(--social);
   box-shadow: none;
   transition:
     color 0.18s ease,
@@ -230,13 +212,12 @@ body::after {
 
 .btn {
   position: relative;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 14px;
   width: 100%;
-  min-height: 74px;
+  min-height: 68px;
   padding: 12px 18px;
   border-radius: var(--radius);
   font-size: 1rem;
@@ -246,16 +227,10 @@ body::after {
   transition: transform 0.2s ease, background 0.2s ease,
     box-shadow 0.2s ease, border-color 0.2s ease;
 }
-/* Keep real content above decorative light-reflex pseudo-element */
-.btn > * {
-  position: relative;
-  z-index: 1;
-}
 
 @media (max-width: 480px) {
   .btn {
-    min-height: 68px;
-    border-radius: 16px;
+    min-height: 64px;
     padding: 10px 14px;
   }
 }
@@ -267,8 +242,9 @@ body::after {
   flex: 0 0 auto;
   width: 46px;
   height: 46px;
-  border-radius: 13px;
-  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: var(--tile);
+  border: 1px solid var(--border);
   overflow: hidden;
 }
 .btn__icon svg {
@@ -276,8 +252,9 @@ body::after {
   height: 22px;
   display: block;
 }
+/* Brand logos sit on white so their colours stay crisp */
 .btn__icon--image {
-  background: rgba(255, 255, 255, 0.06);
+  background: #ffffff;
 }
 .btn__icon--image img {
   width: 100%;
@@ -286,23 +263,14 @@ body::after {
   display: block;
 }
 
-/* Dezente Glas-Kachel für E-Mail Icon */
+/* E-Mail icon — neutral tile, dark outline envelope */
 .btn__icon--mail-outline {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  color: rgba(255, 255, 255, 0.92);
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.055)
-  );
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.10),
-    0 8px 18px rgba(0, 0, 0, 0.14);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  color: var(--text);
+  background: var(--tile);
+  border: 1px solid var(--border);
 }
 .btn__icon--mail-outline svg {
   width: 24px;
@@ -327,7 +295,7 @@ body::after {
   font-weight: 400;
   font-size: 0.82rem;
   line-height: 1.2;
-  opacity: 0.72;
+  color: var(--text-muted);
   overflow-wrap: anywhere;
 }
 
@@ -337,7 +305,7 @@ body::after {
   flex: 0 0 auto;
   margin-left: auto;
   padding-left: 6px;
-  opacity: 0.5;
+  opacity: 0.35;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .btn__chevron svg {
@@ -354,157 +322,172 @@ body::after {
   outline-offset: 3px;
 }
 
-/* ---------- Primary variant (Calendly) ---------- */
+/* ---------- Primary variant (Calendly CTA) ---------- */
 .btn--primary {
   color: var(--primary-text);
-  background: linear-gradient(135deg, #3474ff 0%, #2455df 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 14px 34px rgba(35, 91, 235, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 8px 22px rgba(0, 80, 246, 0.24);
   font-weight: 700;
-  animation: cta-bounce 3.4s ease-in-out infinite;
+}
+.btn--primary .btn__icon {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.btn--primary .btn__subtitle {
+  color: rgba(255, 255, 255, 0.72);
+}
+.btn--primary .btn__chevron {
+  opacity: 0.85;
 }
 
-/* Gentle periodic hop to draw attention to the primary CTA */
-@keyframes cta-bounce {
-  0%, 80%, 100% {
-    transform: translateY(0);
+/* ---------- Secondary variant (white surface) ---------- */
+.btn--glass {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 6px 16px rgba(16, 24, 40, 0.06);
+}
+
+/* ---------- Video thumbnail ---------- */
+.video-thumbnail {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 6px 16px rgba(16, 24, 40, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+.video-thumbnail:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+.video-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-thumbnail__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease;
+}
+.video-thumbnail__play {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .video-thumbnail:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 2px 4px rgba(16, 24, 40, 0.05),
+      0 12px 26px rgba(16, 24, 40, 0.10);
   }
-  86% {
-    transform: translateY(-5px);
+  .video-thumbnail:hover .video-thumbnail__overlay {
+    background: rgba(0, 0, 0, 0.15);
   }
-  92% {
-    transform: translateY(-2px);
+  .video-thumbnail:hover .video-thumbnail__play {
+    opacity: 1;
+    transform: scale(1.1);
   }
 }
-/* Staggered entrance animation */
+
+/* ---------- Staggered entrance (once, on load) ---------- */
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 .btn {
-  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
-
 .links-list > li:nth-child(1) .btn {
-  animation-delay: 0.1s;
+  animation-delay: 0.08s;
 }
 .links-list > li:nth-child(2) .btn {
-  animation-delay: 0.25s;
+  animation-delay: 0.18s;
 }
 .links-list > li:nth-child(3) .btn {
-  animation-delay: 0.4s;
+  animation-delay: 0.28s;
 }
 .links-list > li:nth-child(4) .btn {
-  animation-delay: 0.55s;
+  animation-delay: 0.38s;
 }
 
-/* Primary button: slide in + then bounce */
-.btn--primary {
-  animation: slideInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards, cta-bounce 3.4s ease-in-out 0.6s infinite;
-}
-
-/* Inner light reflex */
-.btn--primary::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.22),
-    transparent 38%,
-    transparent 72%,
-    rgba(255, 255, 255, 0.06)
-  );
-}
-.btn--primary .btn__icon {
-  background: rgba(255, 255, 255, 0.2);
-}
-.btn--primary .btn__chevron {
-  opacity: 0.9;
-}
-
-/* ---------- Glass variant ---------- */
-.btn--glass {
-  color: var(--text);
-  /* Fallback background for browsers without backdrop-filter */
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.11),
-    rgba(255, 255, 255, 0.045)
-  );
-  border: 1px solid var(--glass-border);
-  box-shadow:
-    0 12px 32px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14);
-}
-@supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
-  .btn--glass {
-    -webkit-backdrop-filter: blur(18px) saturate(135%);
-    backdrop-filter: blur(18px) saturate(135%);
+/* Subtle, periodic bounce for the primary CTA — calm most of the cycle */
+@keyframes gentleBounce {
+  0%, 78%, 100% {
+    transform: translateY(0);
+  }
+  84% {
+    transform: translateY(-5px);
+  }
+  89% {
+    transform: translateY(0);
+  }
+  93% {
+    transform: translateY(-2px);
+  }
+  97% {
+    transform: translateY(0);
   }
 }
-/* Diagonal light reflex across the glass */
-.btn--glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.12),
-    transparent 35%,
-    transparent 70%,
-    rgba(255, 255, 255, 0.04)
-  );
+/* Runs after the entrance animation, then loops gently */
+.links-list > li:nth-child(1) .btn--primary {
+  animation:
+    slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both,
+    gentleBounce 3.4s ease-in-out 1.4s infinite;
 }
 
 /* ---------- Hover / active micro-interactions ---------- */
 @media (hover: hover) and (pointer: fine) {
   .social-btn:hover {
     transform: translateY(-3px);
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.16);
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    color: var(--text);
+    background-color: rgba(16, 24, 40, 0.04);
+    border-color: var(--border);
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
   }
 
   .btn:hover .btn__chevron {
     transform: translateX(4px);
-    opacity: 0.85;
+    opacity: 0.6;
   }
 
   .btn--primary:hover {
-    transform: translateY(-3px);
+    background: var(--primary-hover);
+    box-shadow: 0 12px 28px rgba(0, 80, 246, 0.30);
     animation-play-state: paused;
-    background: linear-gradient(135deg, #3f7dff 0%, #2c5ce8 100%);
-    box-shadow:
-      0 20px 44px rgba(35, 91, 235, 0.46),
-      inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
 
   .btn--glass:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.16),
-      rgba(255, 255, 255, 0.07)
-    );
-    border-color: var(--glass-border-hover);
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
     box-shadow:
-      0 18px 40px rgba(0, 0, 0, 0.28),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      0 2px 4px rgba(16, 24, 40, 0.05),
+      0 12px 26px rgba(16, 24, 40, 0.10);
   }
 }
 
@@ -518,7 +501,6 @@ body::after {
   flex-direction: column;
   gap: var(--gap);
 }
-/* Tighten only the gap between the social icons and the first section */
 .profile + .link-section {
   margin-top: clamp(-10px, -1vh, -6px);
 }
@@ -526,10 +508,10 @@ body::after {
   margin: 0 0 2px;
   padding-left: 4px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.65);
+  color: var(--label);
   text-align: left;
 }
 
@@ -539,10 +521,14 @@ body::after {
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
-  opacity: 0.85;
 }
 .footer p {
   margin: 0;
+}
+.footer-legal {
+  margin-top: 4px !important;
+  font-size: 0.76rem;
+  color: var(--label);
 }
 
 /* ---------- Reduced motion ---------- */
