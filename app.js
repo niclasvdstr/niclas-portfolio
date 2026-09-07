@@ -30,8 +30,8 @@ const mainLinks = [
     image: "assets/Calendly-Logo.png",
   },
   {
-    title: "VDSolutions Website besuchen",
-    subtitle: "Strategische KI-Beratung für Unternehmen",
+    title: "VDSolutions besuchen",
+    subtitle: "Beratung für Unternehmen",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
