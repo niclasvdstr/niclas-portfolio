@@ -31,7 +31,7 @@ const mainLinks = [
   },
   {
     title: "VDSolutions besuchen",
-    subtitle: "Beratung für Unternehmen",
+    subtitle: "Strategische KI-Beratung",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
