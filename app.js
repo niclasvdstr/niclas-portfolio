@@ -14,7 +14,7 @@ const CONFIG = {
   emailBody: "",
 
   calendlyUrl: "https://calendly.com/niclasvdstr/kostenloses-erstgespraech",
-  noviqUrl: "https://www.noviq-consulting.de",
+  noviqUrl: "https://www.vdsolutions.ai",
 };
 
 /* =========================================================
@@ -30,12 +30,12 @@ const mainLinks = [
     image: "assets/Calendly-Logo.png",
   },
   {
-    title: "NovIQ Website besuchen",
+    title: "VDSolutions Website besuchen",
     subtitle: "Strategische KI-Beratung für Unternehmen",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
-    image: "assets/NovIQ-Consulting-KI-Beratung.png",
+    image: "assets/VDSolutions-Logo.png",
   },
 ];
 
