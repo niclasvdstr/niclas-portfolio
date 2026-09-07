@@ -164,17 +164,6 @@ body {
   color: var(--text);
   font-weight: 600;
 }
-.bio-break {
-  display: none;
-}
-@media (max-width: 480px) {
-  .bio-break {
-    display: inline;
-  }
-  .bio-sep {
-    display: none;
-  }
-}
 
 /* ---------- Social icons ---------- */
 .socials-list {
