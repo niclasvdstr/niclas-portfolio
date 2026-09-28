@@ -53,10 +53,11 @@ const realEstateLinks = [
   },
 ];
 
+// Reihenfolge = Priorität: LinkedIn zuerst (B2B-Kanal), dann die Content-Kanäle
 const socialLinks = [
-  { title: "YouTube", url: "https://www.youtube.com/@niclasvdstr", icon: "youtube" },
-  { title: "Instagram", url: "https://www.instagram.com/niclasvdstr?igsh=bXE1dXV2cnBzNm4y&utm_source=qr", icon: "instagram" },
   { title: "LinkedIn", url: "https://www.linkedin.com/in/niclasvanderstraeten", icon: "linkedin" },
+  { title: "Instagram", url: "https://www.instagram.com/niclasvdstr?igsh=bXE1dXV2cnBzNm4y&utm_source=qr", icon: "instagram" },
+  { title: "YouTube", url: "https://www.youtube.com/@niclasvdstr", icon: "youtube" },
   { title: "TikTok", url: "https://www.tiktok.com/@niclasvdstr?_r=1&_t=ZG-97pdwhVVfWa", icon: "tiktok" },
 ];
 
