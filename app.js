@@ -15,6 +15,7 @@ const CONFIG = {
 
   calendlyUrl: "https://calendly.com/niclasvdstr/kostenloses-erstgespraech",
   noviqUrl: "https://www.vdsolutions.ai",
+  immobilienUrl: "https://www.vanderstraeten-immobilien.de",
 };
 
 /* =========================================================
@@ -30,12 +31,23 @@ const mainLinks = [
     image: "assets/Calendly-Logo.png",
   },
   {
-    title: "VDS Solutions",
+    title: "VDSolutions",
     subtitle: "Strategische KI-Beratung",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
     image: "assets/VDSolutions-Logo.png",
+  },
+];
+
+const realEstateLinks = [
+  {
+    title: "VDS Immobilien",
+    subtitle: "Ankauf & Vermittlung",
+    url: CONFIG.immobilienUrl,
+    type: "website",
+    variant: "glass",
+    image: "assets/VDS-Logo.png",
   },
 ];
 
@@ -141,9 +153,11 @@ function createSocial({ title, url, icon }) {
 
 function render() {
   const mainEl = document.getElementById("main-links");
+  const realEstateEl = document.getElementById("realestate-links");
   const socialEl = document.getElementById("socials-list");
 
   mainLinks.forEach((l) => mainEl.append(createButton(l)));
+  realEstateLinks.forEach((l) => realEstateEl.append(createButton(l)));
   socialLinks.forEach((l) => socialEl.append(createSocial(l)));
 
   const yearEl = document.getElementById("year");
