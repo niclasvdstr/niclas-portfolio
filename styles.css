@@ -134,8 +134,8 @@ body {
 }
 
 .avatar {
-  width: clamp(96px, 25vw, 124px);
-  height: clamp(96px, 25vw, 124px);
+  width: clamp(108px, 28vw, 140px);
+  height: clamp(108px, 28vw, 140px);
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
@@ -400,7 +400,7 @@ body {
    Kachel ist auf dieser Seite den Buttons vorbehalten. */
 /* Feine Linie trennt den Textteil vom Stapel der Buttons */
 .about-section {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--border-hover);
   padding-top: clamp(18px, 3vh, 26px);
 }
 
