@@ -32,11 +32,13 @@ const mainLinks = [
   },
   {
     title: "VDSolutions",
-    subtitle: "Strategische KI-Beratung",
+    subtitle: "Website bald verfügbar",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
     image: "assets/VDSolutions-Logo.png",
+    // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
+    soon: true,
   },
 ];
 
@@ -81,16 +83,22 @@ const ICONS = {
 /* =========================================================
    Rendering
    ========================================================= */
-function createButton({ title, subtitle, url, variant, icon, image, type }) {
+function createButton({ title, subtitle, url, variant, icon, image, type, soon }) {
   const li = document.createElement("li");
-  const a = document.createElement("a");
-  a.className = `btn btn--${variant}`;
-  a.href = url;
+  // "soon"-Kacheln sind reine Ankündigungen: kein Link, kein Fokus, kein Pfeil
+  const a = document.createElement(soon ? "div" : "a");
+  a.className = `btn btn--${variant}${soon ? " btn--soon" : ""}`;
 
-  // Externe Links (nicht mailto) in neuem Tab öffnen
-  if (type !== "email") {
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
+  if (soon) {
+    a.setAttribute("aria-disabled", "true");
+  } else {
+    a.href = url;
+
+    // Externe Links (nicht mailto) in neuem Tab öffnen
+    if (type !== "email") {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
   }
 
   const iconSpan = document.createElement("span");
@@ -122,12 +130,16 @@ function createButton({ title, subtitle, url, variant, icon, image, type }) {
     text.append(subEl);
   }
 
-  const chevron = document.createElement("span");
-  chevron.className = "btn__chevron";
-  chevron.setAttribute("aria-hidden", "true");
-  chevron.innerHTML = ICONS.chevron;
+  a.append(iconSpan, text);
 
-  a.append(iconSpan, text, chevron);
+  if (!soon) {
+    const chevron = document.createElement("span");
+    chevron.className = "btn__chevron";
+    chevron.setAttribute("aria-hidden", "true");
+    chevron.innerHTML = ICONS.chevron;
+    a.append(chevron);
+  }
+
   li.append(a);
   return li;
 }
