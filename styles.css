@@ -134,8 +134,8 @@ body {
 }
 
 .avatar {
-  width: clamp(108px, 28vw, 140px);
-  height: clamp(108px, 28vw, 140px);
+  width: clamp(100px, 26vw, 130px);
+  height: clamp(100px, 26vw, 130px);
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
