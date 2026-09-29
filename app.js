@@ -55,7 +55,7 @@ const realEstateLinks = [
     subtitle: "Ankauf & Vermittlung",
     url: CONFIG.immobilienUrl,
     type: "website",
-    variant: "dark",
+    variant: "glass",
     image: "assets/VDS-Logo.png",
   },
   {

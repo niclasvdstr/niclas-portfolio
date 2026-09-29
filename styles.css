@@ -53,9 +53,6 @@
   --primary-text: #ffffff;
 
   /* Neutrales Schwarz statt des blaustichigen --ink */
-  --dark: #0b0b0b;
-  --dark-hover: #1c1c1c;
-
   --whatsapp: #25d366;
   --whatsapp-hover: #1fb855;
 
@@ -438,24 +435,6 @@ body {
     0 6px 16px rgba(16, 24, 40, 0.06);
 }
 
-/* ---------- Dark variant (VDS Immobilien) ---------- */
-.btn--dark {
-  color: #ffffff;
-  background: var(--dark);
-  border: 1px solid var(--dark);
-  box-shadow: 0 8px 22px rgba(11, 11, 11, 0.22);
-}
-.btn--dark .btn__icon {
-  background: transparent;
-  border-color: transparent;
-}
-.btn--dark .btn__subtitle {
-  color: rgba(255, 255, 255, 0.7);
-}
-.btn--dark .btn__chevron {
-  opacity: 0.8;
-}
-
 /* ---------- WhatsApp variant (Immobilie anbieten) ---------- */
 .btn--whatsapp {
   color: var(--text);
@@ -619,21 +598,35 @@ body:has(.about-dialog[open]) {
 }
 
 /* ---------- Aufklapper (Immobilien) ----------
-   Die Abschnittsüberschrift ist zugleich der Aufklapper — bewusst ohne
-   Rahmen oder Fläche, damit sie Text bleibt und nicht zum Button wird. */
+   Als blanker Text sah die Zeile aus wie ein Rest, nicht wie etwas zum
+   Antippen. Sie bekommt deshalb eine Fläche — aber eine vertiefte: weißer
+   Grund plus Schatten wäre die Sprache der Buttons darüber, und die Zeile
+   würde dem blauen CTA die Aufmerksamkeit streitig machen. */
 .disclosure-summary {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0;
+  min-height: 52px;
+  padding: 0 18px;
+  border-radius: var(--radius);
+  background: rgba(16, 24, 40, 0.035);
+  border: 1px solid rgba(16, 24, 40, 0.07);
   color: var(--text);
   text-align: left;
   cursor: pointer;
   list-style: none;
-  transition: color 0.18s ease;
+  transition: color 0.18s ease, background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+@media (max-width: 480px) {
+  .disclosure-summary {
+    padding: 0 14px;
+  }
 }
 .disclosure-summary .section-label {
+  /* Der Innenabstand der Fläche übernimmt, was sonst das Label einrückt */
   margin: 0;
+  padding-left: 0;
 }
 .disclosure-summary::-webkit-details-marker {
   display: none;
@@ -643,8 +636,7 @@ body:has(.about-dialog[open]) {
 }
 .disclosure-summary:focus-visible {
   outline: 3px solid var(--focus-ring);
-  outline-offset: 4px;
-  border-radius: 6px;
+  outline-offset: 3px;
 }
 .disclosure-summary__chevron {
   flex: 0 0 auto;
@@ -667,10 +659,17 @@ body:has(.about-dialog[open]) {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .disclosure-summary:hover {
+    background: rgba(16, 24, 40, 0.06);
+    border-color: rgba(16, 24, 40, 0.1);
+  }
   .disclosure-summary:hover .section-label,
   .disclosure-summary:hover .disclosure-summary__chevron {
     color: var(--text);
   }
+}
+.disclosure-summary:active {
+  background: rgba(16, 24, 40, 0.08);
 }
 
 /* Beim Aufklappen kommen die Buttons nacheinander herein, statt hart zu
@@ -849,11 +848,6 @@ body:has(.about-dialog[open]) {
   .btn--whatsapp:hover .btn__icon {
     background: var(--whatsapp-hover);
     border-color: var(--whatsapp-hover);
-  }
-
-  .btn--dark:hover {
-    background: var(--dark-hover);
-    box-shadow: 0 12px 28px rgba(11, 11, 11, 0.28);
   }
 
   .btn--glass:not(.btn--soon):hover {
