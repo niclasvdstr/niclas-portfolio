@@ -85,7 +85,7 @@ body {
   padding:
     max(clamp(20px, 5vh, 52px), env(safe-area-inset-top))
     max(16px, env(safe-area-inset-right))
-    max(clamp(20px, 5vh, 52px), env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
   display: flex;
   flex-direction: column;
@@ -120,7 +120,8 @@ body {
   z-index: 1;
   width: min(100% - 32px, var(--max-w));
   margin-inline: auto;
-  margin-block: auto;
+  /* Füllt die Bildschirmhöhe, damit der Footer unten andocken kann */
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: clamp(24px, 3.4vh, 34px);
@@ -133,6 +134,8 @@ body {
 
 /* ---------- Profile ---------- */
 .profile {
+  /* Teilt den Freiraum mit dem Footer, statt alles nach oben zu drücken */
+  margin-top: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -712,7 +715,10 @@ body {
 
 /* ---------- Footer ---------- */
 .footer {
-  margin-top: clamp(20px, 4.5vh, 40px);
+  /* Dockt unten an; das Padding sichert den Mindestabstand, wenn die
+     Seite ohnehin schon die volle Höhe füllt. */
+  margin-top: auto;
+  padding-top: clamp(24px, 5vh, 48px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
