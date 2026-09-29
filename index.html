@@ -26,47 +26,32 @@
     </header>
 
     <section class="link-section" aria-labelledby="business-heading">
-      <h2 id="business-heading" class="section-label">Für Unternehmen</h2>
+      <h2 id="business-heading" class="section-label">
+        <span class="section-label__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
+        </span>
+        Für Unternehmen
+      </h2>
       <ul id="main-links" class="links-list"></ul>
     </section>
 
     <section class="link-section" aria-labelledby="realestate-heading">
-      <h2 id="realestate-heading" class="section-label">Für Immobilieneigentümer</h2>
-      <ul id="realestate-links" class="links-list"></ul>
-    </section>
-
-    <section class="link-section about-section" aria-labelledby="about-heading">
-      <details class="about-details">
-        <summary class="about-summary">
-          <h2 id="about-heading" class="section-label">&Uuml;ber mich</h2>
-          <span class="about-summary__chevron" aria-hidden="true">
+      <details class="disclosure">
+        <summary class="disclosure-summary">
+          <h2 id="realestate-heading" class="section-label">
+            <span class="section-label__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>
+            </span>
+            Für Immobilieneigentümer
+          </h2>
+          <span class="disclosure-summary__chevron" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                  stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
           </span>
         </summary>
-        <article class="about">
-          <p class="about__lead">Vom Immobilienb&uuml;ro zur KI-Beratung</p>
-          <p>
-            <strong>2023 begann ich als Immobilienmakler in einem Investorenb&uuml;ro.</strong> Dort
-            erlebte ich t&auml;glich, wie viel Zeit durch manuelle Abl&auml;ufe, Excel-Listen und verstreute
-            Informationen verloren ging. Das war der Ansto&szlig;, bestehende Prozesse zu hinterfragen
-            und mich intensiv mit k&uuml;nstlicher Intelligenz zu besch&auml;ftigen &ndash; zun&auml;chst, um meine
-            eigene Arbeit effizienter zu gestalten.
-          </p>
-          <p>
-            <strong>Heute unterst&uuml;tze ich Unternehmen dabei, dieses Potenzial zu nutzen.</strong> Ich
-            optimiere Prozesse, entwickle individuelle KI-L&ouml;sungen und baue zentrale Systeme f&uuml;r
-            die Unternehmensorganisation auf. In Workshops und Schulungen vermittle ich
-            Mitarbeitenden und F&uuml;hrungskr&auml;ften, wie sie KI sicher und produktiv in ihren
-            Arbeitsalltag integrieren.
-          </p>
-          <p class="about__closing">
-            <strong>Mein Ansatz: Erst die Prozesse verstehen, dann die Technologie w&auml;hlen.</strong>
-            Jede L&ouml;sung orientiert sich an den Anforderungen und Zielen des Unternehmens.
-            Entscheidend ist der konkrete Nutzen: weniger Aufwand, bessere Abl&auml;ufe und mehr Zeit
-            f&uuml;r das Kerngesch&auml;ft.
-          </p>
-        </article>
+        <ul id="realestate-links" class="links-list disclosure__panel"></ul>
       </details>
     </section>
 

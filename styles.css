@@ -52,6 +52,13 @@
   --primary-hover: #0042cc;
   --primary-text: #ffffff;
 
+  /* Neutrales Schwarz statt des blaustichigen --ink */
+  --dark: #0b0b0b;
+  --dark-hover: #1c1c1c;
+
+  --whatsapp: #25d366;
+  --whatsapp-hover: #1fb855;
+
   --social: #475467;
 
   --focus-ring: #0050f6;
@@ -372,6 +379,39 @@ body {
     0 6px 16px rgba(16, 24, 40, 0.06);
 }
 
+/* ---------- Dark variant (VDS Immobilien) ---------- */
+.btn--dark {
+  color: #ffffff;
+  background: var(--dark);
+  border: 1px solid var(--dark);
+  box-shadow: 0 8px 22px rgba(11, 11, 11, 0.22);
+}
+.btn--dark .btn__icon {
+  background: transparent;
+  border-color: transparent;
+}
+.btn--dark .btn__subtitle {
+  color: rgba(255, 255, 255, 0.7);
+}
+.btn--dark .btn__chevron {
+  opacity: 0.8;
+}
+
+/* ---------- WhatsApp variant (Immobilie anbieten) ---------- */
+.btn--whatsapp {
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 6px 16px rgba(16, 24, 40, 0.06);
+}
+.btn--whatsapp .btn__icon {
+  background: var(--whatsapp);
+  border-color: var(--whatsapp);
+  color: #ffffff;
+}
+
 /* ---------- Ankündigung (noch nicht verlinkt) ---------- */
 .btn--soon {
   cursor: default;
@@ -386,18 +426,10 @@ body {
   color: var(--label);
 }
 
-/* ---------- Über mich ----------
-   Bewusst ohne Karte: Fließtext ist Inhalt, keine Aktion. Die weiße
-   Kachel ist auf dieser Seite den Buttons vorbehalten. */
-/* Feine Linie trennt den Textteil vom Stapel der Buttons */
-.about-section {
-  border-top: 1px solid var(--border-hover);
-  padding-top: clamp(18px, 3vh, 26px);
-}
-
-/* Die Abschnittsüberschrift ist zugleich der Aufklapper — bewusst ohne
+/* ---------- Aufklapper (Immobilien) ----------
+   Die Abschnittsüberschrift ist zugleich der Aufklapper — bewusst ohne
    Rahmen oder Fläche, damit sie Text bleibt und nicht zum Button wird. */
-.about-summary {
+.disclosure-summary {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -408,85 +440,56 @@ body {
   list-style: none;
   transition: color 0.18s ease;
 }
-.about-summary .section-label {
+.disclosure-summary .section-label {
   margin: 0;
 }
-.about-summary::-webkit-details-marker {
+.disclosure-summary::-webkit-details-marker {
   display: none;
 }
-.about-summary::marker {
+.disclosure-summary::marker {
   content: "";
 }
-.about-summary:focus-visible {
+.disclosure-summary:focus-visible {
   outline: 3px solid var(--focus-ring);
   outline-offset: 4px;
   border-radius: 6px;
 }
-.about-summary__chevron {
+.disclosure-summary__chevron {
   flex: 0 0 auto;
   margin-left: auto;
   color: var(--label);
 }
-.about-summary__chevron svg {
+.disclosure-summary__chevron svg {
   width: 16px;
   height: 16px;
   display: block;
   transition: transform 0.2s ease;
 }
-.about-details[open] .about-summary__chevron svg {
+.disclosure[open] .disclosure-summary__chevron svg {
   transform: rotate(180deg);
 }
 
+/* Aufgeklappte Buttons brauchen denselben Abstand wie ein Sektionsstapel */
+.disclosure__panel {
+  margin-top: var(--gap);
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .about-summary:hover .section-label,
-  .about-summary:hover .about-summary__chevron {
+  .disclosure-summary:hover .section-label,
+  .disclosure-summary:hover .disclosure-summary__chevron {
     color: var(--text);
   }
 }
 
-.about {
-  padding: 12px 4px 0;
-  text-align: left;
-  color: var(--text-muted);
-  font-size: 0.86rem;
-  line-height: 1.75;
+/* Der Inhalt gleitet beim Aufklappen herein, statt hart zu erscheinen */
+.disclosure[open] .disclosure__panel {
+  animation: panel-reveal 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
-/* Die Einleitungszeile trägt jetzt den Titel, den vorher der Aufklapper zeigte */
-.about__lead {
-  margin: 0 0 12px;
-  color: var(--text);
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.5;
-}
-/* Der Text gleitet beim Aufklappen herein, statt hart zu erscheinen */
-.about-details[open] .about {
-  animation: about-reveal 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
-@keyframes about-reveal {
+@keyframes panel-reveal {
   from {
     opacity: 0;
     transform: translateY(-6px);
   }
-}
-.about p {
-  margin: 0 0 14px;
-}
-.about p:last-child {
-  margin-bottom: 0;
-}
-/* Ankerpunkte fürs Überfliegen: Herkunft und Zeiträume */
-.about strong {
-  color: var(--text);
-  font-weight: 600;
-}
-/* Schlusssatz als ruhig abgesetzte Haltung, nicht als vierter Absatz */
-.about__closing {
-  margin-top: 18px;
-  padding-left: 14px;
-  border-left: 2px solid var(--border-hover);
-  color: var(--label-strong);
 }
 
 /* ---------- Video thumbnail ---------- */
@@ -623,6 +626,23 @@ body {
     animation-play-state: paused;
   }
 
+  .btn--whatsapp:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+    box-shadow:
+      0 2px 4px rgba(16, 24, 40, 0.05),
+      0 12px 26px rgba(16, 24, 40, 0.10);
+  }
+  .btn--whatsapp:hover .btn__icon {
+    background: var(--whatsapp-hover);
+    border-color: var(--whatsapp-hover);
+  }
+
+  .btn--dark:hover {
+    background: var(--dark-hover);
+    box-shadow: 0 12px 28px rgba(11, 11, 11, 0.28);
+  }
+
   .btn--glass:not(.btn--soon):hover {
     transform: translateY(-2px);
     border-color: var(--border-hover);
@@ -646,6 +666,9 @@ body {
   margin-top: clamp(-10px, -1vh, -6px);
 }
 .section-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
   margin: 0 0 2px;
   padding-left: 4px;
   font-size: 0.75rem;
@@ -655,6 +678,16 @@ body {
   color: var(--label-strong);
   text-align: left;
 }
+.section-label__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+.section-label__icon svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+
 
 /* ---------- Footer ---------- */
 .footer {
