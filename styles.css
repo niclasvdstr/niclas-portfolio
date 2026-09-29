@@ -201,15 +201,6 @@ body {
 .social-btn--youtube {
   color: #ff0000;
 }
-.social-btn--tiktok {
-  color: #010101;
-}
-.social-btn--tiktok .tiktok-cyan {
-  fill: #25f4ee;
-}
-.social-btn--tiktok .tiktok-magenta {
-  fill: #fe2c55;
-}
 /* Instagram hat keine Volltonfarbe — der Verlauf steckt im SVG selbst */
 .social-btn--instagram svg path {
   fill: url(#ig-gradient);

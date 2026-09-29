@@ -53,12 +53,12 @@ const realEstateLinks = [
   },
 ];
 
-// Reihenfolge = Priorität: LinkedIn zuerst (B2B-Kanal), dann die Content-Kanäle
+// Reihenfolge = Priorität: LinkedIn zuerst (B2B-Kanal), dann die Content-Kanäle.
+// TikTok fehlt bewusst: der Kanal führt Reichweite hierher, nicht umgekehrt.
 const socialLinks = [
   { title: "LinkedIn", url: "https://www.linkedin.com/in/niclasvanderstraeten", icon: "linkedin" },
   { title: "Instagram", url: "https://www.instagram.com/niclasvdstr?igsh=bXE1dXV2cnBzNm4y&utm_source=qr", icon: "instagram" },
   { title: "YouTube", url: "https://www.youtube.com/@niclasvdstr", icon: "youtube" },
-  { title: "TikTok", url: "https://www.tiktok.com/@niclasvdstr?_r=1&_t=ZG-97pdwhVVfWa", icon: "tiktok" },
 ];
 
 /* =========================================================
@@ -79,10 +79,6 @@ const ICONS = {
   // drei anderen Kanäle daneben.
   linkedin:
     '<svg viewBox="0 0 24 24"><rect x="1.1" y="1.1" width="21.8" height="21.8" rx="4.6" fill="none" stroke="currentColor" stroke-width="2.1"/><g fill="currentColor" transform="translate(12 12) scale(0.74) translate(-12 -12)"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286Z"/><path d="M5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065Z"/><path d="M7.119 20.452H3.555V9h3.564v11.452Z"/></g></svg>',
-  // Dreilagig wie die Originalmarke: Cyan versetzt nach oben, Magenta nach
-  // unten, das schwarze Zeichen deckend darüber.
-  tiktok:
-    '<svg viewBox="0 0 24 24"><g fill="currentColor"><path class="tiktok-cyan" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z" transform="translate(-1 -1)"/><path class="tiktok-magenta" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z" transform="translate(1 1)"/><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z"/></g></svg>',
 };
 
 /* =========================================================
