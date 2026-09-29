@@ -481,14 +481,18 @@ body {
   }
 }
 
-/* Der Inhalt gleitet beim Aufklappen herein, statt hart zu erscheinen */
-.disclosure[open] .disclosure__panel {
-  animation: panel-reveal 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+/* Beim Aufklappen kommen die Buttons nacheinander herein, statt hart zu
+   erscheinen. Der Zustandswechsel startet die Animation jedes Mal neu. */
+.disclosure[open] .disclosure__panel > li {
+  animation: panel-reveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.disclosure[open] .disclosure__panel > li:nth-child(2) {
+  animation-delay: 0.09s;
 }
 @keyframes panel-reveal {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-10px);
   }
 }
 
@@ -550,7 +554,10 @@ body {
   }
 }
 
-/* ---------- Staggered entrance (once, on load) ---------- */
+/* ---------- Staggered entrance (once, on load) ----------
+   Die Seite baut sich von oben nach unten auf: Porträt, Name, Text,
+   Kanäle, dann die Abschnitte. Die Buttons tragen die Bewegung auf dem
+   <li>, damit die Fläche selbst für Hover und Puls frei bleibt. */
 @keyframes slideInUp {
   from {
     opacity: 0;
@@ -561,45 +568,59 @@ body {
     transform: translateY(0);
   }
 }
-.btn {
-  animation: slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-.links-list > li:nth-child(1) .btn {
-  animation-delay: 0.08s;
-}
-.links-list > li:nth-child(2) .btn {
-  animation-delay: 0.18s;
-}
-.links-list > li:nth-child(3) .btn {
-  animation-delay: 0.28s;
-}
-.links-list > li:nth-child(4) .btn {
-  animation-delay: 0.38s;
+
+.avatar,
+.name,
+.bio,
+.socials,
+#business-heading,
+#main-links > li,
+.disclosure-summary,
+.footer {
+  animation: slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Subtle, periodic bounce for the primary CTA — calm most of the cycle */
-@keyframes gentleBounce {
-  0%, 78%, 100% {
-    transform: translateY(0);
+.avatar {
+  animation-delay: 0.05s;
+}
+.name {
+  animation-delay: 0.13s;
+}
+.bio {
+  animation-delay: 0.2s;
+}
+.socials {
+  animation-delay: 0.27s;
+}
+#business-heading {
+  animation-delay: 0.34s;
+}
+#main-links > li:nth-child(1) {
+  animation-delay: 0.41s;
+}
+#main-links > li:nth-child(2) {
+  animation-delay: 0.49s;
+}
+.disclosure-summary {
+  animation-delay: 0.57s;
+}
+.footer {
+  animation-delay: 0.65s;
+}
+
+/* Periodischer Puls des blauen Scheins — zieht den Blick, ohne das Layout
+   zu bewegen. Den Großteil des Zyklus liegt der Button ruhig. */
+@keyframes glowPulse {
+  0%, 62%, 100% {
+    box-shadow: 0 8px 22px rgba(0, 80, 246, 0.24);
   }
-  84% {
-    transform: translateY(-5px);
-  }
-  89% {
-    transform: translateY(0);
-  }
-  93% {
-    transform: translateY(-2px);
-  }
-  97% {
-    transform: translateY(0);
+  78% {
+    box-shadow: 0 12px 38px rgba(0, 80, 246, 0.58);
   }
 }
-/* Runs after the entrance animation, then loops gently */
-.links-list > li:nth-child(1) .btn--primary {
-  animation:
-    slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both,
-    gentleBounce 3.4s ease-in-out 1.4s infinite;
+/* Startet erst, wenn der Aufbau der Seite durch ist */
+.btn--primary {
+  animation: glowPulse 4s ease-in-out 1.6s infinite;
 }
 
 /* ---------- Hover / active micro-interactions ---------- */
@@ -620,10 +641,10 @@ body {
     opacity: 0.6;
   }
 
+  /* Kein box-shadow hier: die laufende Animation würde ihn ohnehin überschreiben */
   .btn--primary:hover {
     background: var(--primary-hover);
-    box-shadow: 0 12px 28px rgba(0, 80, 246, 0.30);
-    animation-play-state: paused;
+    transform: translateY(-2px);
   }
 
   .btn--whatsapp:hover {
@@ -691,7 +712,7 @@ body {
 
 /* ---------- Footer ---------- */
 .footer {
-  margin-top: clamp(6px, 2vh, 14px);
+  margin-top: clamp(20px, 4.5vh, 40px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
