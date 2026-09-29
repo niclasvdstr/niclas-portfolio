@@ -32,7 +32,7 @@ const mainLinks = [
   },
   {
     title: "VDSolutions",
-    subtitle: "Website bald verfügbar",
+    subtitle: "Wird gewartet...",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "glass",
@@ -195,4 +195,23 @@ function render() {
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
+// Das Porträt öffnet den Text über mich. Esc und der Backdrop-Klick schließen
+// ihn; beides bringt <dialog> mit, sobald es modal geöffnet wird.
+function wireAboutDialog() {
+  const dialog = document.getElementById("about-dialog");
+  const openBtn = document.getElementById("about-open");
+  const closeBtn = document.getElementById("about-close");
+
+  openBtn.addEventListener("click", () => dialog.showModal());
+  closeBtn.addEventListener("click", () => dialog.close());
+
+  // Ein Druck neben den Dialog trifft das <dialog> selbst, nie seinen Inhalt.
+  // pointerdown statt click: sonst schließt eine im Text begonnene Auswahl,
+  // die außerhalb endet, den Dialog gleich wieder.
+  dialog.addEventListener("pointerdown", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+}
+
 render();
+wireAboutDialog();

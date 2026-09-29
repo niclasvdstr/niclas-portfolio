@@ -159,6 +159,56 @@ body {
   display: block;
 }
 
+/* Das Porträt öffnet den Text über mich. Das kleine Zeichen am Rand macht
+   sichtbar, dass hier etwas dahintersteckt — ein blankes Foto liest sonst
+   niemand als Schaltfläche. */
+.avatar-button {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  line-height: 0;
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.avatar-button:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 5px;
+}
+.avatar-button:active {
+  transform: scale(0.97);
+}
+.avatar-button__hint {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: var(--label-strong);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.22);
+  transition: background-color 0.18s ease;
+}
+.avatar-button__hint svg {
+  width: 15px;
+  height: 15px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .avatar-button:hover {
+    transform: translateY(-2px);
+  }
+  .avatar-button:hover .avatar-button__hint {
+    background: var(--text);
+  }
+}
+
 .name {
   margin: 0;
   font-size: clamp(1.5rem, 5vw, 1.9rem);
@@ -429,32 +479,122 @@ body {
   color: var(--label);
 }
 
-/* ---------- Über mich ----------
-   Bewusst ohne Karte: Fließtext ist Inhalt, keine Aktion. Die weiße
-   Kachel ist auf dieser Seite den Buttons vorbehalten. Die feine Linie
-   trennt den Textteil vom Stapel der Buttons. */
-.about-section {
-  border-top: 1px solid var(--border-hover);
-  padding-top: clamp(18px, 3vh, 26px);
+/* ---------- Über mich (Dialog) ----------
+   Liegt über der Seite statt in ihr: der Fließtext würde den Stapel sonst
+   auseinanderziehen und den CTA nach unten drücken. Ein- und Ausblenden
+   laufen über @starting-style, damit auch das Schließen animiert. */
+.about-dialog {
+  flex-direction: column;
+  width: min(430px, calc(100vw - 32px));
+  max-height: min(84vh, 680px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 24px 64px rgba(16, 24, 40, 0.24);
+  opacity: 0;
+  transform: translateY(14px) scale(0.97);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+/* display erst hier: sonst überschriebe es das display:none des Browsers
+   für den geschlossenen Dialog */
+.about-dialog[open] {
+  display: flex;
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  .about-dialog[open] {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+.about-dialog::backdrop {
+  background: rgba(16, 24, 40, 0.5);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+.about-dialog[open]::backdrop {
+  opacity: 1;
+}
+@starting-style {
+  .about-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+/* Die Seite darunter soll nicht mitscrollen, während der Dialog offen ist */
+body:has(.about-dialog[open]) {
+  overflow: hidden;
+}
+
+/* Eigene Zeile für den Schließen-Knopf: so hat die Überschrift die volle
+   Breite und der Text scrollt nicht unter dem Knopf durch. */
+.about-dialog__bar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 10px 0;
+}
+.about-dialog__close {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--label);
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+.about-dialog__close svg {
+  width: 17px;
+  height: 17px;
+}
+.about-dialog__close:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-dialog__close:hover {
+    color: var(--text);
+    background-color: rgba(16, 24, 40, 0.06);
+  }
 }
 
 .about {
-  padding: 12px 4px 0;
+  /* min-height: 0 lässt das Flex-Kind schrumpfen, sonst scrollt es nicht */
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px clamp(22px, 5vw, 30px) clamp(24px, 5vw, 30px);
   text-align: left;
   color: var(--text-muted);
-  font-size: 0.86rem;
-  line-height: 1.75;
+  font-size: 0.88rem;
+  line-height: 1.72;
 }
 .about__lead {
-  margin: 0 0 12px;
+  margin: 0 0 18px;
   color: var(--text);
-  font-size: 0.92rem;
+  font-size: 1.04rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.5;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
 }
 .about p {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 .about p:last-child {
   margin-bottom: 0;
@@ -472,7 +612,7 @@ body {
   color: var(--label-strong);
 }
 
-/* ---------- Aufklapper (Immobilien, Über mich) ----------
+/* ---------- Aufklapper (Immobilien) ----------
    Die Abschnittsüberschrift ist zugleich der Aufklapper — bewusst ohne
    Rahmen oder Fläche, damit sie Text bleibt und nicht zum Button wird. */
 .disclosure-summary {
@@ -529,8 +669,7 @@ body {
 
 /* Beim Aufklappen kommen die Buttons nacheinander herein, statt hart zu
    erscheinen. Der Zustandswechsel startet die Animation jedes Mal neu. */
-.disclosure[open] .disclosure__panel > li,
-.disclosure[open] .about {
+.disclosure[open] .disclosure__panel > li {
   animation: panel-reveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 .disclosure[open] .disclosure__panel > li:nth-child(2) {
@@ -622,8 +761,7 @@ body {
 .socials,
 #business-heading,
 #main-links > li,
-.link-section:not(.about-section) .disclosure-summary,
-.about-section,
+.link-section .disclosure-summary,
 .footer {
   animation: slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -649,14 +787,11 @@ body {
 #main-links > li:nth-child(2) {
   animation-delay: 0.49s;
 }
-.link-section:not(.about-section) .disclosure-summary {
+.link-section .disclosure-summary {
   animation-delay: 0.57s;
 }
-.about-section {
-  animation-delay: 0.65s;
-}
 .footer {
-  animation-delay: 0.73s;
+  animation-delay: 0.65s;
 }
 
 /* Periodischer Puls des blauen Scheins — zieht den Blick, ohne das Layout

@@ -14,15 +14,23 @@
 
   <main id="main" class="card">
     <header class="profile">
-      <img class="avatar" src="assets/niclas-portrait.png" alt="Profilbild von Niclas van der Straeten"
-           width="112" height="112"
-           onerror="this.classList.add('avatar--fallback'); this.removeAttribute('src');" />
+      <button type="button" id="about-open" class="avatar-button" aria-haspopup="dialog"
+              aria-label="Über mich">
+        <img class="avatar" src="assets/niclas-portrait.png" alt="Profilbild von Niclas van der Straeten"
+             width="112" height="112"
+             onerror="this.classList.add('avatar--fallback'); this.removeAttribute('src');" />
+        <span class="avatar-button__hint" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-5"/><path d="M12 7.5h.01"/></svg>
+        </span>
+      </button>
       <h1 class="name">Niclas van der Straeten</h1>
       <p class="bio">Founder <strong>@VDSolutions</strong> | KI-Beratung<br />KI-L&ouml;sungen &middot; Automatisierung &middot; Wachstum</p>
 
       <nav class="socials" aria-label="Social Media">
         <ul id="socials-list" class="socials-list"></ul>
       </nav>
+
     </header>
 
     <section class="link-section" aria-labelledby="business-heading">
@@ -55,47 +63,6 @@
       </details>
     </section>
 
-    <section class="link-section about-section" aria-labelledby="about-heading">
-      <details class="disclosure">
-        <summary class="disclosure-summary">
-          <h2 id="about-heading" class="section-label">
-            <span class="section-label__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
-            </span>
-            &Uuml;ber mich
-          </h2>
-          <span class="disclosure-summary__chevron" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </span>
-        </summary>
-        <article class="about">
-          <p class="about__lead">Vom Immobilienb&uuml;ro zur KI-Beratung</p>
-          <p>
-            <strong>2023 begann ich als Immobilienmakler in einem Investorenb&uuml;ro.</strong> Dort
-            erlebte ich t&auml;glich, wie viel Zeit durch manuelle Abl&auml;ufe, Excel-Listen und verstreute
-            Informationen verloren ging. Das war der Ansto&szlig;, bestehende Prozesse zu hinterfragen
-            und mich intensiv mit k&uuml;nstlicher Intelligenz zu besch&auml;ftigen &ndash; zun&auml;chst, um meine
-            eigene Arbeit effizienter zu gestalten.
-          </p>
-          <p>
-            <strong>Heute unterst&uuml;tze ich Unternehmen dabei, dieses Potenzial zu nutzen.</strong> Ich
-            optimiere Prozesse, entwickle individuelle KI-L&ouml;sungen und baue zentrale Systeme f&uuml;r
-            die Unternehmensorganisation auf. In Workshops und Schulungen vermittle ich
-            Mitarbeitenden und F&uuml;hrungskr&auml;ften, wie sie KI sicher und produktiv in ihren
-            Arbeitsalltag integrieren.
-          </p>
-          <p class="about__closing">
-            <strong>Mein Ansatz: Erst die Prozesse verstehen, dann die Technologie w&auml;hlen.</strong>
-            Jede L&ouml;sung orientiert sich an den Anforderungen und Zielen des Unternehmens.
-            Entscheidend ist der konkrete Nutzen: weniger Aufwand, bessere Abl&auml;ufe und mehr Zeit
-            f&uuml;r das Kerngesch&auml;ft.
-          </p>
-        </article>
-      </details>
-    </section>
-
     <footer class="footer">
       <p>&copy; <span id="year"></span> Niclas van der Straeten &middot; Frankfurt am Main</p>
       <p class="footer-legal">
@@ -105,6 +72,37 @@
       </p>
     </footer>
   </main>
+
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-dialog-title">
+    <div class="about-dialog__bar">
+      <button type="button" id="about-close" class="about-dialog__close" aria-label="Schlie&szlig;en">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <article class="about">
+      <p class="about__lead" id="about-dialog-title">Vom Immobilienb&uuml;ro zur KI-Beratung</p>
+      <p>
+        <strong>2023 bin ich als Immobilienmakler in einem Investorenb&uuml;ro gestartet</strong> und
+        war von Beginn an eng in das operative Tagesgesch&auml;ft eingebunden. Dort habe ich schnell
+        gesehen, wie viel Zeit Unternehmen durch manuelle Abl&auml;ufe, verteilte Informationen und
+        ineffiziente Prozesse verlieren.
+      </p>
+      <p>
+        <strong>Seit rund drei Jahren besch&auml;ftige ich mich intensiv mit k&uuml;nstlicher
+        Intelligenz</strong> und ihrem praktischen Einsatz im Unternehmen. Heute unterst&uuml;tze ich
+        Unternehmen dabei, Prozesse zu optimieren, KI-L&ouml;sungen und Automatisierungen umzusetzen
+        und digitale Strukturen aufzubauen, die im Alltag wirklich funktionieren. Erg&auml;nzend gebe
+        ich Workshops und Schulungen, um F&uuml;hrungskr&auml;fte und Mitarbeitende im professionellen
+        Umgang mit KI zu bef&auml;higen.
+      </p>
+      <p class="about__closing">
+        <strong>Mein Ansatz: erst den Prozess verstehen, dann die Technologie einsetzen.</strong>
+        KI muss Zeit sparen, Produktivit&auml;t erh&ouml;hen oder Qualit&auml;t verbessern &ndash; sonst schafft sie
+        keinen echten Mehrwert.
+      </p>
+    </article>
+  </dialog>
 
   <script src="app.js"></script>
 </body>
