@@ -799,19 +799,29 @@ body:has(.about-dialog[open]) {
   animation-delay: 0.65s;
 }
 
-/* Periodischer Puls des blauen Scheins — zieht den Blick, ohne das Layout
-   zu bewegen. Den Großteil des Zyklus liegt der Button ruhig. */
-@keyframes glowPulse {
-  0%, 62%, 100% {
-    box-shadow: 0 8px 22px rgba(0, 80, 246, 0.24);
+/* Periodischer Hüpfer — zwei Sprünge, der zweite kleiner, dann Ruhe. Der
+   Button trägt die Bewegung selbst; die Einblendung beim Laden sitzt auf
+   dem <li> und kommt sich damit nicht in die Quere. */
+@keyframes ctaBounce {
+  0%, 68%, 100% {
+    transform: translateY(0);
   }
-  78% {
-    box-shadow: 0 12px 38px rgba(0, 80, 246, 0.58);
+  74% {
+    transform: translateY(-7px);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  86% {
+    transform: translateY(-3px);
+  }
+  92% {
+    transform: translateY(0);
   }
 }
 /* Startet erst, wenn der Aufbau der Seite durch ist */
 .btn--primary {
-  animation: glowPulse 4s ease-in-out 1.6s infinite;
+  animation: ctaBounce 4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s infinite;
 }
 
 /* ---------- Hover / active micro-interactions ---------- */
@@ -832,10 +842,13 @@ body:has(.about-dialog[open]) {
     opacity: 0.6;
   }
 
-  /* Kein box-shadow hier: die laufende Animation würde ihn ohnehin überschreiben */
+  /* Der Hüpfer muss beim Zeigen aussetzen, sonst überschreibt er das
+     transform des Hover-Zustands */
   .btn--primary:hover {
+    animation: none;
     background: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 80, 246, 0.38);
   }
 
   .btn--whatsapp:hover {
