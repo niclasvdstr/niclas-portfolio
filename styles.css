@@ -522,13 +522,29 @@ body:has(.about-dialog[open]) {
   overflow: hidden;
 }
 
-/* Eigene Zeile für den Schließen-Knopf: so hat die Überschrift die volle
-   Breite und der Text scrollt nicht unter dem Knopf durch. */
+/* Kopfzeile außerhalb des Scrollbereichs: Überschrift und Schließen-Knopf
+   bleiben stehen, damit man mitten im Text weiß, worum es geht und wie man
+   wieder herauskommt. */
 .about-dialog__bar {
   flex: 0 0 auto;
   display: flex;
-  justify-content: flex-end;
-  padding: 10px 10px 0;
+  align-items: center;
+  gap: 8px;
+  /* Links bündig mit dem Fließtext darunter; rechts darf es enger sein,
+     damit die Überschrift auf schmalen Geräten in eine Zeile passt. */
+  padding: 14px clamp(10px, 3vw, 20px) 14px clamp(22px, 5vw, 30px);
+  border-bottom: 1px solid var(--border);
+}
+.about-dialog__title {
+  margin: 0;
+  margin-right: auto;
+  color: var(--text);
+  /* Muss neben dem Schließen-Knopf in eine Zeile passen; auf schmalen
+     Geräten reicht die Breite dafür erst bei der kleineren Stufe. */
+  font-size: clamp(0.86rem, 3.4vw, 1.04rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
 }
 .about-dialog__close {
   display: grid;
@@ -564,19 +580,15 @@ body:has(.about-dialog[open]) {
   min-height: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 2px clamp(22px, 5vw, 30px) clamp(24px, 5vw, 30px);
+  padding: 18px clamp(22px, 5vw, 30px) 40px;
   text-align: left;
   color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.72;
-}
-.about__lead {
-  margin: 0 0 18px;
-  color: var(--text);
-  font-size: 1.04rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.35;
+  /* Weicher Auslauf an der Unterkante: zeigt, dass der Text weitergeht,
+     statt ihn hart abzuschneiden. Der Innenabstand unten ist größer als
+     der Verlauf, damit die letzte Zeile am Ende voll deckend steht. */
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 32px), transparent);
 }
 .about p {
   margin: 0 0 16px;
