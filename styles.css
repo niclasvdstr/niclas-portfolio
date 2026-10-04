@@ -639,12 +639,12 @@ body:has(.about-dialog[open]) {
 /* Farbverlauf des Werdegangs: je Schritt die eigene Farbe (--dot) und die des
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
-.timeline__step:nth-child(1) { --dot: #bfd4ff; --dot-next: #9ab8fb; }
-.timeline__step:nth-child(2) { --dot: #9ab8fb; --dot-next: #6e97f4; }
-.timeline__step:nth-child(3) { --dot: #6e97f4; --dot-next: #4376e9; }
-.timeline__step:nth-child(4) { --dot: #4376e9; --dot-next: #1d55d8; }
-.timeline__step:nth-child(5) { --dot: #1d55d8; --dot-next: #0039c4; }
-.timeline__step:nth-child(6) { --dot: #0039c4; }
+.timeline__step:nth-child(1) { --dot: #bfd4ff; --dot-next: #9ab8fb; --enter: 0.16s; }
+.timeline__step:nth-child(2) { --dot: #9ab8fb; --dot-next: #6e97f4; --enter: 0.28s; }
+.timeline__step:nth-child(3) { --dot: #6e97f4; --dot-next: #4376e9; --enter: 0.40s; }
+.timeline__step:nth-child(4) { --dot: #4376e9; --dot-next: #1d55d8; --enter: 0.52s; }
+.timeline__step:nth-child(5) { --dot: #1d55d8; --dot-next: #0039c4; --enter: 0.64s; }
+.timeline__step:nth-child(6) { --dot: #0039c4;                       --enter: 0.76s; }
 
 /* Punkt */
 .timeline__step::before {
@@ -668,6 +668,63 @@ body:has(.about-dialog[open]) {
   bottom: 1px;
   width: 2px;
   background: linear-gradient(to bottom, var(--dot), var(--dot-next));
+}
+
+/* ---------- Aufbau des Werdegangs beim Öffnen ----------
+   Der Dialog ist geschlossen display:none; beim Öffnen gilt er als neu
+   eingeblendet und die Animationen starten von selbst wieder — deshalb
+   braucht es dafür kein JavaScript.
+
+   Reihenfolge je Schritt: Punkt setzen, Text dazu, dann wächst die Linie
+   zum nächsten Punkt. Dadurch liest es sich als ein Weg, der entsteht. */
+@keyframes timelineRow {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes timelineDot {
+  from {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes timelineLine {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.timeline__step {
+  animation: timelineRow 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--enter);
+}
+.timeline__step::before {
+  /* leichter Überschwung, damit der Punkt „einrastet“ statt nur aufzutauchen */
+  animation: timelineDot 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: var(--enter);
+}
+.timeline__step::after {
+  transform-origin: top;
+  animation: timelineLine 0.45s cubic-bezier(0.33, 1, 0.68, 1) both;
+  /* erst wenn der Punkt steht, läuft die Linie weiter nach unten */
+  animation-delay: calc(var(--enter) + 0.16s);
+}
+.about-cta {
+  animation: timelineRow 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* schließt an den letzten Schritt (0.76s) an */
+  animation-delay: 0.92s;
 }
 .timeline__step:last-child::after {
   display: none;
@@ -902,11 +959,23 @@ body:has(.about-dialog[open]) {
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+/* Das Porträt ist der Einstieg und kommt deshalb zusätzlich aus einer leichten
+   Verkleinerung heraus — dieselbe Richtung und Kurve, nur etwas mehr Gewicht. */
+@keyframes avatarReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -918,35 +987,38 @@ body:has(.about-dialog[open]) {
 #main-links > li,
 .link-section .disclosure-summary,
 .footer {
-  animation: slideInUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: slideInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--enter);
 }
 
 .avatar {
-  animation-delay: 0.05s;
+  animation-name: avatarReveal;
+  animation-duration: 0.9s;
+  --enter: 0.06s;
 }
 .name {
-  animation-delay: 0.13s;
+  --enter: 0.17s;
 }
 .bio {
-  animation-delay: 0.2s;
+  --enter: 0.28s;
 }
 .socials {
-  animation-delay: 0.27s;
+  --enter: 0.39s;
 }
 #business-heading {
-  animation-delay: 0.34s;
+  --enter: 0.5s;
 }
 #main-links > li:nth-child(1) {
-  animation-delay: 0.41s;
+  --enter: 0.61s;
 }
 #main-links > li:nth-child(2) {
-  animation-delay: 0.49s;
+  --enter: 0.72s;
 }
 .link-section .disclosure-summary {
-  animation-delay: 0.57s;
+  --enter: 0.83s;
 }
 .footer {
-  animation-delay: 0.65s;
+  --enter: 0.94s;
 }
 
 /* Periodischer Hüpfer — zwei Sprünge, der zweite kleiner, dann Ruhe. Der
@@ -969,9 +1041,9 @@ body:has(.about-dialog[open]) {
     transform: translateY(0);
   }
 }
-/* Startet erst, wenn der Aufbau der Seite durch ist */
+/* Startet erst, wenn der Aufbau der Seite durch ist (letztes Element ~1,75 s) */
 .btn--primary {
-  animation: ctaBounce 4s cubic-bezier(0.34, 1.56, 0.64, 1) 1.6s infinite;
+  animation: ctaBounce 4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s infinite;
 }
 
 /* ---------- Hover / active micro-interactions ---------- */
@@ -1099,6 +1171,9 @@ body:has(.about-dialog[open]) {
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    /* Ohne das blieben gestaffelte Elemente wegen animation-fill-mode: both
+       bis zu einer Sekunde unsichtbar, obwohl die Animation längst aus ist */
+    animation-delay: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
   }
