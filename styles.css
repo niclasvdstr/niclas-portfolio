@@ -30,8 +30,6 @@
 
 :root {
   /* Light, professional palette (cool neutral, monochrome-led) */
-  --bg-1: #f7f8fa;
-  --bg-2: #eceef2;
   --surface: #ffffff;
   --tile: #f4f5f7;
 
@@ -48,9 +46,9 @@
   /* Primary CTA — confident blue accent */
   --ink: #101828;
   --ink-hover: #1d2433;
-  --primary: #0050f6;
-  --primary-hover: #0042cc;
   --primary-text: #ffffff;
+  --primary-gradient: linear-gradient(90deg, #0039c4 0%, #2b76ff 100%);
+  --primary-gradient-hover: linear-gradient(90deg, #002fa4 0%, #1b63ee 100%);
 
   /* Neutrales Schwarz statt des blaustichigen --ink */
   --whatsapp: #25d366;
@@ -90,10 +88,7 @@ body {
   justify-content: flex-start;
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(1100px 640px at 50% -16%, #ffffff, transparent 60%),
-    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
-  background-attachment: fixed;
+  background: #ffffff;
   line-height: 1.5;
 }
 
@@ -146,10 +141,12 @@ body {
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1 / 1;
-  border: 3px solid #ffffff;
+  /* Auf weißem Grund wäre ein weißer Ring unsichtbar — der Ring übernimmt
+     deshalb selbst die Kante, statt sie an den Schatten abzugeben. */
+  border: 3px solid var(--tile);
   box-shadow:
-    0 10px 28px rgba(16, 24, 40, 0.14),
-    0 0 0 1px var(--border);
+    0 10px 28px rgba(16, 24, 40, 0.12),
+    0 0 0 1px var(--border-hover);
   background: var(--tile);
 }
 .avatar--fallback {
@@ -409,8 +406,8 @@ body {
 /* ---------- Primary variant (Calendly CTA) ---------- */
 .btn--primary {
   color: var(--primary-text);
-  background: var(--primary);
-  border: 1px solid var(--primary);
+  background: var(--primary-gradient);
+  border: 1px solid transparent;
   box-shadow: 0 8px 22px rgba(0, 80, 246, 0.24);
   font-weight: 700;
 }
@@ -462,6 +459,29 @@ body {
 }
 .btn--soon .btn__subtitle {
   color: var(--label);
+}
+
+/* ---------- VDSolutions variant (dunkle Markenfläche) ----------
+   Steht nach .btn--soon, damit die dunkle Fläche die gedämpften Farben
+   der Ankündigungs-Kachel überschreibt. */
+.btn--vds {
+  color: #ffffff;
+  background: #0f1117;
+  border: 1px solid #0f1117;
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.06),
+    0 6px 16px rgba(16, 24, 40, 0.14);
+}
+.btn--vds .btn__subtitle {
+  color: rgba(255, 255, 255, 0.58);
+}
+.btn--vds .btn__icon--image {
+  background: #0f1117;
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.btn--vds .btn__icon--image img {
+  filter: none;
+  opacity: 1;
 }
 
 /* ---------- Über mich (Dialog) ----------
@@ -611,9 +631,8 @@ body:has(.about-dialog[open]) {
 
 /* ---------- Aufklapper (Immobilien) ----------
    Als blanker Text sah die Zeile aus wie ein Rest, nicht wie etwas zum
-   Antippen. Sie bekommt deshalb eine Fläche — aber eine vertiefte: weißer
-   Grund plus Schatten wäre die Sprache der Buttons darüber, und die Zeile
-   würde dem blauen CTA die Aufmerksamkeit streitig machen. */
+   Antippen. Sie trägt deshalb dieselbe Fläche, die die Social-Icons beim
+   Zeigen bekommen: leicht getönter Grund, feine Kante, weicher Schatten. */
 .disclosure-summary {
   display: flex;
   align-items: center;
@@ -621,14 +640,15 @@ body:has(.about-dialog[open]) {
   min-height: 52px;
   padding: 0 18px;
   border-radius: var(--radius);
-  background: rgba(16, 24, 40, 0.035);
-  border: 1px solid rgba(16, 24, 40, 0.07);
+  background-color: rgba(16, 24, 40, 0.04);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
   color: var(--text);
   text-align: left;
   cursor: pointer;
   list-style: none;
   transition: color 0.18s ease, background-color 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease, box-shadow 0.2s ease;
 }
 @media (max-width: 480px) {
   .disclosure-summary {
@@ -672,8 +692,9 @@ body:has(.about-dialog[open]) {
 
 @media (hover: hover) and (pointer: fine) {
   .disclosure-summary:hover {
-    background: rgba(16, 24, 40, 0.06);
-    border-color: rgba(16, 24, 40, 0.1);
+    background-color: rgba(16, 24, 40, 0.07);
+    border-color: var(--border-hover);
+    box-shadow: 0 6px 16px rgba(16, 24, 40, 0.1);
   }
   .disclosure-summary:hover .section-label,
   .disclosure-summary:hover .disclosure-summary__chevron {
@@ -681,7 +702,7 @@ body:has(.about-dialog[open]) {
   }
 }
 .disclosure-summary:active {
-  background: rgba(16, 24, 40, 0.08);
+  background-color: rgba(16, 24, 40, 0.09);
 }
 
 /* Beim Aufklappen kommen die Buttons nacheinander herein, statt hart zu
@@ -858,7 +879,7 @@ body:has(.about-dialog[open]) {
      transform des Hover-Zustands */
   .btn--primary:hover {
     animation: none;
-    background: var(--primary-hover);
+    background: var(--primary-gradient-hover);
     transform: translateY(-2px);
     box-shadow: 0 12px 30px rgba(0, 80, 246, 0.38);
   }

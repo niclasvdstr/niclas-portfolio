@@ -32,10 +32,10 @@ const mainLinks = [
   },
   {
     title: "VDSolutions",
-    subtitle: "Wird gewartet...",
+    subtitle: "Coming soon...",
     url: CONFIG.noviqUrl,
     type: "website",
-    variant: "glass",
+    variant: "vds",
     image: "assets/VDSolutions-Logo.png",
     // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
     soon: true,
