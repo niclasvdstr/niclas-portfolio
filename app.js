@@ -14,6 +14,9 @@ const CONFIG = {
   emailBody: "",
 
   calendlyUrl: "https://calendly.com/niclasvdstr/kostenloses-erstgespraech",
+  // Unterseite auf VDSolutions mit der ausführlichen Vorstellung.
+  // Solange leer, steht der Verweis im Über-mich-Dialog da, ist aber nicht klickbar.
+  aboutUrl: "",
   noviqUrl: "https://www.vdsolutions.ai",
   immobilienUrl: "https://www.vanderstraeten-immobilien.de",
 };
@@ -204,6 +207,11 @@ function wireAboutDialog() {
 
   openBtn.addEventListener("click", () => dialog.showModal());
   closeBtn.addEventListener("click", () => dialog.close());
+
+  // Ohne href ist der Verweis sichtbar, aber weder klick- noch fokussierbar —
+  // genau das Verhalten, das wir wollen, solange die Zielseite fehlt.
+  const cta = document.getElementById("about-cta");
+  if (CONFIG.aboutUrl) cta.href = CONFIG.aboutUrl;
 
   // Ein Druck neben den Dialog trifft das <dialog> selbst, nie seinen Inhalt.
   // pointerdown statt click: sonst schließt eine im Text begonnene Auswahl,

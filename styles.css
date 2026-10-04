@@ -617,23 +617,133 @@ body:has(.about-dialog[open]) {
      der Verlauf, damit die letzte Zeile am Ende voll deckend steht. */
   mask-image: linear-gradient(to bottom, #000 calc(100% - 32px), transparent);
 }
-.about p {
-  margin: 0 0 16px;
+/* Werdegang als Zeitstrahl: die Jahreszahlen tragen die Struktur, der
+   Strich verbindet sie zu einem Weg statt zu einer losen Liste. */
+.timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.about p:last-child {
-  margin-bottom: 0;
+.timeline__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 0 9px;
+  /* Platz links für Punkt und Linie */
+  padding: 0 0 16px 22px;
 }
-/* Ankerpunkte fürs Überfliegen: Herkunft und Zeiträume */
-.about strong {
-  color: var(--text);
+.timeline__step:last-child {
+  padding-bottom: 0;
+}
+/* Farbverlauf des Werdegangs: je Schritt die eigene Farbe (--dot) und die des
+   folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
+   wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
+.timeline__step:nth-child(1) { --dot: #bfd4ff; --dot-next: #9ab8fb; }
+.timeline__step:nth-child(2) { --dot: #9ab8fb; --dot-next: #6e97f4; }
+.timeline__step:nth-child(3) { --dot: #6e97f4; --dot-next: #4376e9; }
+.timeline__step:nth-child(4) { --dot: #4376e9; --dot-next: #1d55d8; }
+.timeline__step:nth-child(5) { --dot: #1d55d8; --dot-next: #0039c4; }
+.timeline__step:nth-child(6) { --dot: #0039c4; }
+
+/* Punkt */
+.timeline__step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  /* an der Mittellinie der ersten Textzeile ausgerichtet */
+  top: 0.42em;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dot);
+}
+/* Verbindungsstrich zum nächsten Punkt */
+.timeline__step::after {
+  content: "";
+  position: absolute;
+  /* mittig unter dem 12px breiten Punkt */
+  left: 5px;
+  top: calc(0.42em + 12px);
+  bottom: 1px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--dot), var(--dot-next));
+}
+.timeline__step:last-child::after {
+  display: none;
+}
+/* Heute: Hof um den kräftigsten Punkt, damit das Auge am Ziel hängen bleibt */
+.timeline__step--current::before {
+  box-shadow: 0 0 0 4px rgba(0, 57, 196, 0.14);
+}
+.timeline__year {
+  /* gleiche Ziffernbreite, damit die Jahre exakt untereinander stehen */
+  font-variant-numeric: tabular-nums;
+  font-size: 0.78rem;
   font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--label);
+  line-height: 1.6;
 }
-/* Schlusssatz als ruhig abgesetzte Haltung, nicht als vierter Absatz */
-.about__closing {
-  margin-top: 18px;
-  padding-left: 14px;
-  border-left: 2px solid var(--border-hover);
+.timeline__label {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+.timeline__step--current .timeline__year,
+.timeline__step--current .timeline__label {
+  color: var(--text);
+}
+.timeline__step--current .timeline__label {
+  font-weight: 500;
+}
+
+/* Unter 340px reicht die Spalte für den längsten Einzeiler nicht mehr;
+   dann lieber Jahr über die Zeile als ein Umbruch mitten im Text. */
+@media (max-width: 340px) {
+  .timeline__step {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+}
+
+/* Weiterführender Verweis am Ende des Werdegangs. Bewusst als Textzeile mit
+   Trennlinie statt als Kachel: eine erhabene Fläche würde hier mit dem
+   Erstgespräch-CTA auf der Seite darunter um die Aufmerksamkeit konkurrieren. */
+.about-cta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
   color: var(--label-strong);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.about-cta svg {
+  width: 16px;
+  height: 16px;
+  /* Pfeil an die rechte Kante, damit die Zeile wie ein Weiter-Ziel liest */
+  margin-left: auto;
+  transition: transform 0.18s ease;
+}
+.about-cta:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Nur mit gesetzter URL reagieren — ohne href ist die Zeile reine Ankündigung */
+@media (hover: hover) and (pointer: fine) {
+  .about-cta[href]:hover {
+    color: var(--text);
+  }
+  .about-cta[href]:hover svg {
+    transform: translateX(3px);
+  }
 }
 
 /* ---------- Aufklapper (Immobilien) ----------
