@@ -32,7 +32,7 @@ const mainLinks = [
   },
   {
     title: "VDSolutions",
-    subtitle: "Coming soon...",
+    subtitle: "Website in Kürze verfügbar",
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "vds",
