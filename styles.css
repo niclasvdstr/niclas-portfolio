@@ -475,10 +475,6 @@ body {
 .btn--vds .btn__subtitle {
   color: rgba(255, 255, 255, 0.58);
 }
-.btn--vds .btn__icon--image {
-  background: #0f1117;
-  border-color: rgba(255, 255, 255, 0.14);
-}
 .btn--vds .btn__icon--image img {
   filter: none;
   opacity: 1;
