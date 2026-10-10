@@ -31,7 +31,7 @@ const mainLinks = [
     url: CONFIG.calendlyUrl,
     type: "calendly",
     variant: "primary",
-    image: "assets/Calendly-Logo.png",
+    image: "assets/Calendly-Logo.webp",
   },
   {
     title: "VDSolutions",
@@ -39,7 +39,7 @@ const mainLinks = [
     url: CONFIG.noviqUrl,
     type: "website",
     variant: "vds",
-    image: "assets/VDSolutions-Logo.png",
+    image: "assets/VDSolutions-Logo.webp",
     // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
     soon: true,
   },
@@ -59,7 +59,7 @@ const realEstateLinks = [
     url: CONFIG.immobilienUrl,
     type: "website",
     variant: "glass",
-    image: "assets/VDS-Logo.png",
+    image: "assets/VDS-Logo.webp",
   },
   {
     title: "WhatsApp",
