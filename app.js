@@ -8,7 +8,7 @@ const CONFIG = {
   // Optionale vorformulierte WhatsApp-Nachricht (leer lassen = keine)
   whatsappMessage: "",
 
-  email: "info@niclasvanderstraeten.de",
+  email: "info@niclasvanderstraeten.com",
   // Optionaler Betreff / Text für die E-Mail (leer lassen = keine)
   emailSubject: "",
   emailBody: "",

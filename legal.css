@@ -1,0 +1,123 @@
+/* ---------- Rechtstexte ----------
+   Erbt Tokens, Schriftart und Body-Layout aus styles.css. Hier steht nur,
+   was Fließtext braucht: eine breitere Spalte als die Linkliste (480px sind
+   für Absätze zu schmal) und eine ruhige Hierarchie ohne Akzentfarben. */
+
+.legal {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 28px;
+  padding: 8px 14px 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.legal-back svg {
+  width: 16px;
+  height: 16px;
+}
+.legal-back:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal-back:hover {
+    border-color: var(--border-hover);
+    color: var(--text);
+  }
+}
+
+.legal h1 {
+  margin: 0 0 6px;
+  font-size: clamp(1.5rem, 5vw, 1.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Datum und Geltungsbereich direkt unter der Überschrift */
+.legal__meta {
+  margin: 0 0 36px;
+  color: var(--label);
+  font-size: 0.875rem;
+}
+
+.legal h2 {
+  margin: 36px 0 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.legal h3 {
+  margin: 24px 0 8px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--label-strong);
+}
+
+.legal p,
+.legal li {
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+.legal ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+.legal li {
+  margin-bottom: 6px;
+}
+
+.legal a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--border-hover);
+}
+.legal a:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .legal a:hover {
+    text-decoration-color: var(--text);
+  }
+}
+
+/* Anschrift, Kontakt, Behörden: Zeilenumbrüche sollen stehen bleiben */
+.legal address {
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  font-style: normal;
+  color: var(--text-muted);
+}
+
+/* Trennt die Blöcke, ohne eine Linie zu ziehen */
+.legal section + section {
+  margin-top: 4px;
+}
+
+.legal__footer {
+  margin-top: 44px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--label);
+  font-size: 0.8125rem;
+}
+.legal__footer a {
+  color: var(--label);
+}
