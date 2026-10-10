@@ -39,6 +39,8 @@ Geschäftsbeziehung über das eigene Nutzerkonto hinaus.
 
 ## Eigene Inhalte
 
-- `assets/niclas-portrait.webp` — Porträtaufnahme
+- `assets/niclas-portrait.webp` — Porträtaufnahme. Die Nutzungsrechte für die
+  Verwendung im Web liegen vor (bestätigt am 10.10.2026). Eine Urhebernennung
+  nach § 13 UrhG ist danach nicht erforderlich.
 - `assets/VDS-Logo.webp`, `assets/VDSolutions-Logo.webp` — eigene Markenzeichen
 - Texte, Layout, CSS und JavaScript
