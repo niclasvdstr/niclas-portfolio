@@ -13,24 +13,25 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Vorschau beim Teilen. Name und Rolle stehen im Titel, nicht im Bild —
-       Messenger zeigen beides nebeneinander, sonst stünde es doppelt. -->
+  <!-- Vorschau beim Teilen: aufgebaut wie der Kopf der Seite. Das Gesicht sitzt
+       mittig, damit auch ein quadratischer Zuschnitt (WhatsApp) noch trägt. -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Niclas van der Straeten" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://niclasvanderstraeten.com/" />
   <meta property="og:title" content="Niclas van der Straeten — Founder @VDSolutions | KI-Beratung" />
   <meta property="og:description" content="Buche ein kostenloses Erstgespräch, besuche VDSolutions oder nimm direkt Kontakt auf." />
-  <meta property="og:image" content="https://niclasvanderstraeten.com/assets/og-image.png" />
+  <meta property="og:image" content="https://niclasvanderstraeten.com/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Monogramm von van der Straeten" />
+  <meta property="og:image:alt" content="Niclas van der Straeten auf der Bühne, darunter Name und Rolle" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Niclas van der Straeten — Founder @VDSolutions | KI-Beratung" />
   <meta name="twitter:description" content="Buche ein kostenloses Erstgespräch, besuche VDSolutions oder nimm direkt Kontakt auf." />
-  <meta name="twitter:image" content="https://niclasvanderstraeten.com/assets/og-image.png" />
+  <meta name="twitter:image" content="https://niclasvanderstraeten.com/assets/og-image.jpg" />
 
   <link rel="preload" href="assets/fonts/inter-latin-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/inter-latin-500.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/fonts/inter-latin-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="styles.css" />
 
@@ -40,7 +41,7 @@
     "@type": "Person",
     "name": "Niclas van der Straeten",
     "url": "https://niclasvanderstraeten.com/",
-    "image": "https://niclasvanderstraeten.com/assets/niclas-portrait.webp",
+    "image": "https://niclasvanderstraeten.com/assets/niclas-buehne.webp",
     "jobTitle": "Founder",
     "description": "KI-Beratung, Automatisierung und Business OS",
     "worksFor": { "@type": "Organization", "name": "VDSolutions" },
@@ -58,17 +59,13 @@
 
   <main id="main" class="card">
     <header class="profile">
-      <button type="button" id="about-open" class="avatar-button" aria-haspopup="dialog"
+      <button type="button" id="about-open" class="hero" aria-haspopup="dialog"
               aria-label="Über mich">
-        <img class="avatar" src="assets/niclas-portrait.webp" alt="Profilbild von Niclas van der Straeten"
-             width="112" height="112"
-             onerror="this.classList.add('avatar--fallback'); this.removeAttribute('src');" />
-        <span class="avatar-button__hint" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-               stroke-linecap="round" stroke-linejoin="round"><path d="M12 16v-5"/><path d="M12 7.5h.01"/></svg>
-        </span>
+        <img class="hero__img" src="assets/niclas-buehne.webp" alt="Niclas van der Straeten auf der Bühne"
+             width="700" height="990" fetchpriority="high"
+             onerror="this.hidden = true" />
       </button>
-      <h1 class="name">Niclas van der Straeten</h1>
+      <h1 class="name">Niclas van&nbsp;der&nbsp;Straeten</h1>
       <p class="bio">Founder <strong>@VDSolutions</strong> | KI-Beratung<br /><span class="bio__services">KI-L&ouml;sungen &middot; Automatisierung &middot; Business OS</span></p>
 
       <nav class="socials" aria-label="Social Media">
@@ -86,25 +83,6 @@
         Für Unternehmen
       </h2>
       <ul id="main-links" class="links-list"></ul>
-    </section>
-
-    <section class="link-section" aria-labelledby="realestate-heading">
-      <details class="disclosure">
-        <summary class="disclosure-summary">
-          <h2 id="realestate-heading" class="section-label">
-            <span class="section-label__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                   stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg>
-            </span>
-            Für Immobilieneigentümer
-          </h2>
-          <span class="disclosure-summary__chevron" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                 stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-          </span>
-        </summary>
-        <ul id="realestate-links" class="links-list disclosure__panel"></ul>
-      </details>
     </section>
 
     <footer class="footer">

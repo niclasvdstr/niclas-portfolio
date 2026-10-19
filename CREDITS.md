@@ -16,16 +16,16 @@ Drittanbieter ab (vgl. LG München I, 20.01.2022 – 3 O 17493/20).
 
 ## Icons
 
-Die Social-Media-Icons (WhatsApp, YouTube, Instagram, LinkedIn) liegen als
+Die Social-Media-Icons (YouTube, Instagram, LinkedIn) liegen als
 Inline-SVG in `app.js` und entsprechen den Pfaddaten aus
 [Simple Icons](https://github.com/simple-icons/simple-icons) (CC0 1.0
 Universal / Public Domain). Das LinkedIn-Icon ist zu einer Outline-Variante
 abgewandelt, das Instagram-Icon um einen eigenen Farbverlauf ergänzt.
 
-Die übrigen Icons (Aktenkoffer, Haus, Chevron, Pfeil, Kreuz, Info, Briefumschlag)
+Die übrigen Icons (Aktenkoffer, Chevron, Pfeil, Kreuz, Briefumschlag)
 sind schlichte, selbst gesetzte SVG-Pfade im Stil generischer Strichsymbole.
 
-**Markenrecht:** Die Wort-/Bildmarken WhatsApp, YouTube, Instagram und LinkedIn
+**Markenrecht:** Die Wort-/Bildmarken YouTube, Instagram und LinkedIn
 gehören den jeweiligen Inhabern. Sie werden hier ausschließlich als Hinweis auf
 die eigenen Profile bei diesen Diensten verwendet (zulässige Benutzung als
 Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
@@ -39,9 +39,12 @@ Geschäftsbeziehung über das eigene Nutzerkonto hinaus.
 
 ## Eigene Inhalte
 
-- `assets/niclas-portrait.webp` — Porträtaufnahme von **Fotostudio Schiffer,
-  61267 Neu-Anspach**. Die Nutzungsrechte für die Verwendung im Web liegen vor.
-  Die Urhebernennung nach § 13 UrhG steht im
-  [Impressum](https://niclasvanderstraeten.com/impressum) unter „Bildnachweis".
-- `assets/VDS-Logo.webp`, `assets/VDSolutions-Logo.webp` — eigene Markenzeichen
+- `assets/niclas-buehne.webp` — Bühnenfoto, freigestellt und nach unten
+  ausgeblendet. Die Rechte liegen vor, eine Urhebernennung ist nicht
+  erforderlich (bestätigt am 19.10.2026).
+- `assets/VDSolutions-Logo.webp` — eigenes Markenzeichen
+- Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
+  der Buchstabe N in Inter auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit
+  Name und Rolle in Inter. Mit der Schrift erzeugte Grafiken fallen nicht unter
+  die OFL (Präambel der Lizenz).
 - Texte, Layout, CSS und JavaScript
