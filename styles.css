@@ -76,7 +76,7 @@
   --max-w: 480px;
 
   /* Profilbild: Größe und Abstand nach oben */
-  --avatar-size: clamp(184px, 51vw, 224px);
+  --avatar-size: clamp(200px, 56vw, 244px);
   --profile-top: max(56px, calc(env(safe-area-inset-top) + 40px));
 }
 
@@ -1217,14 +1217,14 @@ body:has(.about-dialog[open]) {
 
 
 /* ---------- Kundenlogos: Laufband ----------
-   Oben im dunklen Kundenstimmen-Blatt, ohne Überschrift. Ruhig und ohne
-   Fläche, Rahmen oder Linien — sichtbar sind nur die Logos. Auf dem
-   Anthrazit verschwänden dunkle Wortmarken (Engel & Völkers, VDSolutions,
+   Oben im dunklen Kundenstimmen-Blatt, ohne Überschrift.
+   Ruhig und ohne Fläche, Rahmen oder Linien — sichtbar sind nur die Logos.
+   Auf dem Anthrazit verschwänden dunkle Wortmarken (Engel & Völkers,
    Questico), deshalb stehen alle einheitlich in gedämpftem Weiß. Kein
-   JavaScript: Die Spur (.track) hält zwei
-   identische Gruppen und wandert um genau eine davon (-50 %), danach beginnt
-   die Animation unsichtbar von vorn. Das padding-right jeder Gruppe muss
-   dem gap entsprechen, sonst ruckelt der Übergang. */
+   JavaScript: Die Spur (.track) hält zwei identische Gruppen und wandert um
+   genau eine davon (-50 %), danach beginnt die Animation unsichtbar von
+   vorn. Das padding-right jeder Gruppe muss dem gap entsprechen, sonst
+   ruckelt der Übergang. */
 .logos {
   --logo-base: 24px;
   --logo-gap: 40px;
