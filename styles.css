@@ -76,11 +76,12 @@
   --max-w: 480px;
 
   /* Profilbild: Größe und Abstand nach oben */
-  /* Höhe des freigestellten Fotos; an der Fensterhöhe, damit der CTA auch
-     auf einem kleinen Telefon ohne Scrollen sichtbar bleibt */
-  --hero-h: clamp(240px, 46vh, 400px);
-  --hero-w: calc(var(--hero-h) * 700 / 990);
-  --profile-top: max(56px, calc(env(safe-area-inset-top) + 40px));
+  /* Maße des Bühnenfotos: auf dem Handy randlos über die volle Breite
+     (Seitenverhältnis 4 : 5,3), ab 600 px mittig mit fester Höhe */
+  --hero-w: 100vw;
+  --hero-h: calc(100vw * 5.3 / 4);
+  /* Das Foto beginnt randlos ganz oben */
+  --profile-top: 0px;
 }
 
 * {
@@ -146,44 +147,13 @@ body {
   }
 }
 
-/* ---------- Raster und Schein hinter dem Profilbild ----------
+/* ---------- Schein hinter dem Foto ----------
    Die Startseite ist weiß; nur die Kundenstimmen darunter stehen im
-   Anthrazit. Hinter dem Profilbild liegt ein feines Raster aus 1-px-Linien,
-   das von der Bildmitte aus in alle Richtungen weich ausblendet. Eigene
-   Ebene hinter allem; sie scrollt mit und nimmt keine Klicks an. body trägt
-   dafür keinen eigenen Hintergrund (das Weiß geht an die Leinwand über),
-   sonst läge er über dem Raster. */
-.home::before {
-  --grid-size: 32px;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: max(100svh, 640px);
-  z-index: -1;
-  pointer-events: none;
-  background-image:
-    linear-gradient(90deg, rgb(16 36 84 / 0.06) 1px, transparent 1px),
-    linear-gradient(180deg, rgb(16 36 84 / 0.06) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
-  background-position: center top;
-  -webkit-mask-image: radial-gradient(
-    calc(var(--hero-w) * 1.6) calc(var(--hero-h) * 0.9)
-      at 50% calc(var(--profile-top) + var(--hero-h) * 0.4),
-    #000 30%, transparent 100%);
-  mask-image: radial-gradient(
-    calc(var(--hero-w) * 1.6) calc(var(--hero-h) * 0.9)
-      at 50% calc(var(--profile-top) + var(--hero-h) * 0.4),
-    #000 30%, transparent 100%);
-}
-@media (min-width: 768px) {
-  .home::before {
-    --grid-size: 40px;
-  }
-}
-/* Leichter blauer Schein nur eng um Kopf und Schultern, nicht hinter dem Text;
-   eigene Ebene wie das Raster */
+   Anthrazit. Hinter dem Foto liegt ein leichter blauer Schein als eigene
+   Ebene; sie scrollt mit und nimmt keine Klicks an. body trägt dafür keinen
+   eigenen Hintergrund (das Weiß geht an die Leinwand über), sonst läge er
+   darüber. */
+/* Leichter blauer Schein nur eng um Kopf und Schultern, nicht hinter dem Text */
 .home::after {
   content: "";
   position: absolute;
@@ -223,9 +193,14 @@ body {
    dunkles Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
    12 px auseinander. */
 .hero {
-  /* Die Figur blendet unten ins Weiß aus und trägt damit selbst Weißraum —
-     mit dem vollen Abstand stünde der Name zu weit ab */
-  margin-bottom: clamp(-14px, -1.6vh, -6px);
+  /* Das Foto läuft unten aus und trägt den Abstand zum Namen selbst — der
+     Name rückt in den ausgeblendeten Teil hinein */
+  margin-bottom: -11vw;
+}
+@media (min-width: 600px) {
+  .hero {
+    margin-bottom: -48px;
+  }
 }
 .socials {
   margin-top: 14px;
@@ -255,17 +230,17 @@ body {
 }
 
 /* ---------- Bühnenfoto ----------
-   Freigestellt, ohne Kreis und ohne Rahmen. Nach unten wird die Figur weich
-   durchsichtig, zu den Seiten früher als in der Mitte, sodass Raster und
-   Schein durchscheinen; das ist ins Bild gerechnet (assets/_originals/
-   niclas-buehne-freigestellt_render.js). Ein Klick öffnet den Dialog über
-   mich. */
+   Das ganze Foto mit Bühnenhintergrund, auf dem Handy randlos über die volle
+   Breite. Nach unten läuft es ins Durchsichtige aus und wird dabei
+   entsättigt (assets/_originals/niclas-buehne_render.js). Ein Klick öffnet
+   den Dialog über mich. */
 .hero {
   position: relative;
   display: block;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
   padding: 0;
   border: 0;
-  border-radius: 8px;
   background: none;
   line-height: 0;
   cursor: pointer;
@@ -273,21 +248,42 @@ body {
 }
 .hero__img {
   display: block;
-  height: var(--hero-h);
-  width: auto;
-  aspect-ratio: 700 / 990;
+  width: 100%;
+  height: auto;
+  /* Der Ausschnitt ist schon im Bild gerechnet (4 : 5,3) */
+  aspect-ratio: 4 / 5.3;
+  object-fit: cover;
+}
+/* Breitere Bildschirme: begrenzt und mittig, Seiten und Oberkante laufen
+   ebenfalls aus — volle Breite würde bis aufs Gesicht beschneiden */
+@media (min-width: 600px) {
+  :root {
+    --hero-h: min(65vh, 670px);
+    --hero-w: calc(var(--hero-h) * 4 / 5.3);
+  }
+  .hero {
+    width: auto;
+    margin-inline: auto;
+  }
+  .hero__img {
+    width: auto;
+    height: var(--hero-h);
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(180deg, transparent, #000 10%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(180deg, transparent, #000 10%);
+    mask-composite: intersect;
+  }
 }
 .hero:focus-visible {
   outline: 3px solid var(--focus-ring);
-  outline-offset: 6px;
+  outline-offset: -3px;
 }
 .hero:active {
-  transform: scale(0.98);
-}
-@media (hover: hover) and (pointer: fine) {
-  .hero:hover {
-    transform: translateY(-2px);
-  }
+  transform: scale(0.99);
 }
 
 /* Groß, aber nicht fett — die Wirkung kommt aus der Größe und der engen
