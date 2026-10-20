@@ -37,7 +37,8 @@ Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
 
 ## Eigene Inhalte
 
-- `assets/niclas-buehne-*.webp` — Bühnenfoto, nach unten ins Weiß ausgeblendet. Die Rechte liegen vor, eine Urhebernennung ist nicht
+- `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
+  geschnitten. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
 - `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
   (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)
