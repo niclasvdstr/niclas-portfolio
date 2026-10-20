@@ -296,7 +296,8 @@ body {
   margin-top: clamp(28px, 7.6vw, 34px);
 }
 .voices {
-  margin-top: clamp(52px, 13vw, 72px);
+  /* Etwas Weiß unter den Buttons, bevor der Übergang ins Dunkle beginnt */
+  margin-top: clamp(16px, 5vw, 32px);
 }
 .closing-cta {
   /* Im dunklen Blatt unter den Pfeilen, genau so breit wie die Buttons oben
@@ -1421,14 +1422,47 @@ body:has(.about-dialog[open]) {
   --v-dim: 0.4;
   --v-shrink: 0.92;
   --v-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  /* Randlos über die volle Breite wie das weiße Blatt darüber */
+  /* Randlos über die volle Breite */
   --v-sheet-w: 100vw;
+  /* Höhe der weichen Übergänge Weiß ↔ Anthrazit oben und unten */
+  --v-fade: clamp(220px, 56vw, 380px);
 
   width: var(--v-sheet-w);
   /* Mittig zur Spalte, aber breiter als sie */
   margin-inline: calc(50% - var(--v-sheet-w) / 2);
-  padding: var(--v-pad-top) 0 var(--v-pad-bottom);
-  background: var(--v-ink);
+  /* Der Inhalt beginnt erst, wenn der Übergang praktisch voll dunkel ist
+     (ab 90 % seiner Höhe) */
+  padding: calc(var(--v-fade) * 0.9 + var(--v-pad-top)) 0 calc(var(--v-pad-bottom) + var(--v-fade) * 0.9);
+  /* Oben aus dem Weiß ins Anthrazit, unten wieder zurück: lang und mit
+     weicher S-Kurve (smoothstep), die an beiden Enden sanft ausläuft —
+     ohne sichtbare Kante am hellen wie am dunklen Ende */
+  background: linear-gradient(180deg,
+    rgb(20 20 20 / 0) 0,
+    rgb(20 20 20 / 0.02) calc(var(--v-fade) * 0.083),
+    rgb(20 20 20 / 0.074) calc(var(--v-fade) * 0.167),
+    rgb(20 20 20 / 0.156) calc(var(--v-fade) * 0.250),
+    rgb(20 20 20 / 0.259) calc(var(--v-fade) * 0.333),
+    rgb(20 20 20 / 0.376) calc(var(--v-fade) * 0.417),
+    rgb(20 20 20 / 0.5) calc(var(--v-fade) * 0.500),
+    rgb(20 20 20 / 0.624) calc(var(--v-fade) * 0.583),
+    rgb(20 20 20 / 0.741) calc(var(--v-fade) * 0.667),
+    rgb(20 20 20 / 0.844) calc(var(--v-fade) * 0.750),
+    rgb(20 20 20 / 0.926) calc(var(--v-fade) * 0.833),
+    rgb(20 20 20 / 0.98) calc(var(--v-fade) * 0.917),
+    rgb(20 20 20) var(--v-fade),
+    rgb(20 20 20) calc(100% - var(--v-fade)),
+    rgb(20 20 20 / 0.98) calc(100% - var(--v-fade) * 0.917),
+    rgb(20 20 20 / 0.926) calc(100% - var(--v-fade) * 0.833),
+    rgb(20 20 20 / 0.844) calc(100% - var(--v-fade) * 0.750),
+    rgb(20 20 20 / 0.741) calc(100% - var(--v-fade) * 0.667),
+    rgb(20 20 20 / 0.624) calc(100% - var(--v-fade) * 0.583),
+    rgb(20 20 20 / 0.5) calc(100% - var(--v-fade) * 0.500),
+    rgb(20 20 20 / 0.376) calc(100% - var(--v-fade) * 0.417),
+    rgb(20 20 20 / 0.259) calc(100% - var(--v-fade) * 0.333),
+    rgb(20 20 20 / 0.156) calc(100% - var(--v-fade) * 0.250),
+    rgb(20 20 20 / 0.074) calc(100% - var(--v-fade) * 0.167),
+    rgb(20 20 20 / 0.02) calc(100% - var(--v-fade) * 0.083),
+    rgb(20 20 20 / 0) 100%);
   color: var(--v-white);
   font-family: var(--v-font);
   overflow: clip;
@@ -1796,7 +1830,8 @@ body:has(.about-dialog[open]) {
      Seite ohnehin schon die volle Höhe füllt. Derselbe Abstand wie über den
      Kundenstimmen, damit das dunkle Blatt oben und unten gleich viel Luft hat. */
   margin-top: auto;
-  padding-top: clamp(52px, 13vw, 72px);
+  /* Der Übergang aus dem Dunkel bringt schon Luft mit */
+  padding-top: clamp(8px, 2vw, 16px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
