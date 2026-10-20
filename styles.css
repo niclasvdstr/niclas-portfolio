@@ -243,6 +243,12 @@ body {
      mehr als oben, weil der blaue Schein des Buttons nach unten fällt */
   margin: clamp(48px, 12vw, 72px) auto max(0px, clamp(84px, 21vw, 104px) - var(--v-pad-bottom));
 }
+/* Auf dem Handy etwas mehr Luft zu den Pfeilen darüber */
+@media (max-width: 767px) {
+  .closing-cta {
+    margin-top: 80px;
+  }
+}
 @media (max-width: 360px) {
   .closing-cta {
     width: calc(100% - 56px);
@@ -1478,6 +1484,17 @@ body:has(.about-dialog[open]) {
   line-height: 1.5;
   text-wrap: balance;
   color: var(--v-muted);
+}
+/* Auf dem Handy fest in drei Zeilen: „… wie / … Zusammenarbeit / mit
+   VDSolutions erleben.“ — je nach Schrift fiel der Satz sonst in zwei
+   ungleiche Zeilen. Breiter wird normal umbrochen. */
+.br-mobile {
+  display: none;
+}
+@media (max-width: 767px) {
+  .br-mobile {
+    display: inline;
+  }
 }
 .voices__lead em {
   font-style: italic;
