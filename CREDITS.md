@@ -46,8 +46,8 @@ Grund per CSS einfarbig weiß dargestellt.
 
 ## Eigene Inhalte
 
-- `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
-  geschnitten. Die Rechte liegen vor, eine Urhebernennung ist nicht
+- `assets/niclas-buehne.webp` — Bühnenfoto, freigestellt und nach unten
+  ins Weiß ausgeblendet. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
 - `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
   (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)
