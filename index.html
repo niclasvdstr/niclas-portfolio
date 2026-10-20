@@ -19,14 +19,14 @@
   <meta property="og:site_name" content="Niclas van der Straeten" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:url" content="https://niclasvanderstraeten.com/" />
-  <meta property="og:title" content="Niclas van der Straeten — Founder @VDSolutions | KI-Beratung" />
+  <meta property="og:title" content="Niclas van der Straeten — Gründer @VDSolutions | KI-Beratung" />
   <meta property="og:description" content="Buche ein kostenloses Erstgespräch, besuche VDSolutions oder nimm direkt Kontakt auf." />
   <meta property="og:image" content="https://niclasvanderstraeten.com/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Niclas van der Straeten auf der Bühne, darunter Name und Rolle" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Niclas van der Straeten — Founder @VDSolutions | KI-Beratung" />
+  <meta name="twitter:title" content="Niclas van der Straeten — Gründer @VDSolutions | KI-Beratung" />
   <meta name="twitter:description" content="Buche ein kostenloses Erstgespräch, besuche VDSolutions oder nimm direkt Kontakt auf." />
   <meta name="twitter:image" content="https://niclasvanderstraeten.com/assets/og-image.jpg" />
 
@@ -54,19 +54,35 @@
   }
   </script>
 </head>
-<body>
-  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+<body class="home">
+  <a class="skip-link" href="#main" data-i18n="skip">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <img class="site-header__logo" src="assets/header-logo.webp" alt="VDSolutions"
+           width="612" height="84" />
+      <!-- Ein Schalter, kein Link: Die Sprache wechselt an Ort und Stelle. Gemerkt
+           wird sie nur in der Adresse (?lang=en), nicht auf dem Gerät — so bleibt
+           es dabei, dass die Seite nichts speichert. -->
+      <div class="lang">
+        <span class="lang__label" data-lang-label="de">DE</span>
+        <button type="button" id="lang-switch" class="lang__switch" role="switch"
+                aria-checked="false" aria-label="English"></button>
+        <span class="lang__label" data-lang-label="en">EN</span>
+      </div>
+    </div>
+  </header>
 
   <main id="main" class="card">
     <header class="profile">
       <button type="button" id="about-open" class="hero" aria-haspopup="dialog"
-              aria-label="Über mich">
+              aria-label="Über mich" data-i18n-aria="about">
         <img class="hero__img" src="assets/niclas-buehne.webp" alt="Niclas van der Straeten auf der Bühne"
              width="700" height="990" fetchpriority="high"
              onerror="this.hidden = true" />
       </button>
       <h1 class="name">Niclas van&nbsp;der&nbsp;Straeten</h1>
-      <p class="bio">Founder <strong>@VDSolutions</strong> | KI-Beratung<br /><span class="bio__services">KI-L&ouml;sungen &middot; Automatisierung &middot; Business OS</span></p>
+      <p class="bio"><span data-i18n="founder">Gr&uuml;nder</span> <strong>@VDSolutions</strong> | <span data-i18n="role">KI-Beratung</span><span class="bio__services" data-i18n="services">Wir schaffen mit KI messbaren Wert im Unternehmen</span></p>
 
       <nav class="socials" aria-label="Social Media">
         <ul id="socials-list" class="socials-list"></ul>
@@ -74,31 +90,48 @@
 
     </header>
 
-    <section class="link-section" aria-labelledby="business-heading">
-      <h2 id="business-heading" class="section-label">
-        <span class="section-label__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/></svg>
-        </span>
-        Für Unternehmen
-      </h2>
+    <section class="link-section" aria-label="Links">
       <ul id="main-links" class="links-list"></ul>
+    </section>
+
+    <!-- Kundenstimmen: dunkles Blatt im Stil der VDSolutions-Landingpage. Die
+         Videos baut app.js aus der Liste VOICES; solange es keine echten gibt,
+         stehen dort ausgewiesene Platzhalter. -->
+    <section class="voices" aria-labelledby="voices-title">
+      <div class="voices__head">
+        <p class="voices__eyebrow"><span class="voices__rule" aria-hidden="true"></span><span data-i18n="voicesEyebrow">Kundenstimmen</span></p>
+        <h2 id="voices-title" class="voices__title" data-i18n-html="voicesTitle">Erfahrungen, die f&uuml;r sich <em class="voices__gold">sprechen.</em></h2>
+        <p class="voices__lead" data-i18n-html="voicesLead">Erfahren Sie <em>aus erster Hand</em>, wie unsere Kunden die Zusammenarbeit mit VDSolutions erleben.</p>
+      </div>
+
+      <div class="voices__stage" id="voices-stage" role="region" aria-roledescription="Karussell"
+           aria-label="Kundenvideos">
+        <div class="voices__track" id="voices-track"></div>
+      </div>
+
+      <div class="voices__controls">
+        <button type="button" class="voices__arrow voices__arrow--prev" id="voices-prev"
+                aria-label="Vorheriges Video" data-i18n-aria="voicesPrev"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="voices__dots" id="voices-dots"></div>
+        <button type="button" class="voices__arrow" id="voices-next"
+                aria-label="N&auml;chstes Video" data-i18n-aria="voicesNext"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
     </section>
 
     <footer class="footer">
       <p>&copy; <span id="year"></span> Niclas van der Straeten &middot; Frankfurt am Main</p>
       <p class="footer-legal">
-        <a href="/impressum">Impressum</a>
+        <a href="/impressum" data-i18n="imprint">Impressum</a>
         &nbsp;&middot;&nbsp;
-        <a href="/datenschutz">Datenschutz</a>
+        <a href="/datenschutz" data-i18n="privacy">Datenschutz</a>
       </p>
     </footer>
   </main>
 
   <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-dialog-title">
     <div class="about-dialog__bar">
-      <p class="about-dialog__title" id="about-dialog-title">Vom Fitnessstudio zur KI-Beratung</p>
-      <button type="button" id="about-close" class="about-dialog__close" aria-label="Schlie&szlig;en">
+      <p class="about-dialog__title" id="about-dialog-title" data-i18n="aboutTitle">Vom Fitnessstudio zur KI-Beratung</p>
+      <button type="button" id="about-close" class="about-dialog__close" aria-label="Schlie&szlig;en" data-i18n-aria="close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
       </button>
@@ -107,31 +140,31 @@
       <ol class="timeline">
         <li class="timeline__step">
           <span class="timeline__year">2021</span>
-          <span class="timeline__label">Einstieg als Fitnesstrainer</span>
+          <span class="timeline__label" data-i18n="t0">Einstieg als Fitnesstrainer</span>
         </li>
         <li class="timeline__step">
           <span class="timeline__year">2022</span>
-          <span class="timeline__label">Fitnesstrainer B-Lizenz</span>
+          <span class="timeline__label" data-i18n="t1">Fitnesstrainer B-Lizenz</span>
         </li>
         <li class="timeline__step">
           <span class="timeline__year">2023</span>
-          <span class="timeline__label">Quereinstieg Immobilienb&uuml;ro</span>
+          <span class="timeline__label" data-i18n="t2">Quereinstieg Immobilienb&uuml;ro</span>
         </li>
         <li class="timeline__step">
           <span class="timeline__year">2024</span>
-          <span class="timeline__label">Vertrieb als Makler</span>
+          <span class="timeline__label" data-i18n="t3">Vertrieb als Makler</span>
         </li>
         <li class="timeline__step">
           <span class="timeline__year">2025</span>
-          <span class="timeline__label">Gr&uuml;ndung von VDSolutions</span>
+          <span class="timeline__label" data-i18n="t4">Gr&uuml;ndung von VDSolutions</span>
         </li>
         <li class="timeline__step timeline__step--current">
           <span class="timeline__year">2026</span>
-          <span class="timeline__label">Vollzeit in der KI-Beratung</span>
+          <span class="timeline__label" data-i18n="t5">Vollzeit in der KI-Beratung</span>
         </li>
       </ol>
       <a id="about-cta" class="about-cta" target="_blank" rel="noopener noreferrer">
-        Mehr &uuml;ber mich auf VDSolutions
+        <span data-i18n="aboutMore">Mehr &uuml;ber mich auf VDSolutions</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>

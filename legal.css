@@ -7,7 +7,9 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  padding-bottom: 48px;
+  /* Oberer Abstand kam früher vom body; den hat die Startseite für ihren
+     randlosen Header abgegeben */
+  padding: max(clamp(20px, 5vh, 52px), env(safe-area-inset-top)) 0 48px;
 }
 
 .legal-back {

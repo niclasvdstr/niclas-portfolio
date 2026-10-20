@@ -20,20 +20,21 @@ const CONFIG = {
    ========================================================= */
 const mainLinks = [
   {
-    title: "Erstgespräch buchen",
-    subtitle: "Kostenlos & unverbindlich",
+    title: { de: "Kostenloses Erstgespräch buchen", en: "Book a free intro call" },
     url: CONFIG.calendlyUrl,
     type: "calendly",
-    variant: "primary",
-    image: "assets/Calendly-Logo.webp",
+    // Pille statt Kachel: eine Zeile, Pfeil rechts, kein Logo
+    variant: "cta",
   },
   {
     title: "VDSolutions",
-    subtitle: "Website in Kürze verfügbar",
+    // Das Logo ist die Beschriftung; title bleibt als Bildtext
+    logo: "assets/vdsolutions-logo-weiss.webp",
     url: CONFIG.noviqUrl,
     type: "website",
-    variant: "vds",
-    image: "assets/VDSolutions-Logo.webp",
+    // Dunkle Pille: gleiche Form wie der Termin-Button, aber ohne Blau —
+    // das bleibt dem Termin vorbehalten
+    variant: "dark",
     // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
     soon: true,
   },
@@ -46,6 +47,91 @@ const socialLinks = [
   { title: "Instagram", url: "https://www.instagram.com/niclasvdstr?igsh=bXE1dXV2cnBzNm4y&utm_source=qr", icon: "instagram" },
   { title: "YouTube", url: "https://www.youtube.com/@niclasvdstr", icon: "youtube" },
 ];
+
+/* =========================================================
+   Kundenstimmen
+   Pro Video: poster (Vorschaubild), video (Datei), name, company. Solange
+   video fehlt, erscheint ein ausgewiesener Platzhalter. Keine erfundenen
+   Namen oder Firmen eintragen, KI-Bilder nie als echte Kunden ausgeben.
+   ========================================================= */
+const VOICES = [
+  { poster: "", video: "", name: "", company: "" },
+  { poster: "", video: "", name: "", company: "" },
+  { poster: "", video: "", name: "", company: "" },
+];
+
+/* =========================================================
+   Texte auf Englisch
+   Deutsch steht im HTML (data-i18n-Schlüssel), damit die Seite auch ohne
+   JavaScript vollständig ist. Hier liegen beide Sprachen, damit der Schalter
+   in beide Richtungen wechseln kann.
+   ========================================================= */
+const TEXT = {
+  de: {
+    skip: "Zum Inhalt springen",
+    founder: "Gründer",
+    about: "Über mich",
+    role: "KI-Beratung",
+    services: "Wir schaffen mit KI messbaren Wert im Unternehmen",
+    imprint: "Impressum",
+    privacy: "Datenschutz",
+    aboutTitle: "Vom Fitnessstudio zur KI-Beratung",
+    close: "Schließen",
+    t0: "Einstieg als Fitnesstrainer",
+    t1: "Fitnesstrainer B-Lizenz",
+    t2: "Quereinstieg Immobilienbüro",
+    t3: "Vertrieb als Makler",
+    t4: "Gründung von VDSolutions",
+    t5: "Vollzeit in der KI-Beratung",
+    aboutMore: "Mehr über mich auf VDSolutions",
+    voicesEyebrow: "Kundenstimmen",
+    voicesTitle: 'Erfahrungen, die für sich <em class="voices__gold">sprechen.</em>',
+    voicesLead: "Erfahren Sie <em>aus erster Hand</em>, wie unsere Kunden die Zusammenarbeit mit VDSolutions erleben.",
+    voicesRegion: "Kundenvideos",
+    voicesCarousel: "Karussell",
+    voicesPrev: "Vorheriges Video",
+    voicesNext: "Nächstes Video",
+    voicesOf: "von",
+    voicesPlaceholder: "Platzhalter",
+    voicesSoon: "Video folgt in Kürze",
+    voicesTitlePlaceholder: "Kundenstimme",
+    voicesPlay: "Video abspielen",
+  },
+  en: {
+    skip: "Skip to content",
+    founder: "Founder",
+    about: "About me",
+    role: "AI Consulting",
+    services: "We create measurable value with AI in your business",
+    // Die Rechtstexte selbst bleiben deutsch — das sagt der Hinweis gleich mit
+    imprint: "Legal notice (DE)",
+    privacy: "Privacy (DE)",
+    aboutTitle: "From the gym to AI consulting",
+    close: "Close",
+    t0: "Started as a fitness trainer",
+    t1: "Fitness trainer B license",
+    t2: "Career change to real estate",
+    t3: "Sales as a broker",
+    t4: "Founded VDSolutions",
+    t5: "Full-time in AI consulting",
+    aboutMore: "More about me on VDSolutions",
+    voicesEyebrow: "Testimonials",
+    voicesTitle: 'Experiences that speak for <em class="voices__gold">themselves.</em>',
+    voicesLead: "Hear <em>first-hand</em> how our clients experience working with VDSolutions.",
+    voicesRegion: "Customer videos",
+    voicesCarousel: "carousel",
+    voicesPrev: "Previous video",
+    voicesNext: "Next video",
+    voicesOf: "of",
+    voicesPlaceholder: "Placeholder",
+    voicesSoon: "Video coming soon",
+    voicesTitlePlaceholder: "Testimonial",
+    voicesPlay: "Play video",
+  },
+};
+
+let lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "de";
+const t = (value) => (typeof value === "object" ? value[lang] : value);
 
 /* =========================================================
    SVG-Icons (dekorativ, aria-hidden, currentColor)
@@ -70,8 +156,32 @@ const ICONS = {
 /* =========================================================
    Rendering
    ========================================================= */
-function createButton({ title, subtitle, url, variant, icon, image, type, soon }) {
+const ARROW =
+  '<svg class="cta__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function createButton({ title, subtitle, url, variant, icon, image, logo, type, soon }) {
   const li = document.createElement("li");
+  if (variant === "cta" || variant === "dark") {
+    // Angekündigtes ist kein Link: kein Fokus, kein Pfeil
+    const el = document.createElement(soon ? "div" : "a");
+    el.className = `cta${variant === "dark" ? " cta--dark" : ""}${soon ? " cta--soon" : ""}`;
+    // Logo oder Schrift als Beschriftung
+    const name = logo
+      ? `<img class="cta__logo" src="${logo}" alt="" width="612" height="84" />`
+      : '<span class="cta__label"></span>';
+    if (soon) {
+      el.setAttribute("aria-disabled", "true");
+      el.innerHTML = name;
+    } else {
+      el.href = url;
+      el.target = "_blank";
+      el.rel = "noopener noreferrer";
+      el.innerHTML = `${name}${ARROW}`;
+    }
+    if (logo) el.querySelector(".cta__logo").alt = t(title);
+    li.append(el);
+    return li;
+  }
   // "soon"-Kacheln sind reine Ankündigungen: kein Link, kein Fokus, kein Pfeil
   const a = document.createElement(soon ? "div" : "a");
   a.className = `btn btn--${variant}${soon ? " btn--soon" : ""}`;
@@ -107,13 +217,13 @@ function createButton({ title, subtitle, url, variant, icon, image, type, soon }
 
   const titleEl = document.createElement("span");
   titleEl.className = "btn__title";
-  titleEl.textContent = title;
+  titleEl.textContent = t(title);
   text.append(titleEl);
 
   if (subtitle) {
     const subEl = document.createElement("span");
     subEl.className = "btn__subtitle";
-    subEl.textContent = subtitle;
+    subEl.textContent = t(subtitle);
     text.append(subEl);
   }
 
@@ -151,10 +261,8 @@ function createSocial({ title, url, icon }) {
 }
 
 function render() {
-  const mainEl = document.getElementById("main-links");
   const socialEl = document.getElementById("socials-list");
 
-  mainLinks.forEach((l) => mainEl.append(createButton(l)));
   socialLinks.forEach((l) => socialEl.append(createSocial(l)));
 
   const yearEl = document.getElementById("year");
@@ -184,5 +292,209 @@ function wireAboutDialog() {
   });
 }
 
+// Sprache anwenden: Texte, Kacheln, lang-Attribut, Schalterzustand. Die Wahl
+// steht danach in der Adresse (?lang=en) — teilbar, und nichts landet auf
+// dem Gerät.
+function applyLanguage() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    el.textContent = TEXT[lang][el.dataset.i18n];
+  });
+  // Nur feste Texte aus TEXT — nie Eingaben von außen
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+    el.innerHTML = TEXT[lang][el.dataset.i18nHtml];
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    el.setAttribute("aria-label", TEXT[lang][el.dataset.i18nAria]);
+  });
+  // Kacheln einmal bauen, danach nur den Text tauschen: neu gebaut würden
+  // sie ihre Einblendung wiederholen und kurz verschwinden
+  const mainEl = document.getElementById("main-links");
+  if (!mainEl.children.length) mainLinks.forEach((l) => mainEl.append(createButton(l)));
+  [...mainEl.children].forEach((li, i) => {
+    const l = mainLinks[i];
+    const label = li.querySelector(".btn__title, .cta__label");
+    if (label) label.textContent = t(l.title);
+    const sub = li.querySelector(".btn__subtitle");
+    if (sub) sub.textContent = t(l.subtitle);
+  });
+
+  const sw = document.getElementById("lang-switch");
+  sw.setAttribute("aria-checked", String(lang === "en"));
+  document.querySelectorAll("[data-lang-label]").forEach((el) => {
+    el.classList.toggle("is-active", el.dataset.langLabel === lang);
+  });
+
+  updateVoiceTexts();
+
+  const url = new URL(location.href);
+  if (lang === "en") url.searchParams.set("lang", "en");
+  else url.searchParams.delete("lang");
+  history.replaceState(null, "", url);
+}
+
+function wireLanguage() {
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    lang = lang === "en" ? "de" : "en";
+    applyLanguage();
+  });
+  // Auch die Buchstaben daneben schalten — sie sehen anklickbar aus
+  document.querySelectorAll("[data-lang-label]").forEach((el) => {
+    el.addEventListener("click", () => {
+      if (lang !== el.dataset.langLabel) {
+        lang = el.dataset.langLabel;
+        applyLanguage();
+      }
+    });
+  });
+}
+
+/* =========================================================
+   Kundenstimmen: Karussell
+   ========================================================= */
+const voices = { track: null, slides: [], dots: [], active: 0 };
+const PLAY_ICON =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 5.6c0-.8.86-1.3 1.55-.9l9.1 5.6c.66.4.66 1.38 0 1.79l-9.1 5.6c-.7.42-1.55-.08-1.55-.9V5.6Z"/></svg>';
+const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function buildVoices() {
+  voices.track = document.getElementById("voices-track");
+  const dotsEl = document.getElementById("voices-dots");
+  if (!voices.track) return;
+
+  VOICES.forEach((v, i) => {
+    const slide = document.createElement("div");
+    slide.className = "voice";
+    slide.setAttribute("role", "group");
+    slide.innerHTML = `
+      <div class="voice__inner">
+        <div class="voice__media">
+          ${v.poster ? `<img class="voice__poster" src="${v.poster}" alt="" loading="lazy" />` : ""}
+          ${v.video ? "" : '<span class="voice__badge"></span>'}
+          <button type="button" class="voice__play">${PLAY_ICON}</button>
+          <div class="voice__caption"><p class="voice__title"></p><p class="voice__sub"></p></div>
+        </div>
+      </div>`;
+    const play = slide.querySelector(".voice__play");
+    if (v.video) play.addEventListener("click", () => playVoice(i));
+    else play.setAttribute("aria-disabled", "true");
+    // Klick auf einen Nachbarn holt ihn in die Mitte
+    slide.addEventListener("click", () => {
+      if (i !== voices.active) goToVoice(i);
+    });
+    voices.track.append(slide);
+    voices.slides.push(slide);
+
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "voices__dot";
+    dot.addEventListener("click", () => goToVoice(i));
+    dotsEl.append(dot);
+    voices.dots.push(dot);
+  });
+
+  document.getElementById("voices-prev").addEventListener("click", (e) => {
+    if (e.currentTarget.getAttribute("aria-disabled") !== "true") goToVoice(voices.active - 1);
+  });
+  document.getElementById("voices-next").addEventListener("click", (e) => {
+    if (e.currentTarget.getAttribute("aria-disabled") !== "true") goToVoice(voices.active + 1);
+  });
+
+  // Aktiv ist das Video, dessen Mitte der Bühnenmitte am nächsten liegt —
+  // höchstens einmal pro Frame neu bestimmen
+  let queued = false;
+  voices.track.addEventListener("scroll", () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      setActiveVoice(nearestVoice());
+    });
+  }, { passive: true });
+  addEventListener("resize", () => goToVoice(voices.active, false));
+
+  // Beim Laden steht das mittlere Video im Fokus, ohne Animation
+  goToVoice(Math.floor(VOICES.length / 2), false);
+}
+
+function nearestVoice() {
+  const mid = voices.track.scrollLeft + voices.track.clientWidth / 2;
+  let best = 0, dist = Infinity;
+  voices.slides.forEach((el, i) => {
+    const d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid);
+    if (d < dist) { dist = d; best = i; }
+  });
+  return best;
+}
+
+function goToVoice(i, smooth = true) {
+  i = Math.max(0, Math.min(voices.slides.length - 1, i));
+  const el = voices.slides[i];
+  voices.track.scrollTo({
+    left: el.offsetLeft + el.offsetWidth / 2 - voices.track.clientWidth / 2,
+    behavior: smooth && !reducedMotion() ? "smooth" : "instant",
+  });
+  setActiveVoice(i);
+}
+
+function setActiveVoice(i) {
+  if (i !== voices.active) {
+    // Beim Wechsel läuft nichts im Hintergrund weiter
+    voices.slides.forEach((el) => el.querySelector("video")?.pause());
+  }
+  voices.active = i;
+  voices.slides.forEach((el, n) => {
+    el.classList.toggle("is-active", n === i);
+    el.classList.toggle("is-before", n < i);
+    el.classList.toggle("is-after", n > i);
+  });
+  voices.dots.forEach((d, n) => {
+    if (n === i) d.setAttribute("aria-current", "true");
+    else d.removeAttribute("aria-current");
+  });
+  document.getElementById("voices-prev").setAttribute("aria-disabled", String(i === 0));
+  document.getElementById("voices-next").setAttribute("aria-disabled", String(i === voices.slides.length - 1));
+}
+
+// Das Video lädt erst nach dem Klick — vorher nur das Vorschaubild
+function playVoice(i) {
+  const v = VOICES[i];
+  const media = voices.slides[i].querySelector(".voice__media");
+  let video = media.querySelector("video");
+  if (!video) {
+    video = document.createElement("video");
+    video.className = "voice__video";
+    video.src = v.video;
+    if (v.poster) video.poster = v.poster;
+    video.controls = true;
+    video.playsInline = true;
+    media.append(video);
+  }
+  video.play();
+}
+
+function updateVoiceTexts() {
+  const T = TEXT[lang];
+  const stage = document.getElementById("voices-stage");
+  if (!stage) return;
+  stage.setAttribute("aria-label", T.voicesRegion);
+  stage.setAttribute("aria-roledescription", T.voicesCarousel);
+  const n = VOICES.length;
+  voices.slides.forEach((el, i) => {
+    const v = VOICES[i];
+    el.setAttribute("aria-label", `${i + 1} ${T.voicesOf} ${n}`);
+    el.querySelector(".voice__title").textContent =
+      v.video && v.name ? v.name : `${T.voicesTitlePlaceholder} ${String(i + 1).padStart(2, "0")}`;
+    el.querySelector(".voice__sub").textContent = v.video && v.company ? v.company : T.voicesSoon;
+    const badge = el.querySelector(".voice__badge");
+    if (badge) badge.textContent = T.voicesPlaceholder;
+    el.querySelector(".voice__play").setAttribute("aria-label", v.video ? T.voicesPlay : T.voicesSoon);
+  });
+  voices.dots.forEach((d, i) => d.setAttribute("aria-label", `Video ${i + 1} ${T.voicesOf} ${n}`));
+}
+
 render();
+buildVoices();
+applyLanguage();
+wireLanguage();
 wireAboutDialog();

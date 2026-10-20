@@ -14,6 +14,11 @@ Die Dateien werden vom eigenen Server ausgeliefert, nicht über die Google
 Fonts API. Dadurch fließt beim Seitenaufruf keine IP-Adresse an einen
 Drittanbieter ab (vgl. LG München I, 20.01.2022 – 3 O 17493/20).
 
+**Instrument Sans** (variabel, normal und kursiv, Gewichte 400–700) — `assets/fonts/instrument-sans-*.woff2`
+Copyright 2022 The Instrument Sans Project Authors, https://github.com/Instrument/instrument-sans
+Lizenz: SIL Open Font License 1.1 — Volltext in [`assets/fonts/OFL-InstrumentSans.txt`](assets/fonts/OFL-InstrumentSans.txt)
+Ebenfalls selbst ausgeliefert, nicht über Google Fonts.
+
 ## Icons
 
 Die Social-Media-Icons (YouTube, Instagram, LinkedIn) liegen als
@@ -30,19 +35,13 @@ gehören den jeweiligen Inhabern. Sie werden hier ausschließlich als Hinweis au
 die eigenen Profile bei diesen Diensten verwendet (zulässige Benutzung als
 Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
 
-## Logos Dritter
-
-**Calendly** — `assets/Calendly-Logo.webp`
-Bildmarke der Calendly LLC. Verwendung als Kennzeichnung des Links auf das
-eigene Calendly-Buchungsprofil. Keine Einbettung, kein Widget, keine
-Geschäftsbeziehung über das eigene Nutzerkonto hinaus.
-
 ## Eigene Inhalte
 
 - `assets/niclas-buehne.webp` — Bühnenfoto, freigestellt und nach unten
   ausgeblendet. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
-- `assets/VDSolutions-Logo.webp` — eigenes Markenzeichen
+- `assets/header-logo.webp`, `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
+  (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)
 - Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
   der Buchstabe N in Inter auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit
   Name und Rolle in Inter. Mit der Schrift erzeugte Grafiken fallen nicht unter
