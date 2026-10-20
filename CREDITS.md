@@ -31,9 +31,12 @@ Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
 
 ## Kundenlogos
 
-`assets/logos/*.webp` — Logos von MMD Golf, Engel & Völkers, Kraftteam,
-Questico, Steuerwerk und Zahnärzte Krell & Kollegen im Laufband oben im
-Kundenstimmen-Blatt. Vom Inhaber bereitgestellt; die Marken gehören
+`assets/logos/*.webp` — Logos von MMD Golf, Laura Hess Social Media
+Agentur, Fast Motors, Ernst Kröger, Maik Scholz Immobilienmakler, balance
+pilates, pure quality, Brinker & Heimann, Hausärztliche
+Gemeinschaftspraxis Dr. med. Lorenz & Dr. med. Jahnke, Restaurant Buon
+Gusto, KFZ-Meisterbetrieb Autohaus Glasstadt und madika Social Media
+Agentur im Laufband oben im Kundenstimmen-Blatt. Vom Inhaber bereitgestellt; die Marken gehören
 den jeweiligen Unternehmen. Für die Seite zugeschnitten und als WebP
 gespeichert (`assets/_originals/kundenlogos_render.js`); auf dem dunklen
 Grund per CSS einfarbig weiß dargestellt.

@@ -1240,8 +1240,8 @@ body:has(.about-dialog[open]) {
 /* ---------- Kundenlogos: Laufband ----------
    Oben im dunklen Kundenstimmen-Blatt, ohne Überschrift.
    Ruhig und ohne Fläche, Rahmen oder Linien — sichtbar sind nur die Logos.
-   Auf dem Anthrazit verschwänden dunkle Wortmarken (Engel & Völkers,
-   Questico), deshalb stehen alle einheitlich in gedämpftem Weiß. Kein
+   Auf dem Anthrazit verschwänden die schwarzen Wortmarken, deshalb stehen
+   alle einheitlich in gedämpftem Weiß. Kein
    JavaScript: Die Spur (.track) hält zwei identische Gruppen und wandert um
    genau eine davon (-50 %), danach beginnt die Animation unsichtbar von
    vorn. Das padding-right jeder Gruppe muss dem gap entsprechen, sonst
