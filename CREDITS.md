@@ -24,8 +24,8 @@ Ebenfalls selbst ausgeliefert, nicht über Google Fonts.
 Die Social-Media-Icons (YouTube, Instagram, LinkedIn) liegen als
 Inline-SVG in `app.js` und entsprechen den Pfaddaten aus
 [Simple Icons](https://github.com/simple-icons/simple-icons) (CC0 1.0
-Universal / Public Domain). Das LinkedIn-Icon ist zu einer Outline-Variante
-abgewandelt, das Instagram-Icon um einen eigenen Farbverlauf ergänzt.
+Universal / Public Domain). Das Instagram-Icon ist um einen eigenen
+Farbverlauf ergänzt.
 
 Die übrigen Icons (Aktenkoffer, Chevron, Pfeil, Kreuz, Briefumschlag)
 sind schlichte, selbst gesetzte SVG-Pfade im Stil generischer Strichsymbole.

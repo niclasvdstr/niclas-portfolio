@@ -84,7 +84,7 @@
   --bg-glow-edge: rgb(88 163 255 / 0);
   /* Profilbild: Größe und Abstand nach oben. Der blaue Schein rechnet mit
      beiden, damit er genau hinter dem Bild sitzt. */
-  --avatar-size: clamp(190px, 54vw, 232px);
+  --avatar-size: clamp(168px, 46vw, 204px);
   --profile-top: max(84px, calc(env(safe-area-inset-top) + 76px));
 }
 @media (min-width: 768px) {
@@ -202,14 +202,12 @@ body {
 }
 
 /* ---------- Sprachschalter ----------
-   Die Seite hat keinen Header; der Schalter liegt frei oben in der Mitte in
-   einer hellen Pille und scrollt mit der Seite weg. translate statt
-   transform, weil die Einblend-Animation transform belegt. */
+   Die Seite hat keinen Header; der Schalter liegt frei oben links in einer
+   hellen Pille und scrollt mit der Seite weg. */
 .lang {
   position: absolute;
   top: max(12px, calc(env(safe-area-inset-top) + 8px));
-  left: 50%;
-  translate: -50% 0;
+  left: max(12px, calc(env(safe-area-inset-left) + 8px));
   z-index: 10;
   padding: 5px 10px;
   border-radius: 999px;
@@ -285,12 +283,11 @@ body {
    Buttons), dann das dunkle Blatt mit Logos und Kundenstimmen. Innerhalb der
    Person rücken Name und Rolle am engsten zusammen. Die Werte unten sind
    Abstände von Kante zu Kante; sichtbar von Schrift zu Schrift ergibt das
-   auf dem Handy etwa 33 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
-   dunkles Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
+   auf dem Handy etwa 24 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
+   dunkles Blatt), am Desktop 28 · 12 · 40 · 72 px. Die beiden Buttons stehen
    12 px auseinander. */
 .avatar-wrap {
-  /* Etwas mehr als ohne Icons: Der untere Icon-Kreis ragt unter das Bild */
-  margin-bottom: clamp(28px, 7.6vw, 32px);
+  margin-bottom: clamp(20px, 5.4vw, 24px);
 }
 .bio {
   margin: 4px 0 0;
@@ -300,6 +297,17 @@ body {
 }
 .voices {
   margin-top: clamp(52px, 13vw, 72px);
+}
+.closing-cta {
+  /* Im dunklen Blatt unter den Pfeilen, genau so breit wie die Buttons oben
+     (Spalte minus Seitenrand von body und .card) */
+  width: min(100% - 64px, var(--max-w));
+  margin: clamp(36px, 9vw, 56px) auto 0;
+}
+@media (max-width: 360px) {
+  .closing-cta {
+    width: calc(100% - 56px);
+  }
 }
 
 /* ---------- Profilbild ----------
@@ -365,6 +373,7 @@ body {
   color: var(--text);
   font-weight: 600;
 }
+
 /* Leistungszeile eine Stufe leiser als die Rollenzeile darüber. Die
    kleinere Stufe hält sie außerdem auf einer Zeile — bei voller Größe
    bricht sie auf dem Telefon um. */
@@ -385,9 +394,11 @@ body {
 }
 
 /* ---------- Social icons ----------
-   Drei weiße Kreise purzeln rechts am Ring des Profilbilds herunter: leicht
-   gedreht und nach unten etwas kleiner. Jeder sitzt mit seiner Mitte genau
-   auf dem Kreisrand (cos/sin des Winkels --a). Die Ebene darüber lässt
+   Drei gleich große weiße Kreise oben rechts auf dem Ring des Profilbilds,
+   gerade ausgerichtet. Jeder sitzt mit seiner Mitte genau auf dem Kreisrand
+   (cos/sin des Winkels --a); 30° Abstand halten die Tippflächen auch beim
+   kleinsten Bild auseinander, und der obere Kreis bleibt vom Sprachschalter
+   weg. Die Ebene darüber lässt
    Klicks durch, damit das Bild selbst klickbar bleibt. */
 .avatar-wrap {
   position: relative;
@@ -403,34 +414,62 @@ body {
   padding: 0;
 }
 .socials-list li {
-  --chip: 42px;
+  --chip: 36px;
   position: absolute;
   left: calc(50% + 50% * cos(var(--a)) - var(--chip) / 2);
   top: calc(50% + 50% * sin(var(--a)) - var(--chip) / 2);
-  rotate: var(--tilt, 0deg);
   pointer-events: auto;
 }
-.socials-list li:nth-child(1) { --a: -28deg; --tilt: -14deg; --chip: 42px; }
-.socials-list li:nth-child(2) { --a: 14deg; --tilt: 10deg; --chip: 39px; }
-.socials-list li:nth-child(3) { --a: 52deg; --tilt: -6deg; --chip: 36px; }
+.socials-list li:nth-child(1) { --a: -54deg; }
+.socials-list li:nth-child(2) { --a: -24deg; }
+.socials-list li:nth-child(3) { --a: 6deg; }
+/* Wie ein kleiner Knopf aus Porzellan: kaum sichtbarer Verlauf, Haarlinie
+   statt grauem Rand, Glanzkante oben, mehrschichtiger weicher Schatten */
 .socials .social-btn {
   width: var(--chip);
   height: var(--chip);
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.14);
+  background: linear-gradient(180deg, #ffffff 0%, #f3f5f8 100%);
+  box-shadow:
+    0 0 0 0.5px rgb(16 24 40 / 0.12),
+    inset 0 1px 0 #ffffff,
+    inset 0 -1px 1px rgb(16 24 40 / 0.04),
+    0 1px 2px rgb(16 24 40 / 0.06),
+    0 6px 14px -4px rgb(16 24 40 / 0.18),
+    0 14px 28px -12px rgb(16 24 40 / 0.18);
 }
+/* Icons gestochen scharf in voller Markenfarbe; die drei Formen optisch
+   gleich schwer: das volle LinkedIn-Quadrat kleiner, das feine
+   Instagram-Zeichen und das flache YouTube-Logo größer */
 .socials .social-btn svg {
-  width: calc(var(--chip) * 0.5);
-  height: calc(var(--chip) * 0.5);
+  width: 17px;
+  height: 17px;
+  filter: none;
+  opacity: 1;
+}
+.socials .social-btn--linkedin svg {
+  width: 15px;
+  height: 15px;
+}
+.socials .social-btn--youtube svg {
+  width: 19px;
+  height: 19px;
+}
+.socials .social-btn--instagram svg {
+  width: 18px;
+  height: 18px;
 }
 @media (hover: hover) and (pointer: fine) {
   .avatar-wrap .socials .social-btn:hover {
     transform: translateY(-2px);
-    background: #ffffff;
-    border-color: var(--border-hover);
-    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.18);
+    background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 100%);
+    box-shadow:
+      0 0 0 0.5px rgb(16 24 40 / 0.16),
+      inset 0 1px 0 #ffffff,
+      0 2px 4px rgb(16 24 40 / 0.08),
+      0 10px 20px -6px rgb(16 24 40 / 0.22),
+      0 18px 34px -14px rgb(16 24 40 / 0.22);
   }
 }
 
@@ -735,7 +774,7 @@ body {
    Innenabstand und Pfeil — höchstens bis zur Stufe des Buttons.
    12,4 = gemessene 12,04 plus 3 % Luft. Ändert sich der Text, muss dieser
    Faktor neu gemessen werden. */
-#main-links > li {
+.links-list > li {
   container-type: inline-size;
 }
 .cta {
@@ -1369,12 +1408,9 @@ body:has(.about-dialog[open]) {
   --v-blue-active: #4d8bff;
   --v-focus: #5b98ff;
   --v-muted: rgb(255 255 255 / 0.66);
-  --v-eyebrow: #bababa;
   --v-font: "Instrument Sans", "Inter", system-ui, -apple-system, sans-serif;
-  --v-gold-rule: linear-gradient(90deg, #98681a 0%, #c48f2e 28%, #f6dc94 55%, #d6ad55 75%, #b58434 100%);
   --v-gold-shine: linear-gradient(110deg, rgb(255 248 222 / 0) 30%, rgb(255 248 222 / 0.8) 44%, rgb(255 248 222 / 0) 56%);
   --v-gold-text: linear-gradient(180deg, #f6dd9a 0%, #e0b65a 40%, #c3913a 62%, #dcb463 84%, #f1d48e 100%);
-  --v-radius: 52px;
   --v-pad-top: 56px;
   --v-pad-bottom: 64px;
   --v-gutter: clamp(16px, 5.3vw, 24px);
@@ -1392,7 +1428,6 @@ body:has(.about-dialog[open]) {
   /* Mittig zur Spalte, aber breiter als sie */
   margin-inline: calc(50% - var(--v-sheet-w) / 2);
   padding: var(--v-pad-top) 0 var(--v-pad-bottom);
-  border-radius: var(--v-radius);
   background: var(--v-ink);
   color: var(--v-white);
   font-family: var(--v-font);
@@ -1400,7 +1435,6 @@ body:has(.about-dialog[open]) {
 }
 @media (min-width: 768px) {
   .voices {
-    --v-radius: 72px;
     --v-pad-top: 88px;
     --v-pad-bottom: 96px;
     --v-gutter: 32px;
@@ -1431,24 +1465,21 @@ body:has(.about-dialog[open]) {
   padding-right: max(var(--v-gutter), env(safe-area-inset-right));
   text-align: center;
 }
+/* Goldene Haarlinie zwischen Logoband und Überschrift: trennt die beiden
+   Teile des Blatts, steht mittig mit gleichem Abstand nach oben und unten */
 .voices__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  margin: 0 0 16px;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--v-eyebrow);
+  display: flex;
+  justify-content: center;
+  margin: 0 0 var(--v-stage-gap);
 }
 .voices__rule {
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--v-gold-rule);
-  box-shadow: 0 0 8px rgb(214 173 85 / 0.45);
+  width: min(100% - 2 * var(--v-gutter), 320px);
+  height: 1px;
+  /* Hochglanzgold, das zu den Enden hin ausläuft; hell in der Mitte */
+  background: linear-gradient(90deg,
+    rgb(152 104 26 / 0) 0%, #98681a 14%, #c48f2e 32%, #f6dc94 50%,
+    #d6ad55 68%, #b58434 86%, rgb(181 132 52 / 0) 100%);
+  box-shadow: 0 0 6px rgb(214 173 85 / 0.35);
 }
 .voices__title {
   margin: 0;
