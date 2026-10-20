@@ -23,18 +23,18 @@ const mainLinks = [
     title: "Kostenloses Erstgespräch",
     url: CONFIG.calendlyUrl,
     type: "calendly",
-    // Pille statt Kachel: eine Zeile, Pfeil rechts, kein Logo
+    // Pille statt Kachel: eine Zeile, Pfeil rechts, links das Calendly-Zeichen
     variant: "cta",
+    badge: "assets/icons-btn/calendly.webp",
   },
   {
-    title: "VDSolutions",
-    // Das Logo ist die Beschriftung; title bleibt als Bildtext
-    logo: "assets/vdsolutions-logo-weiss.webp",
+    title: "Unsere Website besuchen",
     url: CONFIG.noviqUrl,
     type: "website",
-    // Dunkle Pille: gleiche Form wie der Termin-Button, aber ohne Blau —
-    // das bleibt dem Termin vorbehalten
-    variant: "dark",
+    // Heller Zweitbutton: weiße Pille mit feiner Kontur — ruhig neben dem
+    // blauen Termin-Button, der allein führt
+    variant: "secondary",
+    badge: "assets/icons-btn/vds-icon.webp",
     // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
     soon: true,
   },
@@ -102,7 +102,20 @@ const ICONS = {
 const ARROW =
   '<svg class="cta__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-function createButton({ title, subtitle, url, variant, icon, image, logo, type, soon }) {
+// Rundes Markenzeichen links im Button; rein schmückend, der Button trägt
+// seinen Namen schon als Text bzw. Bildtext
+function addBadge(el, src) {
+  const img = document.createElement("img");
+  img.className = "btn-badge";
+  img.src = src;
+  img.alt = "";
+  img.width = 168;
+  img.height = 168;
+  el.classList.add("has-badge");
+  el.prepend(img);
+}
+
+function createButton({ title, subtitle, url, variant, icon, image, logo, type, soon, badge }) {
   const li = document.createElement("li");
   if (variant === "cta" || variant === "dark") {
     // Angekündigtes ist kein Link: kein Fokus, kein Pfeil
@@ -123,6 +136,32 @@ function createButton({ title, subtitle, url, variant, icon, image, logo, type, 
     }
     if (logo) el.querySelector(".cta__logo").alt = title;
     else el.querySelector(".cta__label").textContent = title;
+    if (badge) addBadge(el, badge);
+    li.append(el);
+    return li;
+  }
+  if (variant === "secondary") {
+    // Angekündigtes ist kein Link: kein Fokus, kein Pfeil
+    const el = document.createElement(soon ? "div" : "a");
+    el.className = `btn-secondary${soon ? " btn-secondary--soon" : ""}`;
+    const name = logo
+      ? `<img class="btn-secondary__logo" src="${logo}" alt="" width="612" height="84" />`
+      : '<span class="btn-secondary__label"></span>';
+    const arrow =
+      '<svg class="btn-secondary__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" /></svg>';
+    // Der Pfeil steht auch bei der Ankündigung — gewünscht, damit der Button
+    // schon so aussieht wie nach dem Launch
+    el.innerHTML = `${name}${arrow}`;
+    if (soon) {
+      el.setAttribute("aria-disabled", "true");
+    } else {
+      el.href = url;
+      el.target = "_blank";
+      el.rel = "noopener noreferrer";
+    }
+    if (logo) el.querySelector(".btn-secondary__logo").alt = title;
+    else el.querySelector(".btn-secondary__label").textContent = title;
+    if (badge) addBadge(el, badge);
     li.append(el);
     return li;
   }

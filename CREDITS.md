@@ -52,8 +52,9 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 - `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
   geschnitten. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
-- `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
-  (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)
+- `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
+  Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
+  Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen
 - Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
   der Buchstabe N in Inter (Copyright 2016 The Inter Project Authors, SIL OFL
   1.1) auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit Name und Rolle in
