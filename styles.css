@@ -143,7 +143,7 @@ body {
   }
 }
 
-/* ---------- Raster hinter dem Profilbild ----------
+/* ---------- Raster und Schein hinter dem Profilbild ----------
    Die Startseite ist weiß; nur die Kundenstimmen darunter stehen im
    Anthrazit. Hinter dem Profilbild liegt ein feines Raster aus 1-px-Linien,
    das von der Bildmitte aus in alle Richtungen weich ausblendet. Eigene
@@ -179,6 +179,25 @@ body {
     --grid-size: 40px;
   }
 }
+/* Leichter blauer Schein nur eng um das Profilbild, nicht hinter dem Text;
+   eigene Ebene wie das Raster */
+.home::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: max(100svh, 640px);
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    calc(var(--avatar-size) * 1.02) calc(var(--avatar-size) * 0.96)
+      at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
+    rgb(88 163 255 / 0.32) 0%,
+    rgb(88 163 255 / 0.13) 60%,
+    rgb(88 163 255 / 0) 100%
+  );
+}
 
 /* ---------- Profile ---------- */
 .profile {
@@ -197,11 +216,11 @@ body {
    Buttons), dann das dunkle Blatt mit Logos und Kundenstimmen. Innerhalb der
    Person rücken Name und Rolle am engsten zusammen. Die Werte unten sind
    Abstände von Kante zu Kante; sichtbar von Schrift zu Schrift ergibt das
-   auf dem Handy etwa 24 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
-   dunkles Blatt), am Desktop 28 · 12 · 40 · 72 px. Die beiden Buttons stehen
+   auf dem Handy etwa 32 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
+   dunkles Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
    12 px auseinander. */
 .avatar-wrap {
-  margin-bottom: clamp(20px, 5.4vw, 24px);
+  margin-bottom: clamp(28px, 7.4vw, 32px);
 }
 .bio {
   margin: 4px 0 0;
