@@ -323,6 +323,11 @@ body {
   color: var(--text);
   font-weight: 600;
 }
+/* Mittelpunkt als ruhiger Trenner statt senkrechtem Strich */
+.bio__sep {
+  margin-inline: 0.15em;
+  color: var(--label);
+}
 
 /* Leistungszeile eine Stufe leiser als die Rollenzeile darüber. Die
    kleinere Stufe hält sie außerdem auf einer Zeile — bei voller Größe
@@ -338,8 +343,13 @@ body {
 }
 /* Auf schmalen Handys fehlen dem Satz samt Blitz wenige Pixel zur einen Zeile */
 @media (max-width: 359px) {
+  /* Die Rollenzeile „Gründer von VDSolutions · KI-Beratung“ bleibt so auch
+     auf dem kleinsten Handy einzeilig */
+  .bio {
+    font-size: 0.86rem;
+  }
   .bio__services {
-    font-size: 0.86em;
+    font-size: 0.93em;
   }
 }
 
