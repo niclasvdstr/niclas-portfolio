@@ -35,6 +35,14 @@ gehören den jeweiligen Inhabern. Sie werden hier ausschließlich als Hinweis au
 die eigenen Profile bei diesen Diensten verwendet (zulässige Benutzung als
 Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
 
+## Kundenlogos
+
+`assets/logos/*.webp` — Logos von MMD Golf, Engel & Völkers, VDSolutions,
+Kraftteam, Questico, Steuerwerk und Zahnärzte Krell & Kollegen im Laufband
+„In guter Gesellschaft“. Vom Inhaber bereitgestellt; die Marken gehören den
+jeweiligen Unternehmen. Für die Seite nur zugeschnitten und als WebP
+gespeichert (`assets/_originals/kundenlogos_render.js`), Farben unverändert.
+
 ## Eigene Inhalte
 
 - `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
