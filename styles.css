@@ -47,7 +47,7 @@
 
   /* Profilbild: Größe und Abstand nach oben */
   --avatar-size: clamp(210px, 59vw, 256px);
-  --profile-top: max(56px, calc(env(safe-area-inset-top) + 40px));
+  --profile-top: max(72px, calc(env(safe-area-inset-top) + 56px));
 }
 
 * {
@@ -241,7 +241,8 @@ body {
   object-fit: cover;
   /* Ring wie ein Passepartout aus hellem Metall: 4 px breit, mit einem
      ruhigen Silberverlauf (Licht oben links, Schatten unten rechts), außen
-     eine Haarlinie und gestaffelte, weiche Schatten statt Schein */
+     eine Haarlinie, gestaffelte weiche Schatten und ein ganz feiner
+     blauer Schimmer, der das Bild mit Name und Termin-Button verbindet */
   border: 4px solid transparent;
   background:
     linear-gradient(var(--tile), var(--tile)) padding-box,
@@ -250,7 +251,9 @@ body {
     0 0 0 1px rgb(16 24 40 / 0.09),
     0 1px 2px rgb(16 24 40 / 0.06),
     0 8px 18px -6px rgb(16 24 40 / 0.16),
-    0 26px 44px -22px rgb(16 36 84 / 0.28);
+    0 26px 44px -22px rgb(16 36 84 / 0.28),
+    0 0 12px 1px rgb(37 99 255 / 0.18),
+    0 0 34px 6px rgb(37 99 255 / 0.09);
 }
 /* Feine Innenkante zwischen Foto und Ring — liegt über dem Bild, deshalb
    als eigene Ebene auf dem Button */
@@ -316,22 +319,39 @@ body {
 
 .bio {
   max-width: 50ch;
+}
+/* Rolle als ruhige Kopfzeile: klein, gesperrt, in Großbuchstaben — die
+   eigentliche Botschaft steht darunter */
+.bio__role {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--text-muted);
-  font-size: clamp(0.92rem, 2.6vw, 1rem);
 }
-.bio strong {
-  color: var(--text);
-  font-weight: 600;
+@media (min-width: 400px) {
+  .bio__role { font-size: 12px; }
 }
-/* Mittelpunkt als ruhiger Trenner statt senkrechtem Strich */
-.bio__sep {
-  margin-inline: 0.15em;
-  color: var(--label);
+/* Die Botschaft: deutlich größer und dunkler als die Rolle, immer eine
+   Zeile — die Schrift richtet sich nach der Spaltenbreite, höchstens 17 px.
+   20,9 = gemessene Breite des Satzes samt Blitz in em, plus 3 % Luft. */
+.bio__claim {
+  display: block;
+  margin-top: 8px;
+  font-size: min(17px, calc(min(100vw - 64px, var(--max-w)) / 20.9));
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: #344054;
 }
-
-/* Leistungszeile eine Stufe leiser als die Rollenzeile darüber. Die
-   kleinere Stufe hält sie außerdem auf einer Zeile — bei voller Größe
-   bricht sie auf dem Telefon um. */
+@media (max-width: 360px) {
+  .bio__claim {
+    font-size: min(17px, calc((100vw - 56px) / 20.9));
+  }
+}
 /* Blitz in Hochglanz-Gold wie „sprechen.“ in den Kundenstimmen; als SVG,
    weil ein Emoji sich nicht einfärben lässt */
 .bolt {
@@ -340,32 +360,6 @@ body {
   height: 0.95em;
   vertical-align: -0.12em;
   filter: drop-shadow(0 0.5px 0.5px rgb(152 104 26 / 0.35));
-}
-.bio__services {
-  /* Eigene Zeile unter der Rolle. balance nur als Sicherung: Bricht der Satz
-     doch einmal um, dann in zwei gleich lange Zeilen statt mit einem Wort
-     allein in der zweiten. */
-  display: block;
-  text-wrap: balance;
-  color: var(--label);
-  font-size: 0.93em;
-}
-/* Auf schmalen Handys fehlen dem Satz samt Blitz wenige Pixel zur einen Zeile */
-@media (max-width: 359px) {
-  /* Die Rollenzeile „Gründer von VDSolutions · KI-Beratung“ bleibt so auch
-     auf dem kleinsten Handy einzeilig */
-  .bio {
-    font-size: 0.86rem;
-  }
-  .bio__services {
-    font-size: 0.93em;
-  }
-}
-/* Auf den allerschmalsten Handys braucht der Satz noch eine halbe Stufe weniger */
-@media (max-width: 339px) {
-  .bio__services {
-    font-size: 0.88em;
-  }
 }
 
 /* ---------- Social icons ----------
@@ -825,11 +819,11 @@ body {
     inset 0 -2px 4px rgb(0 0 0 / 0.12);
   pointer-events: none;
 }
-/* Auf dem blauen Button: weiße Scheibe, abgesetzt durch einen hellen Ring
-   und einen blauen Schatten */
+/* Auf dem blauen Button: weiße Scheibe, abgesetzt durch eine feine helle
+   Kante (1 px wie beim VDS-Zeichen) und einen blauen Schatten */
 .cta .btn-badge {
   box-shadow:
-    0 0 0 2px rgb(255 255 255 / 0.35),
+    0 0 0 1px rgb(255 255 255 / 0.45),
     0 3px 8px rgb(0 30 110 / 0.35),
     0 1px 2px rgb(0 30 110 / 0.3);
 }
@@ -840,7 +834,15 @@ body {
     inset 0 -2px 4px rgb(0 40 140 / 0.08);
 }
 /* Auf dem weißen Button: dunkle Scheibe mit feiner Außenkante und weichem
-   Schatten */
+   Schatten. 2 px größer als die weiße Calendly-Scheibe, weil Dunkel auf Hell
+   kleiner wirkt als Hell auf Dunkel; die Mitte bleibt auf derselben Linie. */
+.btn-secondary.has-badge {
+  --badge: 44px;
+  --badge-inset: 7px;
+}
+@media (max-width: 359px) {
+  .btn-secondary.has-badge { --badge: 40px; --badge-inset: 6px; }
+}
 .btn-secondary .btn-badge {
   box-shadow:
     0 0 0 1px rgb(16 24 40 / 0.1),
