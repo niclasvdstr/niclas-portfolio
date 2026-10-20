@@ -185,13 +185,13 @@ body {
     linear-gradient(180deg, var(--bg-grid-line) 1px, transparent 1px);
   background-size: var(--bg-grid-size) var(--bg-grid-size);
   background-position: center top;
-  -webkit-mask-image: radial-gradient(min(560px, 92vw) 48% at 50% 32%, #000 25%, transparent 100%);
-  mask-image: radial-gradient(min(560px, 92vw) 48% at 50% 32%, #000 25%, transparent 100%);
+  -webkit-mask-image: radial-gradient(min(560px, 92vw) 46% at 50% 25%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(min(560px, 92vw) 46% at 50% 25%, #000 25%, transparent 100%);
 }
 /* Blauer Schein mittig hinter dem Foto */
 .home::after {
   background: radial-gradient(
-    45% 40% at 50% 30%,
+    45% 36% at 50% 23%,
     var(--bg-glow-core) 0%,
     var(--bg-glow-mid) 55%,
     var(--bg-glow-edge) 100%
@@ -211,7 +211,7 @@ body {
   /* Gegen das seitliche Padding des body: randlos bis an den Bildschirmrand */
   margin-left: calc(-1 * max(16px, env(safe-area-inset-left)));
   margin-right: calc(-1 * max(16px, env(safe-area-inset-right)));
-  margin-bottom: clamp(20px, 4vh, 40px);
+  margin-bottom: 0;
   padding-top: env(safe-area-inset-top);
   background: rgba(255, 255, 255, 0.86);
   -webkit-backdrop-filter: saturate(1.4) blur(14px);
@@ -304,24 +304,46 @@ body {
 .hero {
   position: relative;
   display: block;
-  /* Die Figur blendet unten ins Weiß aus und trägt damit selbst Weißraum —
-     mit dem vollen Profilabstand stünde der Name zu weit ab */
-  margin-bottom: clamp(-14px, -1.6vh, -6px);
+  /* Handy: randlos über die volle Breite */
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  /* Das Bild läuft unten in reines Weiß aus und trägt den Abstand zum Namen
+     selbst — der Name rückt in diesen weißen Teil hinein */
+  margin-bottom: -11vw;
   padding: 0;
   border: 0;
-  border-radius: 8px;
   background: none;
   line-height: 0;
   cursor: pointer;
-  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero__img {
   display: block;
-  /* An der Höhe des Fensters statt an der Breite: so bleibt der CTA auch auf
-     einem kleinen Telefon ohne Scrollen sichtbar */
-  height: clamp(220px, 48vh, 430px);
-  width: auto;
-  aspect-ratio: 700 / 990;
+  width: 100%;
+  height: auto;
+  /* Etwas höher als das Foto (4 : 5); die Seiten verlieren dafür je rund 3 % */
+  aspect-ratio: 4 / 5.3;
+  object-fit: cover;
+}
+/* Breitere Bildschirme: begrenzt und mittig, Seiten und Oberkante laufen
+   ebenfalls aus — volle Breite würde bis aufs Gesicht beschneiden */
+@media (min-width: 600px) {
+  .hero {
+    width: auto;
+    margin-inline: auto;
+    margin-bottom: -48px;
+  }
+  .hero__img {
+    width: auto;
+    height: min(65vh, 670px);
+    -webkit-mask-image:
+      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(180deg, transparent, #000 10%);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
+      linear-gradient(180deg, transparent, #000 10%);
+    mask-composite: intersect;
+  }
 }
 .hero:focus-visible {
   outline: 3px solid var(--focus-ring);
@@ -1103,9 +1125,7 @@ body:has(.about-dialog[open]) {
 .hero__img {
   animation-name: heroReveal;
   animation-duration: 0.9s;
-  /* Wächst vom Sockel aus, nicht aus der Mitte: die Figur steht auf ihrem
-     Raster und richtet sich auf */
-  transform-origin: 50% 90%;
+  transform-origin: 50% 70%;
   --enter: 0.06s;
 }
 .site-header {

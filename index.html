@@ -41,7 +41,7 @@
     "@type": "Person",
     "name": "Niclas van der Straeten",
     "url": "https://niclasvanderstraeten.com/",
-    "image": "https://niclasvanderstraeten.com/assets/niclas-buehne.webp",
+    "image": "https://niclasvanderstraeten.com/assets/niclas-buehne-1200.webp",
     "jobTitle": "Founder",
     "description": "KI-Beratung, Automatisierung und Business OS",
     "worksFor": { "@type": "Organization", "name": "VDSolutions" },
@@ -77,8 +77,10 @@
     <header class="profile">
       <button type="button" id="about-open" class="hero" aria-haspopup="dialog"
               aria-label="Über mich" data-i18n-aria="about">
-        <img class="hero__img" src="assets/niclas-buehne.webp" alt="Niclas van der Straeten auf der Bühne"
-             width="700" height="990" fetchpriority="high"
+        <img class="hero__img"
+             srcset="assets/niclas-buehne-800.webp 800w, assets/niclas-buehne-1200.webp 1200w"
+             sizes="(min-width: 600px) 512px, 100vw" src="assets/niclas-buehne-800.webp" alt="Niclas van der Straeten auf der Bühne"
+             width="1200" height="1500" fetchpriority="high"
              onerror="this.hidden = true" />
       </button>
       <h1 class="name">Niclas van&nbsp;der&nbsp;Straeten</h1>
