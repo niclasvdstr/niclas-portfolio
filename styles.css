@@ -47,7 +47,12 @@
 
   /* Profilbild: Größe und Abstand nach oben */
   --avatar-size: clamp(210px, 59vw, 256px);
-  --profile-top: max(72px, calc(env(safe-area-inset-top) + 56px));
+  /* Gleicher Abstand über dem Profilbild und zwischen den Buttons und dem
+     dunklen Blatt: der Kopfbereich steht so mittig in seinem Weiß. Die Summe
+     beider bleibt wie zuvor (72 px oben + 52–72 px unten), damit das dunkle
+     Blatt an seiner Stelle bleibt und nur der Kopf nach oben rückt. */
+  --section-gap: calc((72px + clamp(52px, 13vw, 72px)) / 2);
+  --profile-top: max(var(--section-gap), calc(env(safe-area-inset-top) + 40px));
 }
 
 * {
@@ -194,7 +199,7 @@ body {
   margin-top: clamp(28px, 7.6vw, 34px);
 }
 .voices {
-  margin-top: clamp(52px, 13vw, 72px);
+  margin-top: var(--section-gap);
 }
 .closing-cta {
   /* Im dunklen Blatt unter den Pfeilen, genau so breit wie die Buttons oben
