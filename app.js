@@ -72,7 +72,7 @@ const TEXT = {
     founder: "Gründer",
     about: "Über mich",
     role: "KI-Beratung",
-    services: "Ich schaffe mit KI messbaren Wert in Ihrem Unternehmen",
+    services: "Ich mache KI zu Ihrem messbaren Vorteil",
     imprint: "Impressum",
     privacy: "Datenschutz",
     aboutTitle: "Vom Fitnessstudio zur KI-Beratung",
@@ -102,7 +102,7 @@ const TEXT = {
     founder: "Founder",
     about: "About me",
     role: "AI Consulting",
-    services: "I create measurable value with AI in your business",
+    services: "I turn AI into your measurable advantage",
     // Die Rechtstexte selbst bleiben deutsch — das sagt der Hinweis gleich mit
     imprint: "Legal notice (DE)",
     privacy: "Privacy (DE)",

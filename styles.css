@@ -84,8 +84,8 @@
   --bg-glow-edge: rgb(88 163 255 / 0);
   /* Profilbild: Größe und Abstand nach oben. Der blaue Schein rechnet mit
      beiden, damit er genau hinter dem Bild sitzt. */
-  --avatar-size: clamp(150px, 42vw, 184px);
-  --profile-top: max(64px, calc(env(safe-area-inset-top) + 56px));
+  --avatar-size: clamp(190px, 54vw, 232px);
+  --profile-top: max(84px, calc(env(safe-area-inset-top) + 76px));
 }
 @media (min-width: 768px) {
   :root {
@@ -154,7 +154,6 @@ body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(24px, 3.4vh, 34px);
 }
 @media (max-width: 360px) {
   .card {
@@ -276,7 +275,31 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(10px, 1.4vw, 16px);
+}
+
+/* ---------- Abstände ----------
+   Drei Gruppen, je weiter auseinander, je weniger sie zusammengehören:
+   Person (Bild, Name, Rolle, Social-Icons), Aktionen (die beiden Buttons),
+   Kundenstimmen. Innerhalb der Person rücken Name und Rolle am engsten
+   zusammen. Die Werte unten sind Abstände von Kante zu Kante; sichtbar von
+   Schrift zu Schrift ergibt das auf dem Handy etwa 24 · 10 · 20 · 33 · 50 px
+   (Bild · Name · Rolle · Icons · Buttons · Kundenstimmen), am Desktop
+   28 · 12 · 21 · 39 · 70 px. Die beiden Buttons stehen 12 px auseinander. */
+.avatar-button {
+  margin-bottom: clamp(20px, 5.4vw, 24px);
+}
+.bio {
+  margin: 4px 0 0;
+}
+.socials {
+  /* Die 46-px-Flächen der Icons bringen oben und unten schon gut 10 px Luft mit */
+  margin-top: 4px;
+}
+.profile + .link-section {
+  margin-top: clamp(22px, 6vw, 30px);
+}
+.voices {
+  margin-top: clamp(52px, 13vw, 72px);
 }
 
 /* ---------- Profilbild ----------
@@ -286,8 +309,6 @@ body {
    den Dialog über mich. */
 .avatar-button {
   display: block;
-  /* Etwas Luft zum großen Namen darunter */
-  margin-bottom: 10px;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -336,7 +357,6 @@ body {
 }
 
 .bio {
-  margin: 0;
   max-width: 50ch;
   color: var(--text-muted);
   font-size: clamp(0.92rem, 2.6vw, 1rem);
@@ -349,20 +369,25 @@ body {
    kleinere Stufe hält sie außerdem auf einer Zeile — bei voller Größe
    bricht sie auf dem Telefon um. */
 .bio__services {
-  /* Als eigener Block, damit der Satz auf dem Handy in zwei gleich langen
-     Zeilen bricht statt mit einem Wort allein in der zweiten */
+  /* Eigene Zeile unter der Rolle. balance nur als Sicherung: Bricht der Satz
+     doch einmal um, dann in zwei gleich lange Zeilen statt mit einem Wort
+     allein in der zweiten. */
   display: block;
   text-wrap: balance;
   color: var(--label);
   font-size: 0.93em;
 }
+/* Auf schmalen Handys fehlen dem Satz samt Blitz wenige Pixel zur einen Zeile */
+@media (max-width: 359px) {
+  .bio__services {
+    font-size: 0.86em;
+  }
+}
 
 /* ---------- Social icons ---------- */
 .socials-list {
   list-style: none;
-  /* Negativ, weil die 46px-Flächen der Icons selbst schon Luft mitbringen:
-     mit dem vollen Profil-Abstand hing die Reihe vom Kopf ab. */
-  margin: -4px 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   gap: 12px;
@@ -1177,9 +1202,6 @@ body:has(.about-dialog[open]) {
   flex-direction: column;
   gap: var(--gap);
 }
-.profile + .link-section {
-  margin-top: clamp(-10px, -1vh, -6px);
-}
 
 
 /* ---------- Kundenstimmen ----------
@@ -1218,7 +1240,6 @@ body:has(.about-dialog[open]) {
   width: var(--v-sheet-w);
   /* Mittig zur Spalte, aber breiter als sie */
   margin-inline: calc(50% - var(--v-sheet-w) / 2);
-  margin-top: 8px;
   padding: var(--v-pad-top) 0 var(--v-pad-bottom);
   border-radius: var(--v-radius);
   background: var(--v-ink);
@@ -1590,9 +1611,10 @@ body:has(.about-dialog[open]) {
 /* ---------- Footer ---------- */
 .footer {
   /* Dockt unten an; das Padding sichert den Mindestabstand, wenn die
-     Seite ohnehin schon die volle Höhe füllt. */
+     Seite ohnehin schon die volle Höhe füllt. Derselbe Abstand wie über den
+     Kundenstimmen, damit das dunkle Blatt oben und unten gleich viel Luft hat. */
   margin-top: auto;
-  padding-top: clamp(24px, 5vh, 48px);
+  padding-top: clamp(52px, 13vw, 72px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
