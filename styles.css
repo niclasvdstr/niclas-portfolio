@@ -77,9 +77,9 @@
 
   /* Profilbild: Größe und Abstand nach oben */
   /* Maße des Bühnenfotos: auf dem Handy randlos über die volle Breite
-     (Seitenverhältnis 4 : 5,3), ab 600 px mittig mit fester Höhe */
+     (Seitenverhältnis 4 : 4,4), ab 600 px mittig mit fester Höhe */
   --hero-w: 100vw;
-  --hero-h: calc(100vw * 5.3 / 4);
+  --hero-h: calc(100vw * 4.4 / 4);
   /* Das Foto beginnt randlos ganz oben */
   --profile-top: 0px;
 }
@@ -250,16 +250,16 @@ body {
   display: block;
   width: 100%;
   height: auto;
-  /* Der Ausschnitt ist schon im Bild gerechnet (4 : 5,3) */
-  aspect-ratio: 4 / 5.3;
+  /* Der Ausschnitt ist schon im Bild gerechnet (4 : 4,4) */
+  aspect-ratio: 4 / 4.4;
   object-fit: cover;
 }
 /* Breitere Bildschirme: begrenzt und mittig, Seiten und Oberkante laufen
    ebenfalls aus — volle Breite würde bis aufs Gesicht beschneiden */
 @media (min-width: 600px) {
   :root {
-    --hero-h: min(65vh, 670px);
-    --hero-w: calc(var(--hero-h) * 4 / 5.3);
+    --hero-h: min(54vh, 540px);
+    --hero-w: calc(var(--hero-h) * 4 / 4.4);
   }
   .hero {
     width: auto;
