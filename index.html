@@ -41,7 +41,7 @@
     "@type": "Person",
     "name": "Niclas van der Straeten",
     "url": "https://niclasvanderstraeten.com/",
-    "image": "https://niclasvanderstraeten.com/assets/niclas-buehne-1200.webp",
+    "image": "https://niclasvanderstraeten.com/assets/niclas-avatar.webp",
     "jobTitle": "Founder",
     "description": "KI-Beratung, Automatisierung und Business OS",
     "worksFor": { "@type": "Organization", "name": "VDSolutions" },
@@ -59,20 +59,21 @@
 
   <main id="main" class="card">
     <header class="profile">
-      <button type="button" id="about-open" class="hero" aria-haspopup="dialog"
-              aria-label="Über mich">
-        <img class="hero__img"
-             srcset="assets/niclas-buehne-800.webp 800w, assets/niclas-buehne-1200.webp 1200w"
-             sizes="(min-width: 600px) 512px, 100vw" src="assets/niclas-buehne-800.webp" alt="Niclas van der Straeten auf der Bühne"
-             width="1200" height="1320" fetchpriority="high"
-             onerror="this.hidden = true" />
-      </button>
+      <!-- Die Social-Icons sitzen als kleine Kreise unten rechts auf dem Ring
+           des Profilbilds -->
+      <div class="avatar-wrap">
+        <button type="button" id="about-open" class="avatar-button" aria-haspopup="dialog"
+                aria-label="Über mich">
+          <img class="avatar" src="assets/niclas-avatar.webp" alt="Profilbild von Niclas van der Straeten"
+               width="720" height="720" fetchpriority="high"
+               onerror="this.hidden = true" />
+        </button>
+        <nav class="socials" aria-label="Social Media">
+          <ul id="socials-list" class="socials-list"></ul>
+        </nav>
+      </div>
       <h1 class="name">Niclas van&nbsp;der&nbsp;Straeten</h1>
       <p class="bio"><span>Gr&uuml;nder</span> <strong>@VDSolutions</strong> | <span>KI-Beratung</span><span class="bio__services"><span>Ich mache KI zu Ihrem messbaren Vorteil</span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span></p>
-
-      <nav class="socials" aria-label="Social Media">
-        <ul id="socials-list" class="socials-list"></ul>
-      </nav>
     </header>
 
     <section class="link-section" aria-label="Links">

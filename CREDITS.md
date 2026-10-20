@@ -44,10 +44,16 @@ den jeweiligen Unternehmen. Für die Seite zugeschnitten und als WebP
 gespeichert (`assets/_originals/kundenlogos_render.js`); auf dem dunklen
 Grund per CSS einfarbig weiß dargestellt.
 
+## Platzhalter-Vorschaubilder
+
+`assets/voices/platzhalter-*.webp` — KI-generierte Bilder (ChatGPT) als
+vorläufige Vorschaubilder der Kundenstimmen. Sie zeigen keine echten Kunden
+und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
+
 ## Eigene Inhalte
 
-- `assets/niclas-buehne-*.webp` — Bühnenfoto mit Hintergrund, nach unten
-  ausgeblendet. Die Rechte liegen vor, eine Urhebernennung ist nicht
+- `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
+  geschnitten. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
 - `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
   (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)

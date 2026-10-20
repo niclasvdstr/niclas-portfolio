@@ -76,12 +76,8 @@
   --max-w: 480px;
 
   /* Profilbild: Größe und Abstand nach oben */
-  /* Maße des Bühnenfotos: auf dem Handy randlos über die volle Breite
-     (Seitenverhältnis 4 : 4,4), ab 600 px mittig mit fester Höhe */
-  --hero-w: 100vw;
-  --hero-h: calc(100vw * 4.4 / 4);
-  /* Das Foto beginnt randlos ganz oben */
-  --profile-top: 0px;
+  --avatar-size: clamp(200px, 56vw, 244px);
+  --profile-top: max(76px, calc(env(safe-area-inset-top) + 60px));
 }
 
 * {
@@ -147,13 +143,47 @@ body {
   }
 }
 
-/* ---------- Schein hinter dem Foto ----------
+/* ---------- Raster und Schein hinter dem Profilbild ----------
    Die Startseite ist weiß; nur die Kundenstimmen darunter stehen im
-   Anthrazit. Hinter dem Foto liegt ein leichter blauer Schein als eigene
-   Ebene; sie scrollt mit und nimmt keine Klicks an. body trägt dafür keinen
-   eigenen Hintergrund (das Weiß geht an die Leinwand über), sonst läge er
-   darüber. */
-/* Leichter blauer Schein nur eng um Kopf und Schultern, nicht hinter dem Text */
+   Anthrazit. Hinter dem Profilbild liegt ein feines Raster aus 1-px-Linien,
+   das von der Bildmitte aus in alle Richtungen weich ausblendet: seitlich
+   endet es vor dem Bildschirmrand (höchstens 47 % der Breite je Seite),
+   unten schon über dem Namen. Die Mitte liegt dafür etwas über der
+   Bildmitte. Eigene
+   Ebene hinter allem; sie scrollt mit und nimmt keine Klicks an. body trägt
+   dafür keinen eigenen Hintergrund (das Weiß geht an die Leinwand über),
+   sonst läge er über dem Raster. */
+.home::before {
+  --grid-size: 32px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: max(100svh, 640px);
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgb(16 36 84 / 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(16 36 84 / 0.06) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center top;
+  -webkit-mask-image: radial-gradient(
+    min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
+      at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
+    #000 55%, transparent 100%);
+  mask-image: radial-gradient(
+    min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
+      at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
+    #000 55%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .home::before {
+    --grid-size: 40px;
+  }
+}
+/* Leichter blauer Schein nur eng um das Profilbild, nicht hinter dem Text;
+   eigene Ebene wie das Raster */
 .home::after {
   content: "";
   position: absolute;
@@ -164,8 +194,8 @@ body {
   z-index: -1;
   pointer-events: none;
   background: radial-gradient(
-    calc(var(--hero-w) * 0.75) calc(var(--hero-h) * 0.5)
-      at 50% calc(var(--profile-top) + var(--hero-h) * 0.32),
+    calc(var(--avatar-size) * 1.02) calc(var(--avatar-size) * 0.96)
+      at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
     rgb(88 163 255 / 0.32) 0%,
     rgb(88 163 255 / 0.13) 60%,
     rgb(88 163 255 / 0) 100%
@@ -192,18 +222,8 @@ body {
    auf dem Handy etwa 32 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
    dunkles Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
    12 px auseinander. */
-.hero {
-  /* Das Foto läuft unten aus und trägt den Abstand zum Namen selbst — der
-     Name rückt in den ausgeblendeten Teil hinein */
-  margin-bottom: -11vw;
-}
-@media (min-width: 600px) {
-  .hero {
-    margin-bottom: -48px;
-  }
-}
-.socials {
-  margin-top: 14px;
+.avatar-wrap {
+  margin-bottom: clamp(28px, 7.4vw, 32px);
 }
 .bio {
   margin: 4px 0 0;
@@ -229,61 +249,45 @@ body {
   }
 }
 
-/* ---------- Bühnenfoto ----------
-   Das ganze Foto mit Bühnenhintergrund, auf dem Handy randlos über die volle
-   Breite. Nach unten läuft es ins Durchsichtige aus und wird dabei
-   entsättigt (assets/_originals/niclas-buehne_render.js). Ein Klick öffnet
+/* ---------- Profilbild ----------
+   Rund, aus dem Bühnenfoto geschnitten (assets/_originals/
+   niclas-avatar_render.js). Auf weißem Grund wäre ein weißer Ring
+   unsichtbar — der Ring übernimmt deshalb selbst die Kante. Ein Klick öffnet
    den Dialog über mich. */
-.hero {
-  position: relative;
+.avatar-button {
   display: block;
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
   padding: 0;
   border: 0;
+  border-radius: 50%;
   background: none;
   line-height: 0;
   cursor: pointer;
   transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.hero__img {
+.avatar {
   display: block;
-  width: 100%;
+  width: var(--avatar-size);
   height: auto;
-  /* Der Ausschnitt ist schon im Bild gerechnet (4 : 4,4) */
-  aspect-ratio: 4 / 4.4;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
   object-fit: cover;
+  border: 3px solid var(--tile);
+  box-shadow:
+    0 10px 28px rgba(16, 24, 40, 0.12),
+    0 0 0 1px var(--border-hover);
+  background: var(--tile);
 }
-/* Breitere Bildschirme: begrenzt und mittig, Seiten und Oberkante laufen
-   ebenfalls aus — volle Breite würde bis aufs Gesicht beschneiden */
-@media (min-width: 600px) {
-  :root {
-    --hero-h: min(54vh, 540px);
-    --hero-w: calc(var(--hero-h) * 4 / 4.4);
-  }
-  .hero {
-    width: auto;
-    margin-inline: auto;
-  }
-  .hero__img {
-    width: auto;
-    height: var(--hero-h);
-    -webkit-mask-image:
-      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
-      linear-gradient(180deg, transparent, #000 10%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(90deg, transparent, #000 16%, #000 84%, transparent),
-      linear-gradient(180deg, transparent, #000 10%);
-    mask-composite: intersect;
-  }
-}
-.hero:focus-visible {
+.avatar-button:focus-visible {
   outline: 3px solid var(--focus-ring);
-  outline-offset: -3px;
+  outline-offset: 5px;
 }
-.hero:active {
-  transform: scale(0.99);
+.avatar-button:active {
+  transform: scale(0.97);
+}
+@media (hover: hover) and (pointer: fine) {
+  .avatar-button:hover {
+    transform: translateY(-2px);
+  }
 }
 
 /* Groß, aber nicht fett — die Wirkung kommt aus der Größe und der engen
@@ -329,64 +333,89 @@ body {
 }
 
 /* ---------- Social icons ----------
-   Eine Reihe kleiner weißer Knöpfe unter dem Text. */
+   Drei gleich große weiße Kreise oben rechts auf dem Ring des Profilbilds,
+   gerade ausgerichtet. Jeder sitzt mit seiner Mitte genau auf dem Kreisrand
+   (cos/sin des Winkels --a); 30° Abstand halten die Tippflächen auch beim
+   kleinsten Bild auseinander, und der obere Kreis bleibt vom Sprachschalter
+   weg. Die Ebene darüber lässt
+   Klicks durch, damit das Bild selbst klickbar bleibt. */
+.avatar-wrap {
+  position: relative;
+}
+.socials {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
 .socials-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  gap: 12px;
 }
 .socials-list li {
-  --chip: 38px;
+  --chip: 36px;
+  position: absolute;
+  left: calc(50% + 50% * cos(var(--a)) - var(--chip) / 2);
+  top: calc(50% + 50% * sin(var(--a)) - var(--chip) / 2);
+  pointer-events: auto;
 }
-/* Wie ein kleiner Knopf aus Porzellan: kaum sichtbarer Verlauf, Haarlinie
-   statt grauem Rand, Glanzkante oben, mehrschichtiger weicher Schatten */
+.socials-list li:nth-child(1) { --a: -54deg; }
+.socials-list li:nth-child(2) { --a: -24deg; }
+.socials-list li:nth-child(3) { --a: 6deg; }
+/* Volle Markenflächen statt weißer Knöpfe: jeder Kreis ganz in der Farbe
+   seiner Marke, das Zeichen weiß darauf. Eine feine helle Haarlinie innen
+   und ein leichter Glanz oben machen daraus ein Objekt statt eines flachen
+   Punkts; der weiche Schatten löst es vom Foto. */
 .socials .social-btn {
+  --brand: #475467;
   width: var(--chip);
   height: var(--chip);
   border: 0;
   border-radius: 50%;
-  background: linear-gradient(180deg, #ffffff 0%, #f3f5f8 100%);
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.22) 0%, rgb(255 255 255 / 0) 55%),
+    var(--brand);
   box-shadow:
-    0 0 0 0.5px rgb(16 24 40 / 0.12),
-    inset 0 1px 0 #ffffff,
-    inset 0 -1px 1px rgb(16 24 40 / 0.04),
-    0 1px 2px rgb(16 24 40 / 0.06),
-    0 6px 14px -4px rgb(16 24 40 / 0.18),
-    0 14px 28px -12px rgb(16 24 40 / 0.18);
+    inset 0 0 0 1px rgb(255 255 255 / 0.28),
+    0 0 0 0.5px rgb(16 24 40 / 0.18),
+    0 2px 4px rgb(16 24 40 / 0.12),
+    0 8px 18px -6px rgb(16 24 40 / 0.3);
 }
-/* Icons gestochen scharf in voller Markenfarbe; die drei Formen optisch
-   gleich schwer: das volle LinkedIn-Quadrat kleiner, das feine
-   Instagram-Zeichen und das flache YouTube-Logo größer */
+.socials .social-btn--linkedin {
+  --brand: #0a66c2;
+}
+.socials .social-btn--youtube {
+  --brand: #ff0033;
+}
+.socials .social-btn--instagram {
+  --brand: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,
+    #d6249f 60%, #285aeb 90%);
+}
 .socials .social-btn svg {
   width: 17px;
   height: 17px;
   filter: none;
   opacity: 1;
 }
-.socials .social-btn--linkedin svg {
-  width: 15px;
-  height: 15px;
+/* Instagram: das Zeichen weiß statt im Verlauf, der liegt jetzt in der Fläche */
+.socials .social-btn--instagram svg path {
+  fill: currentColor;
 }
 .socials .social-btn--youtube svg {
-  width: 19px;
-  height: 19px;
-}
-.socials .social-btn--instagram svg {
-  width: 18px;
-  height: 18px;
+  /* Nur das Play-Dreieck; optisch leicht nach rechts, wie im Original */
+  width: 15px;
+  height: 15px;
+  translate: 1px 0;
 }
 @media (hover: hover) and (pointer: fine) {
-  .socials .social-btn:hover {
+  .avatar-wrap .socials .social-btn:hover {
     transform: translateY(-2px);
-    background: linear-gradient(180deg, #ffffff 0%, #f6f8fb 100%);
     box-shadow:
-      0 0 0 0.5px rgb(16 24 40 / 0.16),
-      inset 0 1px 0 #ffffff,
-      0 2px 4px rgb(16 24 40 / 0.08),
-      0 10px 20px -6px rgb(16 24 40 / 0.22),
-      0 18px 34px -14px rgb(16 24 40 / 0.22);
+      inset 0 0 0 1px rgb(255 255 255 / 0.36),
+      0 0 0 0.5px rgb(16 24 40 / 0.2),
+      0 3px 6px rgb(16 24 40 / 0.14),
+      0 12px 22px -8px rgb(16 24 40 / 0.36);
   }
 }
 
@@ -1096,7 +1125,7 @@ body:has(.about-dialog[open]) {
   }
 }
 
-.hero__img,
+.avatar,
 .name,
 .bio,
 .socials,
@@ -1106,7 +1135,7 @@ body:has(.about-dialog[open]) {
   animation-delay: var(--enter);
 }
 
-.hero__img {
+.avatar {
   animation-name: heroReveal;
   animation-duration: 0.9s;
   transform-origin: 50% 70%;
