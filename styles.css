@@ -1,34 +1,4 @@
-/* Locally hosted Inter (OFL) — no external requests, DSGVO-friendly */
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("assets/fonts/inter-latin-400.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("assets/fonts/inter-latin-500.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("assets/fonts/inter-latin-600.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("assets/fonts/inter-latin-700.woff2") format("woff2");
-}
-
-/* Instrument Sans für Kundenstimmen und Haupt-Button. Selbst gehostet, nicht
+/* Instrument Sans ist die einzige Schrift der Seite. Selbst gehostet, nicht
    von Google Fonts: Ein Abruf dort schickte die IP-Adresse jedes Besuchers an
    Google. Variable Dateien decken 400–700 stufenlos ab — so stimmen auch
    Zwischengewichte wie 550 oder 620 exakt. */
@@ -106,7 +76,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   color: var(--text);
   background: #ffffff;
   line-height: 1.5;
@@ -153,6 +123,12 @@ body {
    Ebene hinter allem; sie scrollt mit und nimmt keine Klicks an. body trägt
    dafür keinen eigenen Hintergrund (das Weiß geht an die Leinwand über),
    sonst läge er über dem Raster. */
+/* Raster und Schein laufen nach oben aus: Am oberen Bildschirmrand ist es
+   wieder reines Weiß, voll sichtbar erst ab der Oberkante des Bilds */
+.home::before,
+.home::after {
+  --top-fade: linear-gradient(180deg, transparent 0, #000 calc(var(--profile-top) + 20px));
+}
 .home::before {
   --grid-size: 32px;
   content: "";
@@ -168,14 +144,20 @@ body {
     linear-gradient(180deg, rgb(16 36 84 / 0.06) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
   background-position: center top;
-  -webkit-mask-image: radial-gradient(
-    min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
-      at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
-    #000 55%, transparent 100%);
-  mask-image: radial-gradient(
-    min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
-      at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
-    #000 55%, transparent 100%);
+  -webkit-mask-image:
+    radial-gradient(
+      min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
+        at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
+      #000 55%, transparent 100%),
+    var(--top-fade);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(
+      min(var(--avatar-size) * 1.6, 47vw) calc(var(--avatar-size) / 2 + 58px)
+        at 50% calc(var(--profile-top) + var(--avatar-size) / 2 - 30px),
+      #000 55%, transparent 100%),
+    var(--top-fade);
+  mask-composite: intersect;
 }
 @media (min-width: 768px) {
   .home::before {
@@ -196,10 +178,12 @@ body {
   background: radial-gradient(
     calc(var(--avatar-size) * 1.02) calc(var(--avatar-size) * 0.96)
       at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
-    rgb(88 163 255 / 0.32) 0%,
-    rgb(88 163 255 / 0.13) 60%,
+    rgb(88 163 255 / 0.38) 0%,
+    rgb(88 163 255 / 0.16) 60%,
     rgb(88 163 255 / 0) 100%
   );
+  -webkit-mask-image: var(--top-fade);
+  mask-image: var(--top-fade);
 }
 
 /* ---------- Profile ---------- */
@@ -307,6 +291,27 @@ body {
   letter-spacing: -0.04em;
   line-height: 1.08;
   color: var(--text);
+}
+/* Nachname kursiv im Blauverlauf des CTA — dasselbe Muster wie das goldene
+   „sprechen.“ in den Kundenstimmen. */
+.name__accent {
+  font-style: italic;
+  font-weight: 620;
+  color: #0050f6;
+  /* Platz für den Überhang der Kursiven, ohne den Satz zu verschieben */
+  padding-inline: 0.03em 0.09em;
+  margin-inline: -0.03em -0.09em;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .name__accent {
+    background-image: linear-gradient(100deg, #003fd2 0%, #1d63ff 42%, #3d84ff 62%, #0050f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
 }
 
 .bio {
@@ -606,7 +611,7 @@ body {
     0 16px 32px -16px rgb(0 80 246 / 0.45),
     inset 0 1px 0 rgb(255 255 255 / 0.32);
   --cta-focus: #0050f6;
-  --cta-font: "Instrument Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --cta-font: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --cta-size: 15.5px;
   --cta-gap: 8px;
   --cta-pad-x: 16px;
@@ -1344,11 +1349,7 @@ body:has(.about-dialog[open]) {
 /* ---------- Kundenstimmen ----------
    Dunkles Blatt im Stil der VDSolutions-Landingpage: Kopf zentriert, darunter
    eine Kino-Bühne mit drei Videos im Querformat. Das Blatt tritt aus der
-   Linkspalte heraus und läuft randlos über die volle Breite.
-
-   Instrument Sans steht vorn in der Schriftliste, wird aber nicht von Google
-   geladen — das schickte die IP-Adresse jedes Besuchers an Google. Bis die
-   Schrift selbst gehostet ist, greift Inter. */
+   Linkspalte heraus und läuft randlos über die volle Breite. */
 .voices {
   --v-ink: #141414;
   --v-white: #ffffff;
@@ -1356,7 +1357,7 @@ body:has(.about-dialog[open]) {
   --v-blue-active: #4d8bff;
   --v-focus: #5b98ff;
   --v-muted: rgb(255 255 255 / 0.66);
-  --v-font: "Instrument Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --v-font: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --v-gold-shine: linear-gradient(110deg, rgb(255 248 222 / 0) 30%, rgb(255 248 222 / 0.8) 44%, rgb(255 248 222 / 0) 56%);
   --v-gold-text: linear-gradient(180deg, #f6dd9a 0%, #e0b65a 40%, #c3913a 62%, #dcb463 84%, #f1d48e 100%);
   --v-pad-top: 56px;
@@ -1373,7 +1374,7 @@ body:has(.about-dialog[open]) {
   --v-sheet-w: 100vw;
   /* Flacher Bogen an Ober- und Unterkante: so weit liegen die Seiten
      hinter der Mitte zurück */
-  --v-arc: clamp(28px, 7vw, 64px);
+  --v-arc: clamp(18px, 4.5vw, 40px);
   /* Mittelpunkt der Ellipse, deren oberer Rand den Bogen bildet. Mit der
      halben Breite als Radius trifft sie die Seiten genau --v-arc tiefer:
      1 − √(1 − ¼) ≈ 0,134, also 1 ÷ 0,134 ≈ 7,46 */

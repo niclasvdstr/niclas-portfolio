@@ -6,18 +6,12 @@ verwendet werden.
 
 ## Schriftart
 
-**Inter 4.001** (Subset Latin, WOFF2) — `assets/fonts/`
-Copyright 2016 The Inter Project Authors, https://github.com/rsms/inter
-Lizenz: SIL Open Font License 1.1 — Volltext in [`assets/fonts/OFL.txt`](assets/fonts/OFL.txt)
-
-Die Dateien werden vom eigenen Server ausgeliefert, nicht über die Google
-Fonts API. Dadurch fließt beim Seitenaufruf keine IP-Adresse an einen
-Drittanbieter ab (vgl. LG München I, 20.01.2022 – 3 O 17493/20).
-
 **Instrument Sans** (variabel, normal und kursiv, Gewichte 400–700) — `assets/fonts/instrument-sans-*.woff2`
 Copyright 2022 The Instrument Sans Project Authors, https://github.com/Instrument/instrument-sans
 Lizenz: SIL Open Font License 1.1 — Volltext in [`assets/fonts/OFL-InstrumentSans.txt`](assets/fonts/OFL-InstrumentSans.txt)
-Ebenfalls selbst ausgeliefert, nicht über Google Fonts.
+Die Dateien werden vom eigenen Server ausgeliefert, nicht über die Google
+Fonts API. Dadurch fließt beim Seitenaufruf keine IP-Adresse an einen
+Drittanbieter ab (vgl. LG München I, 20.01.2022 – 3 O 17493/20).
 
 ## Icons
 
@@ -58,7 +52,8 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 - `assets/vdsolutions-logo-weiss.webp` — eigenes Markenzeichen
   (VDSolutions-Wortmarke, einmal schwarz, einmal weiß mit blauem V)
 - Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
-  der Buchstabe N in Inter auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit
-  Name und Rolle in Inter. Mit der Schrift erzeugte Grafiken fallen nicht unter
+  der Buchstabe N in Inter (Copyright 2016 The Inter Project Authors, SIL OFL
+  1.1) auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit Name und Rolle in
+  Inter. Mit der Schrift erzeugte Grafiken fallen nicht unter
   die OFL (Präambel der Lizenz).
 - Texte, Layout, CSS und JavaScript
