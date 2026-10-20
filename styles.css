@@ -201,89 +201,15 @@ body {
   );
 }
 
-/* ---------- Dunkler Kopf, weißes Blatt ----------
-   Die Startseite steht im Anthrazit der Kundenstimmen (#141414). Dunkel sind
-   nur Sprachschalter, Profil und Buttons; darunter schiebt sich das weiße
-   Blatt (.sheet) mit Logos, Kundenstimmen und Footer und behält die hellen
-   Farben aus :root. Der Über-mich-Dialog sowie Impressum und Datenschutz
-   tragen die Klasse nicht und bleiben hell. */
-html:has(body.home) {
-  /* Die Farbe gehört an html, nicht an body: Ein Hintergrund auf body läge
-     über Raster und Schein (z-index -1) und verdeckte beide */
-  background: #141414;
-}
-body.home {
-  background: transparent;
-  /* Unten schließt das weiße Blatt bündig ab; den Abstand hält der Footer */
-  padding-bottom: 0;
-  /* Raster hell statt dunkel, Schein etwas kräftiger und tiefer im Blau,
-     sonst verpufft er auf Anthrazit */
-  --bg-grid-line: rgb(255 255 255 / 0.06);
-  --bg-glow-core: rgb(29 99 255 / 0.42);
-  --bg-glow-mid: rgb(29 99 255 / 0.14);
-  --bg-glow-edge: rgb(29 99 255 / 0);
-}
-.home .lang,
-.home .profile,
-.home .link-section {
-  --text: #ffffff;
-  --text-muted: rgb(255 255 255 / 0.66);
-  --label: rgb(255 255 255 / 0.46);
-  --border-hover: rgb(255 255 255 / 0.16);
-  --focus-ring: #5b98ff;
-}
-.home .lang {
-  background: rgb(255 255 255 / 0.07);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
-}
-/* Ring um das Profilbild: dunkel mit feiner heller Kante statt hellgrau */
-.home .avatar {
-  border-color: #1d1d1d;
-  background: #1d1d1d;
-  box-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.14),
-    0 14px 34px rgb(0 0 0 / 0.45);
-}
-/* LinkedIn-Blau ist auf Anthrazit zu dunkel; Instagram und YouTube tragen */
-.home .social-btn--linkedin {
-  color: #5a9ef0;
-}
-/* Die VDSolutions-Pille ist selbst fast schwarz — eine feine helle Kontur
-   hält sie auf dem Anthrazit als eigene Fläche */
-.home .cta--dark {
-  --cta-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.14),
-    0 16px 32px -16px rgb(0 0 0 / 0.6),
-    inset 0 1px 0 rgb(255 255 255 / 0.16);
-}
-
-.sheet {
-  --sheet-radius: 52px;
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  /* Randlos über die volle Breite, auch über das Padding von body hinaus */
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
-  padding-top: clamp(40px, 11vw, 64px);
-  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
-  background: #ffffff;
-  color: var(--text);
-}
-@media (min-width: 768px) {
-  .sheet {
-    /* Wie das Kundenstimmen-Blatt */
-    --sheet-radius: 72px;
-  }
-}
-
 /* ---------- Sprachschalter ----------
-   Die Seite hat keinen Header; der Schalter liegt frei oben links in einer
-   hellen Pille und scrollt mit der Seite weg. */
+   Die Seite hat keinen Header; der Schalter liegt frei oben in der Mitte in
+   einer hellen Pille und scrollt mit der Seite weg. translate statt
+   transform, weil die Einblend-Animation transform belegt. */
 .lang {
   position: absolute;
   top: max(12px, calc(env(safe-area-inset-top) + 8px));
-  left: max(12px, calc(env(safe-area-inset-left) + 8px));
+  left: 50%;
+  translate: -50% 0;
   z-index: 10;
   padding: 5px 10px;
   border-radius: 999px;
@@ -356,11 +282,11 @@ body.home {
 /* ---------- Abstände ----------
    Gruppen, je weiter auseinander, je weniger sie zusammengehören:
    Person (Bild mit Social-Icons, Name, Rolle), Aktionen (die beiden
-   Buttons), dann das weiße Blatt mit Logos und Kundenstimmen. Innerhalb der
+   Buttons), dann das dunkle Blatt mit Logos und Kundenstimmen. Innerhalb der
    Person rücken Name und Rolle am engsten zusammen. Die Werte unten sind
    Abstände von Kante zu Kante; sichtbar von Schrift zu Schrift ergibt das
    auf dem Handy etwa 33 · 10 · 34 · 52 px (Bild · Name · Rolle · Buttons ·
-   weißes Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
+   dunkles Blatt), am Desktop 36 · 12 · 40 · 72 px. Die beiden Buttons stehen
    12 px auseinander. */
 .avatar-wrap {
   /* Etwas mehr als ohne Icons: Der untere Icon-Kreis ragt unter das Bild */
@@ -372,12 +298,8 @@ body.home {
 .profile + .link-section {
   margin-top: clamp(28px, 7.6vw, 34px);
 }
-.sheet {
-  margin-top: clamp(52px, 13vw, 72px);
-}
 .voices {
-  /* Das Logoband steht mittig zwischen Blattkante und Kundenstimmen */
-  margin-top: clamp(36px, 9vw, 52px);
+  margin-top: clamp(52px, 13vw, 72px);
 }
 
 /* ---------- Profilbild ----------
@@ -463,11 +385,10 @@ body.home {
 }
 
 /* ---------- Social icons ----------
-   Drei kleine dunkle Kreise unten rechts auf dem Ring des Profilbilds. Jeder
-   sitzt mit seiner Mitte genau auf dem Kreisrand (cos/sin des Winkels --a);
-   25° Abstand halten die 42-px-Tippflächen auseinander, und der untere
-   Kreis bleibt vom Namen weg. Die Ebene darüber
-   lässt Klicks durch, damit das Bild selbst klickbar bleibt. */
+   Drei weiße Kreise purzeln rechts am Ring des Profilbilds herunter: leicht
+   gedreht und nach unten etwas kleiner. Jeder sitzt mit seiner Mitte genau
+   auf dem Kreisrand (cos/sin des Winkels --a). Die Ebene darüber lässt
+   Klicks durch, damit das Bild selbst klickbar bleibt. */
 .avatar-wrap {
   position: relative;
 }
@@ -486,32 +407,30 @@ body.home {
   position: absolute;
   left: calc(50% + 50% * cos(var(--a)) - var(--chip) / 2);
   top: calc(50% + 50% * sin(var(--a)) - var(--chip) / 2);
+  rotate: var(--tilt, 0deg);
   pointer-events: auto;
 }
-.socials-list li:nth-child(1) { --a: 12deg; }
-.socials-list li:nth-child(2) { --a: 37deg; }
-.socials-list li:nth-child(3) { --a: 62deg; }
+.socials-list li:nth-child(1) { --a: -28deg; --tilt: -14deg; --chip: 42px; }
+.socials-list li:nth-child(2) { --a: 14deg; --tilt: 10deg; --chip: 39px; }
+.socials-list li:nth-child(3) { --a: 52deg; --tilt: -6deg; --chip: 36px; }
 .socials .social-btn {
   width: var(--chip);
   height: var(--chip);
-  border: 0;
+  border: 1px solid var(--border);
   border-radius: 50%;
-  background: #1b1b1b;
-  box-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.16),
-    0 6px 16px rgb(0 0 0 / 0.45);
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.14);
 }
 .socials .social-btn svg {
-  width: 21px;
-  height: 21px;
+  width: calc(var(--chip) * 0.5);
+  height: calc(var(--chip) * 0.5);
 }
 @media (hover: hover) and (pointer: fine) {
   .avatar-wrap .socials .social-btn:hover {
     transform: translateY(-2px);
-    background: #262626;
-    box-shadow:
-      0 0 0 1px rgb(255 255 255 / 0.26),
-      0 8px 18px rgb(0 0 0 / 0.5);
+    background: #ffffff;
+    border-color: var(--border-hover);
+    box-shadow: 0 8px 20px rgba(16, 24, 40, 0.18);
   }
 }
 
@@ -1327,8 +1246,11 @@ body:has(.about-dialog[open]) {
 
 
 /* ---------- Kundenlogos: Laufband ----------
-   Ruhig und ohne Fläche, Rahmen oder Linien — sichtbar sind nur die Logos in
-   ihren Originalfarben. Kein JavaScript: Die Spur (.track) hält zwei
+   Oben im dunklen Kundenstimmen-Blatt, ohne Überschrift. Ruhig und ohne
+   Fläche, Rahmen oder Linien — sichtbar sind nur die Logos. Auf dem
+   Anthrazit verschwänden dunkle Wortmarken (Engel & Völkers, VDSolutions,
+   Questico), deshalb stehen alle einheitlich in gedämpftem Weiß. Kein
+   JavaScript: Die Spur (.track) hält zwei
    identische Gruppen und wandert um genau eine davon (-50 %), danach beginnt
    die Animation unsichtbar von vorn. Das padding-right jeder Gruppe muss
    dem gap entsprechen, sonst ruckelt der Übergang. */
@@ -1336,8 +1258,9 @@ body:has(.about-dialog[open]) {
   --logo-base: 24px;
   --logo-gap: 40px;
   width: min(100%, 1180px);
-  margin-inline: auto;
-  text-align: center;
+  /* Das Polster des Bands oben zieht die Blattkante schon mit; nach unten
+     derselbe Abstand wie zwischen Kopf und Video-Bühne */
+  margin: calc(-1 * var(--v-pad-top) / 2) auto var(--v-stage-gap);
 }
 @media (min-width: 768px) {
   .logos {
@@ -1350,26 +1273,6 @@ body:has(.about-dialog[open]) {
     --logo-base: 32px;
     --logo-gap: 72px;
   }
-}
-/* Überschrift im Stil der Kundenstimmen-Zeile darüber, hell statt dunkel */
-.logos__title {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  margin: 0;
-  font-family: "Instrument Sans", "Inter", system-ui, -apple-system, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.logos__rule {
-  width: 24px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #98681a 0%, #c48f2e 28%, #f6dc94 55%, #d6ad55 75%, #b58434 100%);
 }
 .marquee {
   overflow: hidden;
@@ -1417,6 +1320,9 @@ body:has(.about-dialog[open]) {
   display: block;
   width: auto;
   height: calc(var(--logo-base) * var(--logo-scale, 1));
+  /* Einfarbig weiß, leicht zurückgenommen */
+  filter: brightness(0) invert(1);
+  opacity: 0.72;
 }
 /* Mit Maus: Überfahren hält das Band an */
 @media (hover: hover) {
@@ -1859,7 +1765,7 @@ body:has(.about-dialog[open]) {
      Seite ohnehin schon die volle Höhe füllt. Derselbe Abstand wie über den
      Kundenstimmen, damit das dunkle Blatt oben und unten gleich viel Luft hat. */
   margin-top: auto;
-  padding: clamp(52px, 13vw, 72px) 16px max(20px, env(safe-area-inset-bottom));
+  padding-top: clamp(52px, 13vw, 72px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;

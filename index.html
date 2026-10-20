@@ -6,7 +6,7 @@
   <title>Niclas van der Straeten</title>
   <meta name="description" content="Buche ein kostenloses Erstgespräch, besuche VDSolutions oder nimm direkt Kontakt auf." />
   <link rel="canonical" href="https://niclasvanderstraeten.com/" />
-  <meta name="theme-color" content="#141414" />
+  <meta name="theme-color" content="#ffffff" />
 
   <link rel="icon" href="/favicon.ico" sizes="32x32" />
   <link rel="icon" href="/assets/icons/favicon-48.png" type="image/png" sizes="48x48" />
@@ -90,90 +90,86 @@
       <ul id="main-links" class="links-list"></ul>
     </section>
 
-    <!-- Weißes Blatt bis zum Seitenende: Kundenlogos, Kundenstimmen, Footer.
-         Es schiebt sich mit runden Ecken oben über den dunklen Kopf. -->
-    <div class="sheet">
-      <!-- Logo-Laufband ohne JavaScript: zwei identische Gruppen nebeneinander,
-           die Spur wandert um genau eine Gruppenbreite (-50 %) und springt
-           unsichtbar zurück. Jede Gruppe enthält die Liste zweimal, damit auch
-           breite Bildschirme lückenlos gefüllt sind. Für Screenreader zählt nur
-           die allererste Ausgabe; alle Wiederholungen sind aria-hidden.
+    <!-- Kundenstimmen: dunkles Blatt im Stil der VDSolutions-Landingpage. Die
+         Videos baut app.js aus der Liste VOICES; solange es keine echten gibt,
+         stehen dort ausgewiesene Platzhalter. -->
+    <section class="voices" aria-labelledby="voices-title">
+      <!-- Kundenlogos als Laufband oben im dunklen Blatt, ohne Überschrift.
+           Ohne JavaScript: zwei identische Gruppen nebeneinander, die Spur
+           wandert um genau eine Gruppenbreite (-50 %) und springt unsichtbar
+           zurück. Jede Gruppe enthält die Liste zweimal, damit auch breite
+           Bildschirme lückenlos gefüllt sind. Für Screenreader zählt nur die
+           allererste Ausgabe; alle Wiederholungen sind aria-hidden.
            --logo-scale gleicht breite Wortmarken und kompakte Bildmarken aus:
            min(1.2, max(0.64, √(4 ÷ Seitenverhältnis))), berechnet von
            assets/_originals/kundenlogos_render.js. -->
-      <section class="logos" aria-labelledby="logos-title">
-        <h2 id="logos-title" class="logos__title"><span class="logos__rule" aria-hidden="true"></span><span data-i18n="logosTitle">In guter Gesellschaft</span></h2>
+      <div class="logos">
         <div class="marquee">
           <div class="track">
             <ul class="group" aria-label="Kundenlogos" data-i18n-aria="logosList">
-          <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
-          <li aria-hidden="true"><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
             </ul>
             <ul class="group" aria-hidden="true">
-          <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
-          <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/engel-voelkers.webp" alt="Engel &amp; Völkers" width="583" height="64" style="--logo-scale:0.66" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/vdsolutions.webp" alt="VDSolutions" width="525" height="71" style="--logo-scale:0.74" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/kraftteam.webp" alt="Kraftteam" width="504" height="74" style="--logo-scale:0.77" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/questico.webp" alt="Questico" width="414" height="91" style="--logo-scale:0.94" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/steuerwerk.webp" alt="Steuerwerk" width="402" height="92" style="--logo-scale:0.96" loading="eager" decoding="async" /></li>
+              <li><img src="assets/logos/zahnaerzte-krell.webp" alt="Zahnärzte Krell &amp; Kollegen" width="358" height="104" style="--logo-scale:1.08" loading="eager" decoding="async" /></li>
             </ul>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- Kundenstimmen: dunkles Blatt im Stil der VDSolutions-Landingpage. Die
-           Videos baut app.js aus der Liste VOICES; solange es keine echten gibt,
-           stehen dort ausgewiesene Platzhalter. -->
-      <section class="voices" aria-labelledby="voices-title">
-        <div class="voices__head">
-          <p class="voices__eyebrow"><span class="voices__rule" aria-hidden="true"></span><span data-i18n="voicesEyebrow">Kundenstimmen</span></p>
-          <h2 id="voices-title" class="voices__title" data-i18n-html="voicesTitle">Erfahrungen, die f&uuml;r sich <em class="voices__gold">sprechen.</em></h2>
-          <p class="voices__lead" data-i18n-html="voicesLead">Erfahren Sie <em>aus erster Hand</em>, wie unsere Kunden die Zusammenarbeit mit VDSolutions erleben.</p>
-        </div>
+      <div class="voices__head">
+        <p class="voices__eyebrow"><span class="voices__rule" aria-hidden="true"></span><span data-i18n="voicesEyebrow">Kundenstimmen</span></p>
+        <h2 id="voices-title" class="voices__title" data-i18n-html="voicesTitle">Erfahrungen, die f&uuml;r sich <em class="voices__gold">sprechen.</em></h2>
+        <p class="voices__lead" data-i18n-html="voicesLead">Erfahren Sie <em>aus erster Hand</em>, wie unsere Kunden die Zusammenarbeit mit VDSolutions erleben.</p>
+      </div>
 
-        <div class="voices__stage" id="voices-stage" role="region" aria-roledescription="Karussell"
-             aria-label="Kundenvideos">
-          <div class="voices__track" id="voices-track"></div>
-        </div>
+      <div class="voices__stage" id="voices-stage" role="region" aria-roledescription="Karussell"
+           aria-label="Kundenvideos">
+        <div class="voices__track" id="voices-track"></div>
+      </div>
 
-        <div class="voices__controls">
-          <button type="button" class="voices__arrow voices__arrow--prev" id="voices-prev"
-                  aria-label="Vorheriges Video" data-i18n-aria="voicesPrev"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="voices__dots" id="voices-dots"></div>
-          <button type="button" class="voices__arrow" id="voices-next"
-                  aria-label="N&auml;chstes Video" data-i18n-aria="voicesNext"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        </div>
-      </section>
+      <div class="voices__controls">
+        <button type="button" class="voices__arrow voices__arrow--prev" id="voices-prev"
+                aria-label="Vorheriges Video" data-i18n-aria="voicesPrev"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="voices__dots" id="voices-dots"></div>
+        <button type="button" class="voices__arrow" id="voices-next"
+                aria-label="N&auml;chstes Video" data-i18n-aria="voicesNext"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </section>
 
-      <footer class="footer">
-        <p>&copy; <span id="year"></span> Niclas van der Straeten &middot; Frankfurt am Main</p>
-        <p class="footer-legal">
-          <a href="/impressum" data-i18n="imprint">Impressum</a>
-          &nbsp;&middot;&nbsp;
-          <a href="/datenschutz" data-i18n="privacy">Datenschutz</a>
-        </p>
-      </footer>
-    </div>
+    <footer class="footer">
+      <p>&copy; <span id="year"></span> Niclas van der Straeten &middot; Frankfurt am Main</p>
+      <p class="footer-legal">
+        <a href="/impressum" data-i18n="imprint">Impressum</a>
+        &nbsp;&middot;&nbsp;
+        <a href="/datenschutz" data-i18n="privacy">Datenschutz</a>
+      </p>
+    </footer>
   </main>
 
   <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-dialog-title">
