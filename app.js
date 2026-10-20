@@ -20,7 +20,7 @@ const CONFIG = {
    ========================================================= */
 const mainLinks = [
   {
-    title: { de: "Kostenloses Erstgespräch", en: "Free intro call" },
+    title: "Kostenloses Erstgespräch",
     url: CONFIG.calendlyUrl,
     type: "calendly",
     // Pille statt Kachel: eine Zeile, Pfeil rechts, kein Logo
@@ -61,77 +61,18 @@ const VOICES = [
 ];
 
 /* =========================================================
-   Texte auf Englisch
-   Deutsch steht im HTML (data-i18n-Schlüssel), damit die Seite auch ohne
-   JavaScript vollständig ist. Hier liegen beide Sprachen, damit der Schalter
-   in beide Richtungen wechseln kann.
+   Texte für die Teile, die erst JavaScript baut (Kundenstimmen-Karussell).
+   Alles andere steht direkt im HTML.
    ========================================================= */
 const TEXT = {
-  de: {
-    skip: "Zum Inhalt springen",
-    founder: "Gründer",
-    about: "Über mich",
-    role: "KI-Beratung",
-    services: "Ich mache KI zu Ihrem messbaren Vorteil",
-    imprint: "Impressum",
-    privacy: "Datenschutz",
-    aboutTitle: "Vom Fitnessstudio zur KI-Beratung",
-    close: "Schließen",
-    t0: "Einstieg als Fitnesstrainer",
-    t1: "Fitnesstrainer B-Lizenz",
-    t2: "Quereinstieg Immobilienbüro",
-    t3: "Vertrieb als Makler",
-    t4: "Gründung von VDSolutions",
-    t5: "Vollzeit in der KI-Beratung",
-    aboutMore: "Mehr über mich auf VDSolutions",
-    logosList: "Kundenlogos",
-    voicesTitle: 'Erfahrungen, die für sich <em class="voices__gold">sprechen.</em>',
-    voicesLead: "Erfahren Sie <em>aus erster Hand</em>, wie unsere Kunden die Zusammenarbeit mit VDSolutions erleben.",
-    voicesRegion: "Kundenvideos",
-    voicesCarousel: "Karussell",
-    voicesPrev: "Vorheriges Video",
-    voicesNext: "Nächstes Video",
-    voicesOf: "von",
-    voicesPlaceholder: "Platzhalter",
-    voicesSoon: "Video folgt in Kürze",
-    voicesTitlePlaceholder: "Kundenstimme",
-    voicesPlay: "Video abspielen",
-  },
-  en: {
-    skip: "Skip to content",
-    founder: "Founder",
-    about: "About me",
-    role: "AI Consulting",
-    services: "I turn AI into your measurable advantage",
-    // Die Rechtstexte selbst bleiben deutsch — das sagt der Hinweis gleich mit
-    imprint: "Legal notice (DE)",
-    privacy: "Privacy (DE)",
-    aboutTitle: "From the gym to AI consulting",
-    close: "Close",
-    t0: "Started as a fitness trainer",
-    t1: "Fitness trainer B license",
-    t2: "Career change to real estate",
-    t3: "Sales as a broker",
-    t4: "Founded VDSolutions",
-    t5: "Full-time in AI consulting",
-    aboutMore: "More about me on VDSolutions",
-    logosList: "Client logos",
-    voicesTitle: 'Experiences that speak for <em class="voices__gold">themselves.</em>',
-    voicesLead: "Hear <em>first-hand</em> how our clients experience working with VDSolutions.",
-    voicesRegion: "Customer videos",
-    voicesCarousel: "carousel",
-    voicesPrev: "Previous video",
-    voicesNext: "Next video",
-    voicesOf: "of",
-    voicesPlaceholder: "Placeholder",
-    voicesSoon: "Video coming soon",
-    voicesTitlePlaceholder: "Testimonial",
-    voicesPlay: "Play video",
-  },
+  voicesRegion: "Kundenvideos",
+  voicesCarousel: "Karussell",
+  voicesOf: "von",
+  voicesPlaceholder: "Platzhalter",
+  voicesSoon: "Video folgt in Kürze",
+  voicesTitlePlaceholder: "Kundenstimme",
+  voicesPlay: "Video abspielen",
 };
-
-let lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "de";
-const t = (value) => (typeof value === "object" ? value[lang] : value);
 
 /* =========================================================
    SVG-Icons (dekorativ, aria-hidden, currentColor)
@@ -179,7 +120,8 @@ function createButton({ title, subtitle, url, variant, icon, image, logo, type, 
       el.rel = "noopener noreferrer";
       el.innerHTML = `${name}${ARROW}`;
     }
-    if (logo) el.querySelector(".cta__logo").alt = t(title);
+    if (logo) el.querySelector(".cta__logo").alt = title;
+    else el.querySelector(".cta__label").textContent = title;
     li.append(el);
     return li;
   }
@@ -218,13 +160,13 @@ function createButton({ title, subtitle, url, variant, icon, image, logo, type, 
 
   const titleEl = document.createElement("span");
   titleEl.className = "btn__title";
-  titleEl.textContent = t(title);
+  titleEl.textContent = title;
   text.append(titleEl);
 
   if (subtitle) {
     const subEl = document.createElement("span");
     subEl.className = "btn__subtitle";
-    subEl.textContent = t(subtitle);
+    subEl.textContent = subtitle;
     text.append(subEl);
   }
 
@@ -293,64 +235,10 @@ function wireAboutDialog() {
   });
 }
 
-// Sprache anwenden: Texte, Kacheln, lang-Attribut, Schalterzustand. Die Wahl
-// steht danach in der Adresse (?lang=en) — teilbar, und nichts landet auf
-// dem Gerät.
-function applyLanguage() {
-  document.documentElement.lang = lang;
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    el.textContent = TEXT[lang][el.dataset.i18n];
-  });
-  // Nur feste Texte aus TEXT — nie Eingaben von außen
-  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
-    el.innerHTML = TEXT[lang][el.dataset.i18nHtml];
-  });
-  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
-    el.setAttribute("aria-label", TEXT[lang][el.dataset.i18nAria]);
-  });
-  // Kacheln einmal bauen, danach nur den Text tauschen: neu gebaut würden
-  // sie ihre Einblendung wiederholen und kurz verschwinden
-  // Oben beide Buttons, unter den Kundenstimmen nur der Termin-Button
-  [["main-links", mainLinks], ["closing-links", mainLinks.slice(0, 1)]].forEach(([id, links]) => {
-    const listEl = document.getElementById(id);
-    if (!listEl.children.length) links.forEach((l) => listEl.append(createButton(l)));
-    [...listEl.children].forEach((li, i) => {
-      const l = links[i];
-      const label = li.querySelector(".btn__title, .cta__label");
-      if (label) label.textContent = t(l.title);
-      const sub = li.querySelector(".btn__subtitle");
-      if (sub) sub.textContent = t(l.subtitle);
-    });
-  });
-
-  const sw = document.getElementById("lang-switch");
-  sw.setAttribute("aria-checked", String(lang === "en"));
-  document.querySelectorAll("[data-lang-label]").forEach((el) => {
-    el.classList.toggle("is-active", el.dataset.langLabel === lang);
-  });
-
-  updateVoiceTexts();
-
-  const url = new URL(location.href);
-  if (lang === "en") url.searchParams.set("lang", "en");
-  else url.searchParams.delete("lang");
-  history.replaceState(null, "", url);
-}
-
-function wireLanguage() {
-  document.getElementById("lang-switch").addEventListener("click", () => {
-    lang = lang === "en" ? "de" : "en";
-    applyLanguage();
-  });
-  // Auch die Buchstaben daneben schalten — sie sehen anklickbar aus
-  document.querySelectorAll("[data-lang-label]").forEach((el) => {
-    el.addEventListener("click", () => {
-      if (lang !== el.dataset.langLabel) {
-        lang = el.dataset.langLabel;
-        applyLanguage();
-      }
-    });
-  });
+// Buttons bauen: oben beide, unter den Kundenstimmen nur der Termin-Button
+function renderLinks() {
+  document.getElementById("main-links").append(...mainLinks.map(createButton));
+  document.getElementById("closing-links").append(createButton(mainLinks[0]));
 }
 
 /* =========================================================
@@ -478,7 +366,7 @@ function playVoice(i) {
 }
 
 function updateVoiceTexts() {
-  const T = TEXT[lang];
+  const T = TEXT;
   const stage = document.getElementById("voices-stage");
   if (!stage) return;
   stage.setAttribute("aria-label", T.voicesRegion);
@@ -499,6 +387,6 @@ function updateVoiceTexts() {
 
 render();
 buildVoices();
-applyLanguage();
-wireLanguage();
+renderLinks();
+updateVoiceTexts();
 wireAboutDialog();

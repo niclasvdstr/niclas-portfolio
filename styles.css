@@ -76,8 +76,8 @@
   --max-w: 480px;
 
   /* Profilbild: Größe und Abstand nach oben */
-  --avatar-size: clamp(168px, 46vw, 204px);
-  --profile-top: max(84px, calc(env(safe-area-inset-top) + 76px));
+  --avatar-size: clamp(184px, 51vw, 224px);
+  --profile-top: max(56px, calc(env(safe-area-inset-top) + 40px));
 }
 
 * {
@@ -143,24 +143,13 @@ body {
   }
 }
 
-/* ---------- Startseite in Anthrazit ----------
-   Die ganze Startseite steht schlicht im Anthrazit der Kundenstimmen
-   (#141414), nur hinter dem Profilbild liegt ein feines Raster. Umgestellt werden nur Schalter und
-   Spalte; der Über-mich-Dialog liegt außerhalb und bleibt hell, Impressum
-   und Datenschutz tragen die Klasse nicht und bleiben es ebenso. */
-html:has(body.home) {
-  /* Die Farbe gehört an html, nicht an body: Ein Hintergrund auf body läge
-     über dem Raster (z-index -1) und verdeckte es. Auch beim Überziehen
-     über den Rand hinaus kein weißer Streifen. */
-  background: #141414;
-  color-scheme: dark;
-}
-body.home {
-  background: transparent;
-}
-/* Raster hinter dem Profilbild: 1-px-Linien in schwachem Weiß, die von der
-   Bildmitte aus in alle Richtungen weich ausblenden. Eigene Ebene hinter
-   allem; sie scrollt mit und nimmt keine Klicks an. */
+/* ---------- Raster hinter dem Profilbild ----------
+   Die Startseite ist weiß; nur die Kundenstimmen darunter stehen im
+   Anthrazit. Hinter dem Profilbild liegt ein feines Raster aus 1-px-Linien,
+   das von der Bildmitte aus in alle Richtungen weich ausblendet. Eigene
+   Ebene hinter allem; sie scrollt mit und nimmt keine Klicks an. body trägt
+   dafür keinen eigenen Hintergrund (das Weiß geht an die Leinwand über),
+   sonst läge er über dem Raster. */
 .home::before {
   --grid-size: 32px;
   content: "";
@@ -172,8 +161,8 @@ body.home {
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(90deg, rgb(255 255 255 / 0.09) 1px, transparent 1px),
-    linear-gradient(180deg, rgb(255 255 255 / 0.09) 1px, transparent 1px);
+    linear-gradient(90deg, rgb(16 36 84 / 0.06) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(16 36 84 / 0.06) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
   background-position: center top;
   -webkit-mask-image: radial-gradient(
@@ -190,105 +179,11 @@ body.home {
     --grid-size: 40px;
   }
 }
-.home .lang,
-.home .card {
-  --text: #ffffff;
-  --text-muted: rgb(255 255 255 / 0.66);
-  --label: rgb(255 255 255 / 0.46);
-  --border: rgb(255 255 255 / 0.1);
-  --border-hover: rgb(255 255 255 / 0.18);
-  --focus-ring: #5b98ff;
-}
-.home .lang {
-  background: rgb(255 255 255 / 0.07);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
-}
-/* Ring um das Profilbild: dunkel mit feiner heller Kante statt hellgrau */
-.home .avatar {
-  border-color: #1d1d1d;
-  background: #1d1d1d;
-  box-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.14),
-    0 14px 34px rgb(0 0 0 / 0.45);
-}
-/* Die VDSolutions-Pille ist selbst fast schwarz — eine feine helle Kontur
-   hält sie auf dem Anthrazit als eigene Fläche */
-.home .cta--dark {
-  --cta-shadow:
-    0 0 0 1px rgb(255 255 255 / 0.14),
-    0 16px 32px -16px rgb(0 0 0 / 0.6),
-    inset 0 1px 0 rgb(255 255 255 / 0.16);
-}
-
-/* ---------- Sprachschalter ----------
-   Die Seite hat keinen Header; der Schalter liegt frei oben links in einer
-   hellen Pille und scrollt mit der Seite weg. */
-.lang {
-  position: absolute;
-  top: max(12px, calc(env(safe-area-inset-top) + 8px));
-  left: max(12px, calc(env(safe-area-inset-left) + 8px));
-  z-index: 10;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  -webkit-backdrop-filter: saturate(1.4) blur(12px);
-  backdrop-filter: saturate(1.4) blur(12px);
-  box-shadow: 0 2px 10px rgba(16, 24, 40, 0.12);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-.lang__label {
-  color: var(--label);
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.18s ease;
-}
-.lang__label.is-active {
-  color: var(--text);
-}
-
-/* Schalter wie ein Kippschalter: die Spur bleibt immer im Blau des CTA, nur
-   der Knopf wandert — links Deutsch, rechts Englisch */
-.lang__switch {
-  position: relative;
-  width: 44px;
-  height: 26px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: var(--primary-gradient);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15);
-  cursor: pointer;
-}
-.lang__switch::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.3);
-  transition: translate 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.lang__switch[aria-checked="true"]::after {
-  translate: 18px 0;
-}
-.lang__switch:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 3px;
-}
 
 /* ---------- Profile ---------- */
 .profile {
   /* Teilt den Freiraum mit dem Footer, statt alles nach oben zu drücken */
   margin-top: auto;
-  /* Platz für den Sprachschalter darüber */
   padding-top: var(--profile-top);
   text-align: center;
   display: flex;
@@ -321,7 +216,10 @@ body.home {
   /* Im dunklen Blatt unter den Pfeilen, genau so breit wie die Buttons oben
      (Spalte minus Seitenrand von body und .card) */
   width: min(100% - 64px, var(--max-w));
-  margin: clamp(36px, 9vw, 56px) auto 0;
+  /* Luft nach oben zu den Pfeilen und nach unten zur Blattkante: unten
+     zusammen mit dem Innenabstand des Blatts mindestens 84–104 px, etwas
+     mehr als oben, weil der blaue Schein des Buttons nach unten fällt */
+  margin: clamp(48px, 12vw, 72px) auto max(0px, clamp(84px, 21vw, 104px) - var(--v-pad-bottom));
 }
 @media (max-width: 360px) {
   .closing-cta {
@@ -479,19 +377,6 @@ body.home {
   width: 18px;
   height: 18px;
 }
-/* Auf dem Anthrazit: dieselben Knöpfe in Dunkel, mit heller Haarlinie und
-   feiner Glanzkante; LinkedIn-Blau aufgehellt, sonst säuft es ab */
-.home .socials .social-btn {
-  background: linear-gradient(180deg, #262626 0%, #1a1a1a 100%);
-  box-shadow:
-    0 0 0 0.5px rgb(255 255 255 / 0.16),
-    inset 0 1px 0 rgb(255 255 255 / 0.08),
-    0 1px 2px rgb(0 0 0 / 0.3),
-    0 8px 18px -6px rgb(0 0 0 / 0.6);
-}
-.home .social-btn--linkedin {
-  color: #5a9ef0;
-}
 @media (hover: hover) and (pointer: fine) {
   .avatar-wrap .socials .social-btn:hover {
     transform: translateY(-2px);
@@ -502,13 +387,6 @@ body.home {
       0 2px 4px rgb(16 24 40 / 0.08),
       0 10px 20px -6px rgb(16 24 40 / 0.22),
       0 18px 34px -14px rgb(16 24 40 / 0.22);
-  }  .home .avatar-wrap .socials .social-btn:hover {
-    background: linear-gradient(180deg, #2c2c2c 0%, #1e1e1e 100%);
-    box-shadow:
-      0 0 0 0.5px rgb(255 255 255 / 0.24),
-      inset 0 1px 0 rgb(255 255 255 / 0.1),
-      0 2px 4px rgb(0 0 0 / 0.35),
-      0 12px 22px -8px rgb(0 0 0 / 0.7);
   }
 }
 
@@ -1218,7 +1096,6 @@ body:has(.about-dialog[open]) {
   }
 }
 
-.lang,
 .avatar,
 .name,
 .bio,
@@ -1234,9 +1111,6 @@ body:has(.about-dialog[open]) {
   animation-duration: 0.9s;
   transform-origin: 50% 70%;
   --enter: 0.06s;
-}
-.lang {
-  --enter: 0s;
 }
 .name {
   --enter: 0.17s;
@@ -1462,12 +1336,27 @@ body:has(.about-dialog[open]) {
   --v-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   /* Randlos über die volle Breite wie das weiße Blatt darüber */
   --v-sheet-w: 100vw;
+  /* Flacher Bogen an Ober- und Unterkante: so weit liegen die Seiten
+     hinter der Mitte zurück */
+  --v-arc: clamp(28px, 7vw, 64px);
+  /* Mittelpunkt der Ellipse, deren oberer Rand den Bogen bildet. Mit der
+     halben Breite als Radius trifft sie die Seiten genau --v-arc tiefer:
+     1 − √(1 − ¼) ≈ 0,134, also 1 ÷ 0,134 ≈ 7,46 */
+  --v-arc-c: calc(var(--v-arc) * 7.46);
 
   width: var(--v-sheet-w);
   /* Mittig zur Spalte, aber breiter als sie */
   margin-inline: calc(50% - var(--v-sheet-w) / 2);
-  padding: var(--v-pad-top) 0 var(--v-pad-bottom);
-  background: var(--v-ink);
+  padding: calc(var(--v-arc) + var(--v-pad-top)) 0 calc(var(--v-pad-bottom) + var(--v-arc));
+  /* Nur der Hintergrund bildet die Bögen, der Inhalt wird nicht
+     beschnitten: oben und unten je eine flache Ellipse, dazwischen volle
+     Fläche */
+  background:
+    radial-gradient(100% var(--v-arc-c) at 50% var(--v-arc-c),
+      var(--v-ink) calc(100% - 1px), rgb(20 20 20 / 0) 100%) no-repeat,
+    radial-gradient(100% var(--v-arc-c) at 50% calc(100% - var(--v-arc-c)),
+      var(--v-ink) calc(100% - 1px), rgb(20 20 20 / 0) 100%) no-repeat,
+    linear-gradient(var(--v-ink), var(--v-ink)) 0 var(--v-arc-c) / 100% calc(100% - 2 * var(--v-arc-c)) no-repeat;
   color: var(--v-white);
   font-family: var(--v-font);
   overflow: clip;
