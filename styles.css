@@ -123,10 +123,9 @@ body {
    Ebene hinter allem; sie scrollt mit und nimmt keine Klicks an. body trägt
    dafür keinen eigenen Hintergrund (das Weiß geht an die Leinwand über),
    sonst läge er über dem Raster. */
-/* Raster und Schein laufen nach oben aus: Am oberen Bildschirmrand ist es
+/* Das Raster läuft nach oben aus: Am oberen Bildschirmrand ist es
    wieder reines Weiß, voll sichtbar erst ab der Oberkante des Bilds */
-.home::before,
-.home::after {
+.home::before {
   --top-fade: linear-gradient(180deg, transparent 0, #000 calc(var(--profile-top) + 20px));
 }
 .home::before {
@@ -163,36 +162,6 @@ body {
   .home::before {
     --grid-size: 40px;
   }
-}
-/* Zarter blauer Hof um das Profilbild, nicht hinter dem Text; eigene Ebene
-   wie das Raster. Die Deckkraft fällt gaußförmig ab (viele Stufen statt
-   einem linearen Verlauf), so hat der Hof keinen sichtbaren Rand. Den engen
-   Lichtkranz direkt am Kreis trägt das Bild selbst (.avatar). */
-.home::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: max(100svh, 640px);
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    calc(var(--avatar-size) * 1.25) calc(var(--avatar-size) * 1.05)
-      at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
-    rgb(96 150 255 / 0.26) 0%,
-    rgb(96 150 255 / 0.251) 11.1%,
-    rgb(96 150 255 / 0.224) 22.2%,
-    rgb(96 150 255 / 0.185) 33.3%,
-    rgb(96 150 255 / 0.142) 44.4%,
-    rgb(96 150 255 / 0.099) 55.6%,
-    rgb(96 150 255 / 0.062) 66.7%,
-    rgb(96 150 255 / 0.033) 77.8%,
-    rgb(96 150 255 / 0.013) 88.9%,
-    rgb(96 150 255 / 0) 100%
-  );
-  -webkit-mask-image: var(--top-fade);
-  mask-image: var(--top-fade);
 }
 
 /* ---------- Profile ---------- */
@@ -270,16 +239,33 @@ body {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--tile);
-  /* Lichtkranz in Markenblau: eine feine Kante, ein enger Schein direkt am
-     Kreis, ein weicherer dahinter und ein Schatten nach unten. Schatten sind
-     gaußförmig weich und folgen exakt dem Kreis. */
+  /* Ring wie ein Passepartout aus hellem Metall: 4 px breit, mit einem
+     ruhigen Silberverlauf (Licht oben links, Schatten unten rechts), außen
+     eine Haarlinie und gestaffelte, weiche Schatten statt Schein */
+  border: 4px solid transparent;
+  background:
+    linear-gradient(var(--tile), var(--tile)) padding-box,
+    linear-gradient(150deg, #ffffff 0%, #eef0f4 30%, #ffffff 48%, #dfe3ea 72%, #f6f7f9 100%) border-box;
   box-shadow:
-    0 0 0 1px rgb(16 24 40 / 0.07),
-    0 0 14px 1px rgb(37 99 255 / 0.3),
-    0 0 38px 6px rgb(37 99 255 / 0.16),
-    0 22px 40px -16px rgb(16 36 84 / 0.3);
-  background: var(--tile);
+    0 0 0 1px rgb(16 24 40 / 0.09),
+    0 1px 2px rgb(16 24 40 / 0.06),
+    0 8px 18px -6px rgb(16 24 40 / 0.16),
+    0 26px 44px -22px rgb(16 36 84 / 0.28);
+}
+/* Feine Innenkante zwischen Foto und Ring — liegt über dem Bild, deshalb
+   als eigene Ebene auf dem Button */
+.avatar-button {
+  position: relative;
+}
+.avatar-button::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 1px rgb(16 24 40 / 0.14),
+    inset 0 2px 6px rgb(16 24 40 / 0.12);
+  pointer-events: none;
 }
 .avatar-button:focus-visible {
   outline: 3px solid var(--focus-ring);
@@ -346,6 +332,15 @@ body {
 /* Leistungszeile eine Stufe leiser als die Rollenzeile darüber. Die
    kleinere Stufe hält sie außerdem auf einer Zeile — bei voller Größe
    bricht sie auf dem Telefon um. */
+/* Blitz in Hochglanz-Gold wie „sprechen.“ in den Kundenstimmen; als SVG,
+   weil ein Emoji sich nicht einfärben lässt */
+.bolt {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  vertical-align: -0.12em;
+  filter: drop-shadow(0 0.5px 0.5px rgb(152 104 26 / 0.35));
+}
 .bio__services {
   /* Eigene Zeile unter der Rolle. balance nur als Sicherung: Bricht der Satz
      doch einmal um, dann in zwei gleich lange Zeilen statt mit einem Wort
@@ -364,6 +359,12 @@ body {
   }
   .bio__services {
     font-size: 0.93em;
+  }
+}
+/* Auf den allerschmalsten Handys braucht der Satz noch eine halbe Stufe weniger */
+@media (max-width: 339px) {
+  .bio__services {
+    font-size: 0.88em;
   }
 }
 
@@ -858,7 +859,8 @@ body {
 .btn-secondary {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* safe: reicht der Platz nicht, läuft nichts nach links über das Zeichen */
+  justify-content: safe center;
   gap: 10px;
   width: 100%;
   height: 58px;
@@ -877,14 +879,32 @@ body {
   text-decoration: none;
   transition: box-shadow 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+/* Mit Zeichen links: Beschriftung rückt um dessen Breite nach rechts, gleich
+   wie beim Termin-Button, damit die Texte fluchten */
+.btn-secondary.has-badge {
+  padding-left: calc(var(--badge-inset) * 2 + var(--badge));
+}
+.btn-secondary {
+  /* Platz neben der Beschriftung: Innenabstände, Pfeil und Lücke */
+  --sec-reserve: calc(var(--badge-inset, 13px) * 2 + var(--badge, 0px) + 22px + 18px + 10px);
+}
+/* Wie beim Termin-Button: einzeilig und nie breiter als der Platz. Die
+   Schrift passt sich der Breite der Pille an (cqi), höchstens bis zur
+   eingestellten Stufe. Sonst lief der Text bei knapper Breite und etwas
+   breiterer Schrift (Safari) nach links über das VDS-Zeichen.
+   12,9 = gemessene 12,25 für „Unsere Website besuchen“ plus 5 % Luft. */
 .btn-secondary__label {
   white-space: nowrap;
+  font-size: min(1em, calc((100cqi - var(--sec-reserve)) / 12.9));
 }
 /* Unter 360 px fällt der Pfeil weg wie beim Termin-Button, damit die
    Beschriftung einzeilig bleibt */
 @media (max-width: 359px) {
   .btn-secondary__icon { display: none; }
-  .btn-secondary { padding-right: 16px; }
+  .btn-secondary {
+    padding-right: 16px;
+    --sec-reserve: calc(var(--badge-inset, 13px) * 2 + var(--badge, 0px) + 16px);
+  }
 }
 /* Schriftgröße in denselben Stufen wie der Termin-Button, damit beide
    Beschriftungen gleich lang wirken */
