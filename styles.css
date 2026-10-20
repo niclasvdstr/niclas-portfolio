@@ -75,27 +75,9 @@
   --gap: 12px;
   --max-w: 480px;
 
-  /* Hintergrund im Stil der VDSolutions-Landingpage: feines Raster mit
-     blauem Lichtschein hinter dem Kopfbereich */
-  --bg-grid-line: rgb(16 36 84 / 0.055);
-  --bg-grid-size: 32px;
-  --bg-glow-core: rgb(88 163 255 / 0.4);
-  --bg-glow-mid: rgb(88 163 255 / 0.14);
-  --bg-glow-edge: rgb(88 163 255 / 0);
-  /* Profilbild: Größe und Abstand nach oben. Der blaue Schein rechnet mit
-     beiden, damit er genau hinter dem Bild sitzt. */
+  /* Profilbild: Größe und Abstand nach oben */
   --avatar-size: clamp(168px, 46vw, 204px);
   --profile-top: max(84px, calc(env(safe-area-inset-top) + 76px));
-}
-@media (min-width: 768px) {
-  :root {
-    --bg-grid-size: 40px;
-  }
-}
-@media (min-width: 1024px) {
-  :root {
-    --bg-grid-size: 48px;
-  }
 }
 
 * {
@@ -161,13 +143,26 @@ body {
   }
 }
 
-/* ---------- Hintergrund: Raster und Lichtschein ----------
-   Zwei eigene Ebenen hinter allem, nur auf der Startseite. Sie decken den
-   ersten Bildschirm ab und scrollen mit der Seite: Der Schein soll hinter
-   dem Foto liegen, nicht am Fenster kleben. z-index -1 und pointer-events
-   none, damit weder Inhalt noch Klicks etwas davon merken. */
-.home::before,
-.home::after {
+/* ---------- Startseite in Anthrazit ----------
+   Die ganze Startseite steht schlicht im Anthrazit der Kundenstimmen
+   (#141414), nur hinter dem Profilbild liegt ein feines Raster. Umgestellt werden nur Schalter und
+   Spalte; der Über-mich-Dialog liegt außerhalb und bleibt hell, Impressum
+   und Datenschutz tragen die Klasse nicht und bleiben es ebenso. */
+html:has(body.home) {
+  /* Die Farbe gehört an html, nicht an body: Ein Hintergrund auf body läge
+     über dem Raster (z-index -1) und verdeckte es. Auch beim Überziehen
+     über den Rand hinaus kein weißer Streifen. */
+  background: #141414;
+  color-scheme: dark;
+}
+body.home {
+  background: transparent;
+}
+/* Raster hinter dem Profilbild: 1-px-Linien in schwachem Weiß, die von der
+   Bildmitte aus in alle Richtungen weich ausblenden. Eigene Ebene hinter
+   allem; sie scrollt mit und nimmt keine Klicks an. */
+.home::before {
+  --grid-size: 32px;
   content: "";
   position: absolute;
   top: 0;
@@ -176,29 +171,53 @@ body {
   height: max(100svh, 640px);
   z-index: -1;
   pointer-events: none;
-}
-/* Raster: 1-px-Linien senkrecht und waagerecht. Es liegt nur um die Person
-   herum und blendet in alle Richtungen aus — Mitte dort, wo auch der Schein
-   sitzt, Breite höchstens 560 px, damit es am Desktop nicht die Fläche füllt.
-   Über der Person ist es nicht zu sehen: Das Foto läuft deckend ins Weiß aus. */
-.home::before {
   background-image:
-    linear-gradient(90deg, var(--bg-grid-line) 1px, transparent 1px),
-    linear-gradient(180deg, var(--bg-grid-line) 1px, transparent 1px);
-  background-size: var(--bg-grid-size) var(--bg-grid-size);
+    linear-gradient(90deg, rgb(255 255 255 / 0.09) 1px, transparent 1px),
+    linear-gradient(180deg, rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
   background-position: center top;
-  -webkit-mask-image: radial-gradient(min(560px, 92vw) 46% at 50% 25%, #000 25%, transparent 100%);
-  mask-image: radial-gradient(min(560px, 92vw) 46% at 50% 25%, #000 25%, transparent 100%);
-}
-/* Blauer Schein mittig hinter dem Profilbild, nicht hinter dem Text */
-.home::after {
-  background: radial-gradient(
-    calc(var(--avatar-size) * 1.45) calc(var(--avatar-size) * 1.2)
+  -webkit-mask-image: radial-gradient(
+    calc(var(--avatar-size) * 1.7) calc(var(--avatar-size) * 1.25)
       at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
-    var(--bg-glow-core) 0%,
-    var(--bg-glow-mid) 55%,
-    var(--bg-glow-edge) 100%
-  );
+    #000 30%, transparent 100%);
+  mask-image: radial-gradient(
+    calc(var(--avatar-size) * 1.7) calc(var(--avatar-size) * 1.25)
+      at 50% calc(var(--profile-top) + var(--avatar-size) / 2),
+    #000 30%, transparent 100%);
+}
+@media (min-width: 768px) {
+  .home::before {
+    --grid-size: 40px;
+  }
+}
+.home .lang,
+.home .card {
+  --text: #ffffff;
+  --text-muted: rgb(255 255 255 / 0.66);
+  --label: rgb(255 255 255 / 0.46);
+  --border: rgb(255 255 255 / 0.1);
+  --border-hover: rgb(255 255 255 / 0.18);
+  --focus-ring: #5b98ff;
+}
+.home .lang {
+  background: rgb(255 255 255 / 0.07);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+}
+/* Ring um das Profilbild: dunkel mit feiner heller Kante statt hellgrau */
+.home .avatar {
+  border-color: #1d1d1d;
+  background: #1d1d1d;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.14),
+    0 14px 34px rgb(0 0 0 / 0.45);
+}
+/* Die VDSolutions-Pille ist selbst fast schwarz — eine feine helle Kontur
+   hält sie auf dem Anthrazit als eigene Fläche */
+.home .cta--dark {
+  --cta-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.14),
+    0 16px 32px -16px rgb(0 0 0 / 0.6),
+    inset 0 1px 0 rgb(255 255 255 / 0.16);
 }
 
 /* ---------- Sprachschalter ----------
@@ -296,8 +315,7 @@ body {
   margin-top: clamp(28px, 7.6vw, 34px);
 }
 .voices {
-  /* Etwas Weiß unter den Buttons, bevor der Übergang ins Dunkle beginnt */
-  margin-top: clamp(16px, 5vw, 32px);
+  margin-top: clamp(52px, 13vw, 72px);
 }
 .closing-cta {
   /* Im dunklen Blatt unter den Pfeilen, genau so breit wie die Buttons oben
@@ -461,6 +479,19 @@ body {
   width: 18px;
   height: 18px;
 }
+/* Auf dem Anthrazit: dieselben Knöpfe in Dunkel, mit heller Haarlinie und
+   feiner Glanzkante; LinkedIn-Blau aufgehellt, sonst säuft es ab */
+.home .socials .social-btn {
+  background: linear-gradient(180deg, #262626 0%, #1a1a1a 100%);
+  box-shadow:
+    0 0 0 0.5px rgb(255 255 255 / 0.16),
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 1px 2px rgb(0 0 0 / 0.3),
+    0 8px 18px -6px rgb(0 0 0 / 0.6);
+}
+.home .social-btn--linkedin {
+  color: #5a9ef0;
+}
 @media (hover: hover) and (pointer: fine) {
   .avatar-wrap .socials .social-btn:hover {
     transform: translateY(-2px);
@@ -471,6 +502,13 @@ body {
       0 2px 4px rgb(16 24 40 / 0.08),
       0 10px 20px -6px rgb(16 24 40 / 0.22),
       0 18px 34px -14px rgb(16 24 40 / 0.22);
+  }  .home .avatar-wrap .socials .social-btn:hover {
+    background: linear-gradient(180deg, #2c2c2c 0%, #1e1e1e 100%);
+    box-shadow:
+      0 0 0 0.5px rgb(255 255 255 / 0.24),
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      0 2px 4px rgb(0 0 0 / 0.35),
+      0 12px 22px -8px rgb(0 0 0 / 0.7);
   }
 }
 
@@ -1422,47 +1460,14 @@ body:has(.about-dialog[open]) {
   --v-dim: 0.4;
   --v-shrink: 0.92;
   --v-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
-  /* Randlos über die volle Breite */
+  /* Randlos über die volle Breite wie das weiße Blatt darüber */
   --v-sheet-w: 100vw;
-  /* Höhe der weichen Übergänge Weiß ↔ Anthrazit oben und unten */
-  --v-fade: clamp(220px, 56vw, 380px);
 
   width: var(--v-sheet-w);
   /* Mittig zur Spalte, aber breiter als sie */
   margin-inline: calc(50% - var(--v-sheet-w) / 2);
-  /* Der Inhalt beginnt erst, wenn der Übergang praktisch voll dunkel ist
-     (ab 90 % seiner Höhe) */
-  padding: calc(var(--v-fade) * 0.9 + var(--v-pad-top)) 0 calc(var(--v-pad-bottom) + var(--v-fade) * 0.9);
-  /* Oben aus dem Weiß ins Anthrazit, unten wieder zurück: lang und mit
-     weicher S-Kurve (smoothstep), die an beiden Enden sanft ausläuft —
-     ohne sichtbare Kante am hellen wie am dunklen Ende */
-  background: linear-gradient(180deg,
-    rgb(20 20 20 / 0) 0,
-    rgb(20 20 20 / 0.02) calc(var(--v-fade) * 0.083),
-    rgb(20 20 20 / 0.074) calc(var(--v-fade) * 0.167),
-    rgb(20 20 20 / 0.156) calc(var(--v-fade) * 0.250),
-    rgb(20 20 20 / 0.259) calc(var(--v-fade) * 0.333),
-    rgb(20 20 20 / 0.376) calc(var(--v-fade) * 0.417),
-    rgb(20 20 20 / 0.5) calc(var(--v-fade) * 0.500),
-    rgb(20 20 20 / 0.624) calc(var(--v-fade) * 0.583),
-    rgb(20 20 20 / 0.741) calc(var(--v-fade) * 0.667),
-    rgb(20 20 20 / 0.844) calc(var(--v-fade) * 0.750),
-    rgb(20 20 20 / 0.926) calc(var(--v-fade) * 0.833),
-    rgb(20 20 20 / 0.98) calc(var(--v-fade) * 0.917),
-    rgb(20 20 20) var(--v-fade),
-    rgb(20 20 20) calc(100% - var(--v-fade)),
-    rgb(20 20 20 / 0.98) calc(100% - var(--v-fade) * 0.917),
-    rgb(20 20 20 / 0.926) calc(100% - var(--v-fade) * 0.833),
-    rgb(20 20 20 / 0.844) calc(100% - var(--v-fade) * 0.750),
-    rgb(20 20 20 / 0.741) calc(100% - var(--v-fade) * 0.667),
-    rgb(20 20 20 / 0.624) calc(100% - var(--v-fade) * 0.583),
-    rgb(20 20 20 / 0.5) calc(100% - var(--v-fade) * 0.500),
-    rgb(20 20 20 / 0.376) calc(100% - var(--v-fade) * 0.417),
-    rgb(20 20 20 / 0.259) calc(100% - var(--v-fade) * 0.333),
-    rgb(20 20 20 / 0.156) calc(100% - var(--v-fade) * 0.250),
-    rgb(20 20 20 / 0.074) calc(100% - var(--v-fade) * 0.167),
-    rgb(20 20 20 / 0.02) calc(100% - var(--v-fade) * 0.083),
-    rgb(20 20 20 / 0) 100%);
+  padding: var(--v-pad-top) 0 var(--v-pad-bottom);
+  background: var(--v-ink);
   color: var(--v-white);
   font-family: var(--v-font);
   overflow: clip;
@@ -1830,8 +1835,7 @@ body:has(.about-dialog[open]) {
      Seite ohnehin schon die volle Höhe füllt. Derselbe Abstand wie über den
      Kundenstimmen, damit das dunkle Blatt oben und unten gleich viel Luft hat. */
   margin-top: auto;
-  /* Der Übergang aus dem Dunkel bringt schon Luft mit */
-  padding-top: clamp(8px, 2vw, 16px);
+  padding-top: clamp(52px, 13vw, 72px);
   text-align: center;
   color: var(--text-muted);
   font-size: 0.82rem;
