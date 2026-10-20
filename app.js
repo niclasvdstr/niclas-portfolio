@@ -105,14 +105,18 @@ const ARROW =
 // Rundes Markenzeichen links im Button; rein schmückend, der Button trägt
 // seinen Namen schon als Text bzw. Bildtext
 function addBadge(el, src) {
+  // Hülle um das Bild, damit Glanz und Innenkante darüber liegen können
+  const wrap = document.createElement("span");
+  wrap.className = "btn-badge";
+  wrap.setAttribute("aria-hidden", "true");
   const img = document.createElement("img");
-  img.className = "btn-badge";
   img.src = src;
   img.alt = "";
   img.width = 168;
   img.height = 168;
+  wrap.append(img);
   el.classList.add("has-badge");
-  el.prepend(img);
+  el.prepend(wrap);
 }
 
 function createButton({ title, subtitle, url, variant, icon, image, logo, type, soon, badge }) {
