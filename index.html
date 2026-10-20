@@ -57,21 +57,15 @@
 <body class="home">
   <a class="skip-link" href="#main" data-i18n="skip">Zum Inhalt springen</a>
 
-  <header class="site-header">
-    <div class="site-header__inner">
-      <img class="site-header__logo" src="assets/header-logo.webp" alt="VDSolutions"
-           width="612" height="84" />
-      <!-- Ein Schalter, kein Link: Die Sprache wechselt an Ort und Stelle. Gemerkt
-           wird sie nur in der Adresse (?lang=en), nicht auf dem Gerät — so bleibt
-           es dabei, dass die Seite nichts speichert. -->
-      <div class="lang">
-        <span class="lang__label" data-lang-label="de">DE</span>
-        <button type="button" id="lang-switch" class="lang__switch" role="switch"
-                aria-checked="false" aria-label="English"></button>
-        <span class="lang__label" data-lang-label="en">EN</span>
-      </div>
-    </div>
-  </header>
+  <!-- Ein Schalter, kein Link: Die Sprache wechselt an Ort und Stelle. Gemerkt
+       wird sie nur in der Adresse (?lang=en), nicht auf dem Gerät — so bleibt
+       es dabei, dass die Seite nichts speichert. -->
+  <div class="lang">
+    <span class="lang__label" data-lang-label="de">DE</span>
+    <button type="button" id="lang-switch" class="lang__switch" role="switch"
+            aria-checked="false" aria-label="English"></button>
+    <span class="lang__label" data-lang-label="en">EN</span>
+  </div>
 
   <main id="main" class="card">
     <header class="profile">
@@ -84,7 +78,7 @@
              onerror="this.hidden = true" />
       </button>
       <h1 class="name">Niclas van&nbsp;der&nbsp;Straeten</h1>
-      <p class="bio"><span data-i18n="founder">Gr&uuml;nder</span> <strong>@VDSolutions</strong> | <span data-i18n="role">KI-Beratung</span><span class="bio__services" data-i18n="services">Wir schaffen mit KI messbaren Wert im Unternehmen</span></p>
+      <p class="bio"><span data-i18n="founder">Gr&uuml;nder</span> <strong>@VDSolutions</strong> | <span data-i18n="role">KI-Beratung</span><span class="bio__services" data-i18n="services">Ich schaffe mit KI messbaren Wert in Ihrem Unternehmen</span></p>
 
       <nav class="socials" aria-label="Social Media">
         <ul id="socials-list" class="socials-list"></ul>

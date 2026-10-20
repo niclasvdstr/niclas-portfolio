@@ -20,7 +20,7 @@ const CONFIG = {
    ========================================================= */
 const mainLinks = [
   {
-    title: { de: "Kostenloses Erstgespräch buchen", en: "Book a free intro call" },
+    title: { de: "Kostenloses Erstgespräch", en: "Free intro call" },
     url: CONFIG.calendlyUrl,
     type: "calendly",
     // Pille statt Kachel: eine Zeile, Pfeil rechts, kein Logo
@@ -72,7 +72,7 @@ const TEXT = {
     founder: "Gründer",
     about: "Über mich",
     role: "KI-Beratung",
-    services: "Wir schaffen mit KI messbaren Wert im Unternehmen",
+    services: "Ich schaffe mit KI messbaren Wert in Ihrem Unternehmen",
     imprint: "Impressum",
     privacy: "Datenschutz",
     aboutTitle: "Vom Fitnessstudio zur KI-Beratung",
@@ -102,7 +102,7 @@ const TEXT = {
     founder: "Founder",
     about: "About me",
     role: "AI Consulting",
-    services: "We create measurable value with AI in your business",
+    services: "I create measurable value with AI in your business",
     // Die Rechtstexte selbst bleiben deutsch — das sagt der Hinweis gleich mit
     imprint: "Legal notice (DE)",
     privacy: "Privacy (DE)",

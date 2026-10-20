@@ -7,8 +7,8 @@
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  /* Oberer Abstand kam früher vom body; den hat die Startseite für ihren
-     randlosen Header abgegeben */
+  /* Oberer Abstand kam früher vom body; den hat die Startseite für ihr
+     randloses Foto abgegeben */
   padding: max(clamp(20px, 5vh, 52px), env(safe-area-inset-top)) 0 48px;
 }
 
