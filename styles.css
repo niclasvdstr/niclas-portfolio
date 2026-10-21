@@ -339,32 +339,36 @@ body {
 @media (min-width: 400px) {
   .bio__role { font-size: 12px; }
 }
-/* Die Botschaft: deutlich größer und dunkler als die Rolle, immer eine
-   Zeile — die Schrift richtet sich nach der Spaltenbreite, höchstens 17 px.
-   20,9 = gemessene Breite des Satzes samt Blitz in em, plus 3 % Luft. */
+/* Die Botschaft im Stil der Untertitel der VDSolutions-Seite: normales
+   Gewicht, gedämpftes Anthrazit (6,4 : 1 auf Weiß), ein Begriff kursiv und
+   kräftig. Immer eine Zeile — die Schrift richtet sich nach der
+   Spaltenbreite, höchstens 15 px (Handy) bzw. 17 px (ab Tablet).
+   --claim-em = gemessene Breite des Satzes samt Blitz in em, plus 3 % Luft. */
 .bio__claim {
+  --claim-em: 21.6;
+  --claim-max: 15px;
   display: block;
   margin-top: 8px;
-  font-size: min(17px, calc(min(100vw - 64px, var(--max-w)) / 20.9));
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -0.01em;
+  font-size: min(var(--claim-max), calc(min(100vw - 64px, var(--max-w)) / var(--claim-em)));
+  font-weight: 400;
+  line-height: 1.5;
   white-space: nowrap;
-  color: #344054;
+  color: #5c5f66;
 }
 @media (max-width: 360px) {
   .bio__claim {
-    font-size: min(17px, calc((100vw - 56px) / 20.9));
+    --claim-max: 14px;
+    font-size: min(var(--claim-max), calc((100vw - 56px) / var(--claim-em)));
   }
 }
-/* Blitz in Hochglanz-Gold wie „sprechen.“ in den Kundenstimmen; als SVG,
-   weil ein Emoji sich nicht einfärben lässt */
-.bolt {
-  display: inline-block;
-  width: 0.95em;
-  height: 0.95em;
-  vertical-align: -0.12em;
-  filter: drop-shadow(0 0.5px 0.5px rgb(152 104 26 / 0.35));
+@media (min-width: 768px) {
+  .bio__claim { --claim-max: 17px; }
+}
+/* Hervorhebung: kursiv und kräftig in derselben Farbe — wirkt dunkler,
+   ohne laut zu sein */
+.bio__emphasis {
+  font-style: italic;
+  font-weight: 650;
 }
 
 /* ---------- Social icons ----------
