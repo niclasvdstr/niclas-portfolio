@@ -49,8 +49,8 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 
 ## Eigene Inhalte
 
-- `assets/niclas-avatar.webp` — rundes Profilbild, aus dem Bühnenfoto
-  geschnitten. Die Rechte liegen vor, eine Urhebernennung ist nicht
+- `assets/niclas-avatar.webp` — rundes Profilbild (Bühnenfoto, quadratischer
+  Zuschnitt). Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
 - `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
   Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als

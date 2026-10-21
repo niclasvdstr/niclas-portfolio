@@ -295,7 +295,7 @@ body {
 .name {
   margin: 0;
   font-size: clamp(1.75rem, 7.6vw, 2.375rem);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.08;
   color: var(--text);
@@ -304,7 +304,7 @@ body {
    „sprechen.“ in den Kundenstimmen. */
 .name__accent {
   font-style: italic;
-  font-weight: 620;
+  font-weight: 700;
   color: #0050f6;
   /* Platz für den Überhang der Kursiven, ohne den Satz zu verschieben */
   padding-inline: 0.03em 0.09em;
