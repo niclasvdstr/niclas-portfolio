@@ -71,7 +71,7 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
   Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen
 - `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
   dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Grün
-  und das eigene Speed2Lead-Bildzeichen. Beide vom Inhaber geliefert
+  und das eigene Speed2Lead-Bildzeichen (beide grün). Beide vom Inhaber geliefert
   (`assets/Speed2Lead/`), zugeschnitten mit
   `assets/_originals/speed2lead-icons_render.js`.
 - `assets/logos-header/vdsolutions.webp`, `assets/logos-header/speed2lead.webp` —

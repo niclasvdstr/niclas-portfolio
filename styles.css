@@ -2565,3 +2565,41 @@ body:has(.about-dialog[open]) {
   --v-play-shadow: rgb(0 60 35 / 0.5);
   --v-glow: rgb(18 160 106 / 0.12);
 }
+
+/* Lichtreflex auf dem Termin-Button: alle 4 s gleitet ein weicher
+   Glanzstreifen einmal schräg darüber, wie Licht auf Glas. Gleicher Takt
+   wie der Hüpfer, aber früher im Zyklus (15–40 % statt 68–92 %), damit
+   beides nie gleichzeitig passiert. Läuft auch, solange der Button noch
+   keinen Link hat. Bei weniger Bewegung entfällt er. */
+.cta {
+  position: relative;
+}
+.cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: linear-gradient(105deg,
+    rgb(255 255 255 / 0) 38%,
+    rgb(255 255 255 / 0.26) 50%,
+    rgb(255 255 255 / 0) 62%) no-repeat;
+  background-size: 260% 100%;
+  background-position: 160% 0;
+  pointer-events: none;
+  animation: ctaShine 4s cubic-bezier(0.45, 0, 0.25, 1) 2.6s infinite;
+}
+@keyframes ctaShine {
+  0%, 15% {
+    background-position: 160% 0;
+  }
+  40%, 100% {
+    background-position: -60% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta::after {
+    animation: none;
+    background: none;
+  }
+}

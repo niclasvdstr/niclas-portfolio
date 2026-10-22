@@ -85,10 +85,11 @@ const socialLinks = [
    Die Vorschaubilder unten sind KI-generierte Platzhalter: Solange video
    leer ist, bleibt das Schild „Platzhalter“ darauf stehen.
    ========================================================= */
+// posterS2l: eigenes Vorschaubild in der Speed2Lead-Ansicht (sonst wie poster)
 const VOICES = [
   { poster: "assets/voices/platzhalter-1.webp", video: "", name: "", company: "" },
-  { poster: "assets/voices/platzhalter-3.webp", video: "", name: "", company: "" },
-  { poster: "assets/voices/platzhalter-2.webp", video: "", name: "", company: "" },
+  { poster: "assets/voices/platzhalter-3.webp", posterS2l: "assets/voices/platzhalter-2.webp", video: "", name: "", company: "" },
+  { poster: "assets/voices/platzhalter-2.webp", posterS2l: "assets/voices/platzhalter-3.webp", video: "", name: "", company: "" },
 ];
 
 /* =========================================================
@@ -361,6 +362,11 @@ function applyBrand(id, { animate = true } = {}) {
 
   root.dataset.brand = id;
   setBrandLinks(id);
+  // Vorschaubilder der Kundenstimmen je Marke
+  document.querySelectorAll(".voice__poster").forEach((img) => {
+    const src = img.getAttribute(`data-poster-${id}`);
+    if (src && img.getAttribute("src") !== src) img.src = src;
+  });
   document.querySelectorAll("[data-brand-target]").forEach((b) => {
     b.setAttribute("aria-pressed", String(b.dataset.brandTarget === id));
   });
@@ -435,7 +441,7 @@ function buildVoices() {
     slide.innerHTML = `
       <div class="voice__inner">
         <div class="voice__media">
-          ${v.poster ? `<img class="voice__poster" src="${v.poster}" alt="" loading="lazy" />` : ""}
+          ${v.poster ? `<img class="voice__poster" src="${v.poster}" data-poster-vdsolutions="${v.poster}" data-poster-speed2lead="${v.posterS2l || v.poster}" alt="" loading="lazy" />` : ""}
           ${v.video ? "" : '<span class="voice__badge"></span>'}
           <button type="button" class="voice__play">${PLAY_ICON}</button>
           <div class="voice__caption"><p class="voice__title"></p><p class="voice__sub"></p></div>
