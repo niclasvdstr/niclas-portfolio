@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-brand="vdsolutions">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,6 +31,13 @@
   <meta name="twitter:image" content="https://niclasvanderstraeten.com/assets/og-image.jpg" />
 
   <link rel="preload" href="assets/fonts/instrument-sans-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <!-- Marke vor dem ersten Zeichnen festlegen: Mit ?brand=speed2lead blitzt
+       sonst kurz VDSolutions auf. Ohne Parameter bleibt es VDSolutions. -->
+  <script>
+    if (new URLSearchParams(location.search).get("brand") === "speed2lead") {
+      document.documentElement.dataset.brand = "speed2lead";
+    }
+  </script>
   <link rel="stylesheet" href="styles.css" />
 
   <script type="application/ld+json">
@@ -55,33 +62,67 @@
 <body class="home">
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
+  <!-- Weißer Header: links das Logo der aktiven Marke (beim Wechsel
+       überblendet), rechts die Social-Icons nebeneinander -->
+  <header class="site-header">
+    <div class="site-header__logo">
+      <img src="assets/logos-header/vdsolutions.webp" alt="VDSolutions" width="688" height="96"
+           data-brand-only="vdsolutions" />
+      <img src="assets/logos-header/speed2lead.webp" alt="Speed2Lead" width="612" height="96"
+           data-brand-only="speed2lead" />
+    </div>
+    <nav class="socials" aria-label="Social Media">
+      <ul id="socials-list" class="socials-list"></ul>
+    </nav>
+  </header>
+
   <main id="main" class="card">
     <header class="profile">
-      <!-- Die Social-Icons sitzen als kleine Kreise unten rechts auf dem Ring
-           des Profilbilds -->
-      <div class="avatar-wrap">
-        <button type="button" id="about-open" class="avatar-button" aria-haspopup="dialog"
+      <!-- Bühnenfoto randlos über die volle Breite, direkt unter dem Header -->
+      <div class="hero">
+        <button type="button" id="about-open" class="hero__button" aria-haspopup="dialog"
                 aria-label="Über mich">
-          <img class="avatar" src="assets/niclas-avatar.webp" alt="Profilbild von Niclas van der Straeten"
-               width="720" height="720" fetchpriority="high"
+          <img class="hero__img"
+               srcset="assets/niclas-hero-800.webp 800w, assets/niclas-hero-1200.webp 1200w"
+               sizes="(min-width: 600px) 540px, 100vw" src="assets/niclas-hero-800.webp"
+               alt="Niclas van der Straeten auf der Bühne"
+               width="1200" height="1200" fetchpriority="high"
                onerror="this.hidden = true" />
         </button>
-        <nav class="socials" aria-label="Social Media">
-          <ul id="socials-list" class="socials-list"></ul>
-        </nav>
       </div>
-      <h1 class="name">Niclas <span class="name__accent">van&nbsp;der&nbsp;Straeten</span></h1>
-      <p class="bio"><span class="bio__role">Gr&uuml;nder von VDSolutions</span><span class="bio__claim"><span>Ich mache KI zu Ihrem <em class="bio__emphasis">Wettbewerbsvorteil</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span></p>
+      <!-- Markenwechsel: Inhalte beider Marken stehen im HTML. data-brand-only
+           blendet die jeweils andere aus; .swap-flow gleitet in der Höhe
+           (app.js). Foto und Name gehören beiden Marken — das Logo der
+           Marke steht im Header, der Akzent im Namen wechselt die Farbe. -->
+      <div class="hero-title">
+        <h1 class="name">Niclas <span class="name__accent">van&nbsp;der&nbsp;Straeten</span></h1>
+      </div>
+      <p class="bio"><span class="bio__claim swap-flow"><span class="bio__claim-text" data-brand-only="vdsolutions"><span>Ich mache KI zu Ihrem <em class="bio__emphasis">Wettbewerbsvorteil</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span><span class="bio__claim-text" data-brand-only="speed2lead"><span>Ich wandle Ihre Leads in <em class="bio__emphasis">Kundengespr&auml;che</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span></span></p>
     </header>
 
     <section class="link-section" aria-label="Links">
+      <!-- Dezenter Markenwechsler über den Buttons. Ein Schalter, kein Link:
+           Die Seite wird nicht neu geladen, nur die Adresse merkt sich die
+           Marke (?brand=speed2lead), damit Zurück und Teilen funktionieren. -->
+      <div class="brand-switch-row">
+        <button type="button" class="brand-switch" id="brand-switch">
+          <span class="brand-switch__label" data-brand-only="vdsolutions"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.5 7.5h10.5m-3-3 3 3-3 3M15.5 12.5H5m3 3-3-3 3-3"/></svg>Zu Speed2Lead</span>
+          <span class="brand-switch__label" data-brand-only="speed2lead"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M15.5 10h-11m4.5-4.5L4.5 10 9 14.5"/></svg>Zu VDSolutions</span>
+        </button>
+      </div>
       <ul id="main-links" class="links-list"></ul>
+      <p class="visually-hidden" id="brand-status" aria-live="polite"></p>
     </section>
 
     <!-- Kundenstimmen: dunkles Blatt im Stil der VDSolutions-Landingpage. Die
          Videos baut app.js aus der Liste VOICES; solange es keine echten gibt,
          stehen dort ausgewiesene Platzhalter. -->
     <section class="voices" aria-labelledby="voices-title">
+      <!-- Kopf des Blatts je Marke: Laufband mit den eigenen Referenzen und
+           einer Haarlinie darunter. Die Logos gehören jeweils nur zu ihrer
+           Marke; beim Wechsel blenden sie über (.swap-flow, app.js). -->
+      <div class="sheet-swap swap-flow">
+      <div class="sheet-vds" data-brand-only="vdsolutions">
       <!-- Kundenlogos als Laufband oben im dunklen Blatt, ohne Überschrift.
            Ohne JavaScript: zwei identische Gruppen nebeneinander, die Spur
            wandert um genau eine Gruppenbreite (-50 %) und springt unsichtbar
@@ -152,8 +193,69 @@
 
       <div class="voices__head">
         <div class="voices__eyebrow" aria-hidden="true"><span class="voices__rule"></span></div>
+      </div>
+      </div>
+      <!-- Referenzen von Speed2Lead: dasselbe Laufband, dunkel auf dem
+           weißen Blatt (assets/_originals/referenzen-s2l_render.js), darunter
+           eine orange statt goldene Haarlinie -->
+      <div class="sheet-s2l" data-brand-only="speed2lead">
+      <div class="logos">
+        <div class="marquee">
+          <div class="track track--s2l">
+            <ul class="group" aria-label="Referenzen">
+              <li><img src="assets/logos-s2l/hochbauer-immobilien.webp" alt="Hochbauer Immobilien" width="429" height="86" style="--logo-scale:0.90" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/kreativ-webdesign.webp" alt="Kreativ. Webdesign" width="321" height="115" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/lukas-wegerer.webp" alt="Lukas Wegerer Personal Coach" width="411" height="90" style="--logo-scale:0.94" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/sabine-neumann.webp" alt="Sabine Neumann Immobilienmaklerin" width="179" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/kluger-werbeagentur.webp" alt="Kluger Werbeagentur" width="280" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/paul-kempf-partner.webp" alt="Paul Kempf &amp; Partner" width="144" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li><img src="assets/logos-s2l/maik-scholz.webp" alt="Maik Scholz Immobilienmakler" width="312" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/hochbauer-immobilien.webp" alt="Hochbauer Immobilien" width="429" height="86" style="--logo-scale:0.90" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kreativ-webdesign.webp" alt="Kreativ. Webdesign" width="321" height="115" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/lukas-wegerer.webp" alt="Lukas Wegerer Personal Coach" width="411" height="90" style="--logo-scale:0.94" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/sabine-neumann.webp" alt="Sabine Neumann Immobilienmaklerin" width="179" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kluger-werbeagentur.webp" alt="Kluger Werbeagentur" width="280" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/paul-kempf-partner.webp" alt="Paul Kempf &amp; Partner" width="144" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/maik-scholz.webp" alt="Maik Scholz Immobilienmakler" width="312" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+            </ul>
+            <ul class="group" aria-hidden="true">
+              <li aria-hidden="true"><img src="assets/logos-s2l/hochbauer-immobilien.webp" alt="Hochbauer Immobilien" width="429" height="86" style="--logo-scale:0.90" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kreativ-webdesign.webp" alt="Kreativ. Webdesign" width="321" height="115" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/lukas-wegerer.webp" alt="Lukas Wegerer Personal Coach" width="411" height="90" style="--logo-scale:0.94" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/sabine-neumann.webp" alt="Sabine Neumann Immobilienmaklerin" width="179" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kluger-werbeagentur.webp" alt="Kluger Werbeagentur" width="280" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/paul-kempf-partner.webp" alt="Paul Kempf &amp; Partner" width="144" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/maik-scholz.webp" alt="Maik Scholz Immobilienmakler" width="312" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/hochbauer-immobilien.webp" alt="Hochbauer Immobilien" width="429" height="86" style="--logo-scale:0.90" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kreativ-webdesign.webp" alt="Kreativ. Webdesign" width="321" height="115" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/lukas-wegerer.webp" alt="Lukas Wegerer Personal Coach" width="411" height="90" style="--logo-scale:0.94" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/sabine-neumann.webp" alt="Sabine Neumann Immobilienmaklerin" width="179" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/kluger-werbeagentur.webp" alt="Kluger Werbeagentur" width="280" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/paul-kempf-partner.webp" alt="Paul Kempf &amp; Partner" width="144" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/mmd-golf.webp" alt="MMD Golf" width="229" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+              <li aria-hidden="true"><img src="assets/logos-s2l/maik-scholz.webp" alt="Maik Scholz Immobilienmakler" width="312" height="116" style="--logo-scale:1.20" loading="lazy" decoding="async" /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="voices__head">
+        <div class="voices__eyebrow" aria-hidden="true"><span class="voices__rule voices__rule--s2l"></span></div>
+      </div>
+      </div>
+      </div>
+
+      <!-- Kundenstimmen für beide Marken: dunkles Blatt bei VDSolutions,
+           weißes bei Speed2Lead; im Text wechselt nur der Markenname -->
+      <div class="sheet-body">
+      <div class="voices__head">
         <h2 id="voices-title" class="voices__title">Erfahrungen, die f&uuml;r sich <em class="voices__gold">sprechen.</em></h2>
-        <p class="voices__lead">Erfahren Sie <em>aus erster Hand</em>, wie<br class="br-mobile" /> unsere Kunden die Zusammenarbeit<br class="br-mobile" /> mit VDSolutions erleben.</p>
+        <div class="voices__lead-swap swap-flow">
+          <p class="voices__lead" data-brand-only="vdsolutions">Erfahren Sie <em>aus erster Hand</em>, wie<br class="br-mobile" /> unsere Kunden die Zusammenarbeit<br class="br-mobile" /> mit VDSolutions erleben.</p>
+          <p class="voices__lead" data-brand-only="speed2lead">Erfahren Sie <em>aus erster Hand</em>, wie<br class="br-mobile" /> unsere Kunden die Zusammenarbeit<br class="br-mobile" /> mit Speed2Lead erleben.</p>
+        </div>
       </div>
 
       <div class="voices__stage" id="voices-stage" role="region" aria-roledescription="Karussell"
@@ -167,6 +269,7 @@
         <div class="voices__dots" id="voices-dots"></div>
         <button type="button" class="voices__arrow" id="voices-next"
                 aria-label="N&auml;chstes Video"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
       </div>
 
       <!-- Zum Schluss noch einmal der Termin-Button: wer bis hier gelesen

@@ -13,32 +13,61 @@ const CONFIG = {
   // Solange leer, steht der Verweis im Über-mich-Dialog da, ist aber nicht klickbar.
   aboutUrl: "",
   noviqUrl: "https://www.vdsolutions.ai",
+
+  // Speed2Lead — HIER EINTRAGEN, sobald vorhanden. Solange leer, stehen die
+  // Speed2Lead-Buttons sichtbar, aber nicht klickbar da. Für die Demo nie den
+  // VDSolutions-Calendly-Link oben einsetzen: Speed2Lead hat einen eigenen Termin.
+  speed2leadCalendlyUrl: "",
+  // Eigenständige Speed2Lead-Landingpage
+  speed2leadUrl: "",
 };
 
 /* =========================================================
-   Link-Daten
+   Marken
+   VDSolutions ist der Standard und erscheint immer ohne Parameter.
+   Speed2Lead zeigt der Wechsler über den Buttons oder ?brand=speed2lead.
+   Texte und Inhalte beider Marken stehen im HTML (data-brand-only), die
+   Farben in styles.css (Abschnitt „Markenwechsel“). Hier steht, was die
+   Buttons brauchen: Beschriftung, Ziel, Zeichen. Ein Button ohne Ziel ist
+   sichtbar, aber nicht klickbar.
    ========================================================= */
-const mainLinks = [
-  {
-    title: "Kostenloses Erstgespräch",
-    url: CONFIG.calendlyUrl,
-    type: "calendly",
-    // Pille statt Kachel: eine Zeile, Pfeil rechts, links das Calendly-Zeichen
-    variant: "cta",
-    badge: "assets/icons-btn/calendly.webp",
+const BRANDS = {
+  vdsolutions: {
+    name: "VDSolutions",
+    pageTitle: "Niclas van der Straeten",
+    themeColor: "#ffffff",
+    // Blaue Pille: der eine Termin-Button, der führt
+    primary: {
+      label: "Kostenloses Erstgespräch",
+      url: CONFIG.calendlyUrl,
+      badge: "assets/icons-btn/calendly.webp",
+    },
+    // Weiße Pille mit feiner Kontur — ruhig neben dem blauen Termin-Button
+    secondary: {
+      label: "Unsere Website besuchen",
+      url: CONFIG.noviqUrl,
+      badge: "assets/icons-btn/vds-icon.webp",
+      // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
+      soon: true,
+    },
   },
-  {
-    title: "Unsere Website besuchen",
-    url: CONFIG.noviqUrl,
-    type: "website",
-    // Heller Zweitbutton: weiße Pille mit feiner Kontur — ruhig neben dem
-    // blauen Termin-Button, der allein führt
-    variant: "secondary",
-    badge: "assets/icons-btn/vds-icon.webp",
-    // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
-    soon: true,
+  speed2lead: {
+    name: "Speed2Lead",
+    pageTitle: "Speed2Lead · Niclas van der Straeten",
+    themeColor: "#141414",
+    primary: {
+      label: "Kostenlose Demo vereinbaren",
+      url: CONFIG.speed2leadCalendlyUrl,
+      badge: "assets/icons-btn/calendly-s2l.webp",
+    },
+    secondary: {
+      label: "Speed2Lead entdecken",
+      url: CONFIG.speed2leadUrl,
+      badge: "assets/icons-btn/s2l-icon.webp",
+    },
   },
-];
+};
+const DEFAULT_BRAND = "vdsolutions";
 
 // Reihenfolge = Priorität: LinkedIn zuerst (B2B-Kanal), dann die Content-Kanäle.
 // TikTok fehlt bewusst: der Kanal führt Reichweite hierher, nicht umgekehrt.
@@ -99,76 +128,81 @@ const ICONS = {
 /* =========================================================
    Rendering
    ========================================================= */
+const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 const ARROW =
   '<svg class="cta__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-// Rundes Markenzeichen links im Button; rein schmückend, der Button trägt
-// seinen Namen schon als Text bzw. Bildtext
-function addBadge(el, src) {
-  // Hülle um das Bild, damit Glanz und Innenkante darüber liegen können
-  const wrap = document.createElement("span");
-  wrap.className = "btn-badge";
-  wrap.setAttribute("aria-hidden", "true");
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "";
-  img.width = 168;
-  img.height = 168;
-  wrap.append(img);
-  el.classList.add("has-badge");
-  el.prepend(wrap);
+const ARROW_SECONDARY =
+  '<svg class="btn-secondary__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" /></svg>';
+
+// Termin- und Zweitbutton tragen den Inhalt beider Marken: links das runde
+// Zeichen (zwei Bilder übereinander), darüber je Marke Beschriftung und
+// Pfeil. Beim Wechsel blendet CSS um, setBrandLinks() tauscht das Ziel. So
+// bleibt die Pille selbst stehen — kein Neuaufbau, kein Springen.
+function createBrandButton(kind) {
+  const primary = kind === "primary";
+  const li = document.createElement("li");
+  const el = document.createElement("a");
+  el.className = `${primary ? "cta" : "btn-secondary"} has-badge`;
+  el.dataset.brandButton = kind;
+
+  // Hülle um die Bilder, damit Glanz und Innenkante darüber liegen können;
+  // rein schmückend, der Button trägt seinen Namen als Text
+  const badge = document.createElement("span");
+  badge.className = "btn-badge";
+  badge.setAttribute("aria-hidden", "true");
+  el.append(badge);
+
+  Object.entries(BRANDS).forEach(([id, brand]) => {
+    const cfg = brand[kind];
+    const img = document.createElement("img");
+    img.className = "swap-fade";
+    img.dataset.brandOnly = id;
+    img.src = cfg.badge;
+    img.alt = "";
+    img.width = 168;
+    img.height = 168;
+    badge.append(img);
+
+    const content = document.createElement("span");
+    content.className = `btn-content btn-content--${id}`;
+    content.dataset.brandOnly = id;
+    const label = document.createElement("span");
+    label.className = primary ? "cta__label" : "btn-secondary__label";
+    label.textContent = cfg.label;
+    content.append(label);
+    content.insertAdjacentHTML("beforeend", primary ? ARROW : ARROW_SECONDARY);
+    el.append(content);
+  });
+
+  li.append(el);
+  return li;
 }
 
-function createButton({ title, subtitle, url, variant, icon, image, logo, type, soon, badge }) {
+// Ziel der Buttons für die aktive Marke. Ohne Ziel (oder solange „soon“)
+// bleibt der Button sichtbar, ist aber kein Link: kein Fokus, kein Hüpfer.
+function setBrandLinks(id) {
+  document.querySelectorAll("[data-brand-button]").forEach((el) => {
+    const cfg = BRANDS[id][el.dataset.brandButton];
+    const live = Boolean(cfg.url) && !cfg.soon;
+    if (live) {
+      el.href = cfg.url;
+      el.target = "_blank";
+      el.rel = "noopener noreferrer";
+      el.removeAttribute("aria-disabled");
+    } else {
+      el.removeAttribute("href");
+      el.removeAttribute("target");
+      el.removeAttribute("rel");
+      el.setAttribute("aria-disabled", "true");
+    }
+    el.classList.toggle(el.classList.contains("cta") ? "cta--soon" : "btn-secondary--soon", !live);
+  });
+}
+
+function createButton({ title, subtitle, url, variant, icon, image, type, soon }) {
   const li = document.createElement("li");
-  if (variant === "cta" || variant === "dark") {
-    // Angekündigtes ist kein Link: kein Fokus, kein Pfeil
-    const el = document.createElement(soon ? "div" : "a");
-    el.className = `cta${variant === "dark" ? " cta--dark" : ""}${soon ? " cta--soon" : ""}`;
-    // Logo oder Schrift als Beschriftung
-    const name = logo
-      ? `<img class="cta__logo" src="${logo}" alt="" width="612" height="84" />`
-      : '<span class="cta__label"></span>';
-    if (soon) {
-      el.setAttribute("aria-disabled", "true");
-      el.innerHTML = name;
-    } else {
-      el.href = url;
-      el.target = "_blank";
-      el.rel = "noopener noreferrer";
-      el.innerHTML = `${name}${ARROW}`;
-    }
-    if (logo) el.querySelector(".cta__logo").alt = title;
-    else el.querySelector(".cta__label").textContent = title;
-    if (badge) addBadge(el, badge);
-    li.append(el);
-    return li;
-  }
-  if (variant === "secondary") {
-    // Angekündigtes ist kein Link: kein Fokus, kein Pfeil
-    const el = document.createElement(soon ? "div" : "a");
-    el.className = `btn-secondary${soon ? " btn-secondary--soon" : ""}`;
-    const name = logo
-      ? `<img class="btn-secondary__logo" src="${logo}" alt="" width="612" height="84" />`
-      : '<span class="btn-secondary__label"></span>';
-    const arrow =
-      '<svg class="btn-secondary__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" /></svg>';
-    // Der Pfeil steht auch bei der Ankündigung — gewünscht, damit der Button
-    // schon so aussieht wie nach dem Launch
-    el.innerHTML = `${name}${arrow}`;
-    if (soon) {
-      el.setAttribute("aria-disabled", "true");
-    } else {
-      el.href = url;
-      el.target = "_blank";
-      el.rel = "noopener noreferrer";
-    }
-    if (logo) el.querySelector(".btn-secondary__logo").alt = title;
-    else el.querySelector(".btn-secondary__label").textContent = title;
-    if (badge) addBadge(el, badge);
-    li.append(el);
-    return li;
-  }
   // "soon"-Kacheln sind reine Ankündigungen: kein Link, kein Fokus, kein Pfeil
   const a = document.createElement(soon ? "div" : "a");
   a.className = `btn btn--${variant}${soon ? " btn--soon" : ""}`;
@@ -279,10 +313,104 @@ function wireAboutDialog() {
   });
 }
 
-// Buttons bauen: oben beide, unter den Kundenstimmen nur der Termin-Button
+// Buttons bauen: oben beide, am Ende des dunklen Blatts nur der Termin-Button
 function renderLinks() {
-  document.getElementById("main-links").append(...mainLinks.map(createButton));
-  document.getElementById("closing-links").append(createButton(mainLinks[0]));
+  document.getElementById("main-links").append(createBrandButton("primary"), createBrandButton("secondary"));
+  document.getElementById("closing-links").append(createBrandButton("primary"));
+}
+
+/* =========================================================
+   Markenwechsel
+   Die Marke steht als data-brand am <html>; CSS blendet Inhalte um und
+   lässt die Farben fließen. Hier passiert nur, was CSS nicht kann: Ziele
+   der Buttons tauschen, Höhenunterschiede weich ausgleichen (sonst sprängen
+   Buttons und Blatt), Adresse und Verlauf pflegen.
+   ========================================================= */
+const BRAND_MORPH = { duration: 480, easing: "cubic-bezier(0.32, 0.72, 0, 1)" };
+// Schrumpft ein Bereich, rückt seine Kante erst nach, wenn der alte Inhalt
+// größtenteils ausgeblendet ist — sonst schnitte sie eine noch sichtbare
+// Zeile mittendurch (z. B. die zweite Zeile der Botschaft bei 320 px)
+const BRAND_COLLAPSE = { ...BRAND_MORPH, delay: 140, fill: "backwards" };
+// Blau und Orange treffen sich auf halbem Weg in einem dunklen Mauve, einer
+// dritten Farbe, die keiner der beiden Marken gehört. Termin-Buttons, Name
+// und Play-Knöpfe verlieren genau dann kurz ihre Sättigung und werden eine
+// Spur heller: Das Blau löst sich ins Neutrale auf, aus dem das Orange
+// kommt. Der Tiefpunkt (80 ms) liegt dort, wo die Farbe gerade die Mitte
+// durchläuft.
+const BRAND_DIP = {
+  keyframes: [
+    { filter: "saturate(1) brightness(1)" },
+    { filter: "saturate(0.35) brightness(1.08)", offset: 0.4 },
+    { filter: "saturate(1) brightness(1)" },
+  ],
+  options: { duration: 200, easing: "linear" },
+};
+const brandFromUrl = () =>
+  new URLSearchParams(location.search).get("brand") === "speed2lead" ? "speed2lead" : DEFAULT_BRAND;
+
+function applyBrand(id, { animate = true } = {}) {
+  if (!BRANDS[id]) id = DEFAULT_BRAND;
+  const root = document.documentElement;
+  const morph = animate && root.dataset.brand !== id && !reducedMotion();
+  // Bereiche, deren Inhalt je Marke unterschiedlich hoch ist: Höhe vor dem
+  // Wechsel merken, danach von dort zur neuen Höhe gleiten. Läuft schon ein
+  // Wechsel, startet der neue aus der aktuellen Zwischenhöhe.
+  const slots = morph ? [...document.querySelectorAll(".swap-flow")] : [];
+  const from = slots.map((el) => el.getBoundingClientRect().height);
+  slots.forEach((el) => el._morph?.cancel());
+
+  root.dataset.brand = id;
+  setBrandLinks(id);
+  // Referenzlogos von Speed2Lead laden erst, wenn die Marke gebraucht wird —
+  // dann aber alle, sonst tauchten im Laufband Logos erst beim Hereinlaufen auf
+  if (id === "speed2lead") {
+    document.querySelectorAll('.sheet-s2l img[loading="lazy"]').forEach((img) => { img.loading = "eager"; });
+  }
+  const brand = BRANDS[id];
+  document.title = brand.pageTitle;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", brand.themeColor);
+
+  if (morph) {
+    document.querySelectorAll(".cta[data-brand-button], .name, .voice__play").forEach((el) => {
+      el._dip?.cancel();
+      el._dip = el.animate(BRAND_DIP.keyframes, BRAND_DIP.options);
+    });
+  }
+
+  slots.forEach((el, i) => {
+    const to = el.getBoundingClientRect().height;
+    if (Math.abs(to - from[i]) < 0.5) return;
+    el.classList.add("is-morphing");
+    const anim = el.animate([{ height: `${from[i]}px` }, { height: `${to}px` }], to < from[i] ? BRAND_COLLAPSE : BRAND_MORPH);
+    el._morph = anim;
+    anim.finished.then(() => {
+      if (el._morph === anim) el.classList.remove("is-morphing");
+    }, () => {});
+  });
+}
+
+function wireBrandSwitch() {
+  const button = document.getElementById("brand-switch");
+  const status = document.getElementById("brand-status");
+  button.addEventListener("click", () => {
+    const next = document.documentElement.dataset.brand === "speed2lead" ? "vdsolutions" : "speed2lead";
+    applyBrand(next);
+    status.textContent = `Ansicht gewechselt: ${BRANDS[next].name}`;
+    // Die Adresse merkt sich die Marke: Zurück führt zur vorigen Ansicht,
+    // ein geteilter Link öffnet direkt Speed2Lead. Kein Neuladen, kein
+    // Springen der Scrollposition.
+    const url = new URL(location.href);
+    if (next === DEFAULT_BRAND) url.searchParams.delete("brand");
+    else url.searchParams.set("brand", next);
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    history.pushState({ brand: next }, "", url);
+  });
+  addEventListener("popstate", () => {
+    const id = brandFromUrl();
+    if (id === document.documentElement.dataset.brand) return;
+    applyBrand(id);
+    status.textContent = `Ansicht gewechselt: ${BRANDS[id].name}`;
+  });
 }
 
 /* =========================================================
@@ -291,7 +419,6 @@ function renderLinks() {
 const voices = { track: null, slides: [], dots: [], active: 0 };
 const PLAY_ICON =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8.5 5.6c0-.8.86-1.3 1.55-.9l9.1 5.6c.66.4.66 1.38 0 1.79l-9.1 5.6c-.7.42-1.55-.08-1.55-.9V5.6Z"/></svg>';
-const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function buildVoices() {
   voices.track = document.getElementById("voices-track");
@@ -434,3 +561,5 @@ buildVoices();
 renderLinks();
 updateVoiceTexts();
 wireAboutDialog();
+applyBrand(brandFromUrl(), { animate: false });
+wireBrandSwitch();

@@ -21,8 +21,10 @@ Inline-SVG in `app.js` und entsprechen den Pfaddaten aus
 Universal / Public Domain). Das Instagram-Icon ist um einen eigenen
 Farbverlauf ergänzt.
 
-Die übrigen Icons (Aktenkoffer, Chevron, Pfeil, Kreuz, Briefumschlag)
-sind schlichte, selbst gesetzte SVG-Pfade im Stil generischer Strichsymbole.
+Die übrigen Icons (Aktenkoffer, Chevron, Pfeil, Kreuz, Briefumschlag, die
+Wechsel- und Zurück-Pfeile am Markenwechsler sowie Stoppuhr, Trichter,
+Kreislauf-Pfeile und Kalender in der Speed2Lead-Liste) sind schlichte,
+selbst gesetzte SVG-Pfade im Stil generischer Strichsymbole.
 
 **Markenrecht:** Die Wort-/Bildmarken YouTube, Instagram und LinkedIn
 gehören den jeweiligen Inhabern. Sie werden hier ausschließlich als Hinweis auf
@@ -41,6 +43,15 @@ den jeweiligen Unternehmen. Für die Seite zugeschnitten und als WebP
 gespeichert (`assets/_originals/kundenlogos_render.js`); auf dem dunklen
 Grund per CSS einfarbig weiß dargestellt.
 
+`assets/logos-s2l/*.webp` — Referenzlogos von Speed2Lead: Hochbauer
+Immobilien, Kreativ. Webdesign, Lukas Wegerer Personal Coach, Sabine Neumann
+Immobilienmaklerin, Kluger Werbeagentur, Paul Kempf & Partner, MMD Golf und
+Maik Scholz Immobilienmakler im Laufband oben im weißen Speed2Lead-Blatt. Vom
+Inhaber bereitgestellt (`assets/Logos von Referenzunternehmen/Referenzen
+Speed2Lead/`); die Marken gehören den jeweiligen Unternehmen. Einfarbig
+dunkel umgesetzt, Abstufungen mehrfarbiger Logos als Grautöne
+(`assets/_originals/referenzen-s2l_render.js`).
+
 ## Platzhalter-Vorschaubilder
 
 `assets/voices/platzhalter-*.webp` — KI-generierte Bilder (ChatGPT) als
@@ -49,12 +60,28 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 
 ## Eigene Inhalte
 
-- `assets/niclas-avatar.webp` — rundes Profilbild (Bühnenfoto, quadratischer
-  Zuschnitt). Die Rechte liegen vor, eine Urhebernennung ist nicht
-  erforderlich (bestätigt am 19.10.2026).
+- `assets/niclas-hero-800.webp`, `assets/niclas-hero-1200.webp` — Bühnenfoto
+  randlos oben auf der Seite, unten ausgeblendet
+  (`assets/_originals/niclas-hero_render.js`); `assets/niclas-avatar.webp` —
+  dasselbe Foto im quadratischen Zuschnitt (Profilbild für Suchmaschinen).
+  Die Rechte liegen vor, eine Urhebernennung ist nicht erforderlich
+  (bestätigt am 19.10.2026).
 - `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
   Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
   Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen
+- `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
+  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Orange
+  und das eigene Speed2Lead-Bildzeichen. Beide vom Inhaber geliefert
+  (`assets/Speed2Lead/`), zugeschnitten mit
+  `assets/_originals/speed2lead-icons_render.js`.
+- `assets/logos-header/vdsolutions.webp`, `assets/logos-header/speed2lead.webp` —
+  die Logos im Header. VDSolutions aus dem eigenen Logo in Blau und Weiß
+  (`assets/_originals/vdsolutions-logo-blau-weiss_2171x724.png`), für den
+  hellen Header mit dunklem Schriftzug;
+  Speed2Lead aus der gelieferten Fassung weiß und orange auf dunklem Grund
+  (`assets/_originals/speed2lead-logo-dunkel_2172x724.png`) für den
+  anthrazitfarbenen Header, Farben wie im Original, nur der Grund
+  freigestellt. Erzeugt mit `assets/_originals/header-logos_render.js`.
 - Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
   der Buchstabe N in Inter (Copyright 2016 The Inter Project Authors, SIL OFL
   1.1) auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit Name und Rolle in
