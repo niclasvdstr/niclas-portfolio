@@ -56,12 +56,12 @@ const BRANDS = {
     pageTitle: "Speed2Lead · Niclas van der Straeten",
     themeColor: "#141414",
     primary: {
-      label: "Kostenlose Demo vereinbaren",
+      label: "Kostenloses Erstgespräch",
       url: CONFIG.speed2leadCalendlyUrl,
       badge: "assets/icons-btn/calendly-s2l.webp",
     },
     secondary: {
-      label: "Speed2Lead entdecken",
+      label: "Unsere Website besuchen",
       url: CONFIG.speed2leadUrl,
       badge: "assets/icons-btn/s2l-icon.webp",
     },
@@ -361,6 +361,9 @@ function applyBrand(id, { animate = true } = {}) {
 
   root.dataset.brand = id;
   setBrandLinks(id);
+  document.querySelectorAll("[data-brand-target]").forEach((b) => {
+    b.setAttribute("aria-pressed", String(b.dataset.brandTarget === id));
+  });
   // Referenzlogos von Speed2Lead laden erst, wenn die Marke gebraucht wird —
   // dann aber alle, sonst tauchten im Laufband Logos erst beim Hereinlaufen auf
   if (id === "speed2lead") {
@@ -390,10 +393,10 @@ function applyBrand(id, { animate = true } = {}) {
 }
 
 function wireBrandSwitch() {
-  const button = document.getElementById("brand-switch");
   const status = document.getElementById("brand-status");
-  button.addEventListener("click", () => {
-    const next = document.documentElement.dataset.brand === "speed2lead" ? "vdsolutions" : "speed2lead";
+  document.querySelector(".brand-seg").addEventListener("click", (e) => {
+    const next = e.target.closest("[data-brand-target]")?.dataset.brandTarget;
+    if (!next || next === document.documentElement.dataset.brand) return;
     applyBrand(next);
     status.textContent = `Ansicht gewechselt: ${BRANDS[next].name}`;
     // Die Adresse merkt sich die Marke: Zurück führt zur vorigen Ansicht,

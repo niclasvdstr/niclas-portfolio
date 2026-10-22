@@ -97,20 +97,27 @@
       <div class="hero-title">
         <h1 class="name">Niclas <span class="name__accent">van&nbsp;der&nbsp;Straeten</span></h1>
       </div>
-      <p class="bio"><span class="bio__claim swap-flow"><span class="bio__claim-text" data-brand-only="vdsolutions"><span>Ich mache KI zu Ihrem <em class="bio__emphasis">Wettbewerbsvorteil</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span><span class="bio__claim-text" data-brand-only="speed2lead"><span>Ich wandle Ihre Leads in <em class="bio__emphasis">Kundengespr&auml;che</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span></span></p>
+      <p class="bio"><span class="bio__claim swap-flow"><span class="bio__claim-text" data-brand-only="vdsolutions"><span>Ich mache KI zu Ihrem <em class="bio__emphasis">Wettbewerbsvorteil</em></span>&nbsp;<span aria-hidden="true">&#x1F3C6;</span></span><span class="bio__claim-text" data-brand-only="speed2lead"><span>Ich wandle Ihre Leads in <em class="bio__emphasis">Kundengespr&auml;che</em></span>&nbsp;<span aria-hidden="true">&#x26A1;</span></span></span></p>
     </header>
 
     <section class="link-section" aria-label="Links">
-      <!-- Dezenter Markenwechsler über den Buttons. Ein Schalter, kein Link:
+      <ul id="main-links" class="links-list"></ul>
+      <!-- Markenwechsler unter den Buttons: zwei Segmente, die aktive Marke
+           liegt auf einem Plättchen, das beim Wechsel hinübergleitet. Der Weg
+           von der Botschaft zum Termin-Button bleibt frei. Schalter, kein Link:
            Die Seite wird nicht neu geladen, nur die Adresse merkt sich die
            Marke (?brand=speed2lead), damit Zurück und Teilen funktionieren. -->
       <div class="brand-switch-row">
-        <button type="button" class="brand-switch" id="brand-switch">
-          <span class="brand-switch__label" data-brand-only="vdsolutions"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4.5 7.5h10.5m-3-3 3 3-3 3M15.5 12.5H5m3 3-3-3 3-3"/></svg>Zu Speed2Lead</span>
-          <span class="brand-switch__label" data-brand-only="speed2lead"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M15.5 10h-11m4.5-4.5L4.5 10 9 14.5"/></svg>Zu VDSolutions</span>
-        </button>
+        <div class="brand-seg" role="group" aria-label="Marke">
+          <span class="brand-seg__thumb" aria-hidden="true"></span>
+          <button type="button" class="brand-seg__opt" data-brand-target="vdsolutions" aria-pressed="true">
+            <img src="assets/icons-btn/vds-icon.webp" alt="" width="168" height="168" />VDSolutions
+          </button>
+          <button type="button" class="brand-seg__opt" data-brand-target="speed2lead" aria-pressed="false">
+            <img src="assets/icons-btn/s2l-icon.webp" alt="" width="168" height="168" />Speed2Lead
+          </button>
+        </div>
       </div>
-      <ul id="main-links" class="links-list"></ul>
       <p class="visually-hidden" id="brand-status" aria-live="polite"></p>
     </section>
 
