@@ -134,6 +134,9 @@ const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").match
 const ARROW =
   '<svg class="cta__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13.5M13 6.5l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+// Schloss statt Pfeil, solange der Zweitbutton noch keinen Link hat
+const LOCK_SECONDARY =
+  '<svg class="btn-secondary__lock" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><rect x="4.5" y="8.5" width="11" height="8" rx="2"/><path d="M7 8.5V6.5a3 3 0 0 1 6 0v2"/></svg>';
 const ARROW_SECONDARY =
   '<svg class="btn-secondary__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 10h11m-4.5-4.5L15 10l-4.5 4.5" /></svg>';
 
@@ -173,7 +176,7 @@ function createBrandButton(kind) {
     label.className = primary ? "cta__label" : "btn-secondary__label";
     label.textContent = cfg.label;
     content.append(label);
-    content.insertAdjacentHTML("beforeend", primary ? ARROW : ARROW_SECONDARY);
+    content.insertAdjacentHTML("beforeend", primary ? ARROW : ARROW_SECONDARY + LOCK_SECONDARY);
     el.append(content);
   });
 

@@ -440,7 +440,7 @@ html {
   scroll-padding-top: 72px;
 }
 .site-header__logo {
-  --logo-h: 20px;
+  --logo-h: 17px;
   display: grid;
 }
 .site-header__logo > img {
@@ -458,15 +458,18 @@ html {
 .site-header__logo > img {
   height: calc(var(--logo-h) * 1.1);
 }
+/* Neues VDSolutions-Logo: hohe Bildmarke, kurzer Schriftzug — gleich breit
+   wie Speed2Lead wäre es viel zu hoch; diese Höhe lässt den Schriftzug
+   optisch so groß wirken wie „speed2lead.“ */
 .site-header__logo > img[data-brand-only="vdsolutions"] {
-  height: calc(var(--logo-h) * 1.1 * 600 / 688);
+  height: calc(var(--logo-h) * 1.75);
 }
 @media (max-width: 360px) {
   .site-header {
     padding-inline: 16px;
   }
   .site-header__logo {
-    --logo-h: 18px;
+    --logo-h: 15.5px;
   }
 }
 @media (min-width: 768px) {
@@ -477,7 +480,7 @@ html {
     padding-inline: max(32px, calc((100vw - 1120px) / 2));
   }
   .site-header__logo {
-    --logo-h: 23px;
+    --logo-h: 19.5px;
   }
 }
 
@@ -2601,5 +2604,78 @@ body:has(.about-dialog[open]) {
   .cta::after {
     animation: none;
     background: none;
+  }
+}
+
+/* Zweitbutton ohne Link: Schloss statt Pfeil, damit klar ist, dass er noch
+   nicht klickbar ist. Mit Link erscheint wieder der Pfeil. */
+.btn-secondary__lock {
+  display: none;
+  flex: none;
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.55;
+}
+.btn-secondary--soon .btn-secondary__icon {
+  display: none;
+}
+.btn-secondary--soon .btn-secondary__lock {
+  display: block;
+}
+
+/* Social-Icons im Header ohne Markenfarben: kleine Glasknöpfe — hauchzarte
+   Füllung, feiner Ring, Lichtkante oben, das Zeichen in Anthrazit (weiß bei
+   Speed2Lead). Beim Überfahren eine Spur kräftiger. */
+.site-header {
+  --chip-ink: #1d2433;
+  --chip-fill: rgb(16 24 40 / 0.035);
+  --chip-fill-hover: rgb(16 24 40 / 0.07);
+  --chip-ring: rgb(16 24 40 / 0.11);
+  --chip-light: rgb(255 255 255 / 0.9);
+  --chip-drop: rgb(16 24 40 / 0.12);
+}
+:root[data-brand="speed2lead"] .site-header {
+  --chip-ink: rgb(255 255 255 / 0.92);
+  --chip-fill: rgb(255 255 255 / 0.06);
+  --chip-fill-hover: rgb(255 255 255 / 0.12);
+  --chip-ring: rgb(255 255 255 / 0.14);
+  --chip-light: rgb(255 255 255 / 0.18);
+  --chip-drop: rgb(0 0 0 / 0.4);
+}
+.site-header .socials .social-btn {
+  background: var(--chip-fill);
+  box-shadow:
+    inset 0 0 0 1px var(--chip-ring),
+    inset 0 1px 0 var(--chip-light),
+    0 2px 6px -2px var(--chip-drop);
+  color: var(--chip-ink);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.site-header .socials .social-btn svg {
+  width: calc(var(--chip) * 0.44);
+  height: calc(var(--chip) * 0.44);
+}
+.site-header .socials .social-btn--youtube svg {
+  width: calc(var(--chip) * 0.38);
+  height: calc(var(--chip) * 0.38);
+  translate: calc(var(--chip) * 0.38 * -2.08 / 24) 0.5px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-header .socials .social-btn:hover {
+    transform: translateY(-1px);
+    background: var(--chip-fill-hover);
+    box-shadow:
+      inset 0 0 0 1px var(--chip-ring),
+      inset 0 1px 0 var(--chip-light),
+      0 6px 14px -6px var(--chip-drop);
   }
 }
