@@ -454,12 +454,12 @@ html {
 }
 /* Beide Logos optisch gleich groß: gleich breit statt gleich hoch — der
    VDSolutions-Schriftzug ist breiter und kräftiger (688 : 96 gegenüber
-   612 : 96), bei gleicher Höhe wirkte er größer */
+   600 : 96), bei gleicher Höhe wirkte er größer */
 .site-header__logo > img {
   height: calc(var(--logo-h) * 1.1);
 }
 .site-header__logo > img[data-brand-only="vdsolutions"] {
-  height: calc(var(--logo-h) * 1.1 * 612 / 688);
+  height: calc(var(--logo-h) * 1.1 * 600 / 688);
 }
 @media (max-width: 360px) {
   .site-header {
@@ -1760,12 +1760,9 @@ body:has(.about-dialog[open]) {
   /* Nur der Hintergrund bildet die Bögen, der Inhalt wird nicht
      beschnitten: oben und unten je eine flache Ellipse, dazwischen volle
      Fläche */
-  background:
-    radial-gradient(100% var(--v-arc-c) at 50% var(--v-arc-c),
-      var(--v-ink) calc(100% - 1px), rgb(20 20 20 / 0) 100%) no-repeat,
-    radial-gradient(100% var(--v-arc-c) at 50% calc(100% - var(--v-arc-c)),
-      var(--v-ink) calc(100% - 1px), rgb(20 20 20 / 0) 100%) no-repeat,
-    linear-gradient(var(--v-ink), var(--v-ink)) 0 var(--v-arc-c) / 100% calc(100% - 2 * var(--v-arc-c)) no-repeat;
+  /* Gerade Kanten oben und unten (früher flache Bögen); die Innenabstände
+     behalten die Bogenhöhe, damit der Inhalt an seinem Platz bleibt */
+  background-color: var(--v-ink);
   color: var(--v-white);
   font-family: var(--v-font);
   overflow: clip;
@@ -2532,4 +2529,39 @@ body:has(.about-dialog[open]) {
     transition-delay: 0s !important;
     translate: none !important;
   }
+}
+
+/* Speed2Lead in Grün statt Orange (seit 22.10.2026): Smaragd #0F7A52 für
+   Buttons, hellere Töne für Schrift auf Anthrazit. Überschreibt die
+   orangen Werte weiter oben. */
+:root[data-brand="speed2lead"] {
+  --cta-base: #0f7a52;
+  --cta-edge: #0a6141;
+  --cta-mid: #12895c;
+  --cta-glow: rgb(222 255 240 / 0.9);
+  --cta-glow-2: rgb(120 220 170 / 0.45);
+  --cta-glow-3: rgb(60 200 140 / 0);
+  --cta-ring: rgb(90 210 160 / 0.45);
+  --cta-drop: rgb(15 122 82 / 0.45);
+  --badge-drop: rgb(0 50 30 / 0.3);
+  --badge-drop-2: rgb(0 50 30 / 0.24);
+  --badge-tint: rgb(10 110 70 / 0.07);
+  --badge-edge: rgb(0 70 45 / 0.12);
+  --badge-inner: rgb(0 70 45 / 0.08);
+  --name-1: #2fbf86;
+  --name-2: #4fd19c;
+  --name-3: #7fe0b8;
+  --name-4: #36c48c;
+}
+.cta .btn-content--speed2lead {
+  text-shadow: 0 1px 2px rgb(0 50 30 / 0.35);
+}
+:root[data-brand="speed2lead"] .cta {
+  --cta-focus: #4fd19c;
+}
+:root[data-brand="speed2lead"] .voices {
+  --v-accent: #12a06a;
+  --v-play: rgb(15 122 82 / 0.94);
+  --v-play-shadow: rgb(0 60 35 / 0.5);
+  --v-glow: rgb(18 160 106 / 0.12);
 }

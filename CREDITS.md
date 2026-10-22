@@ -70,7 +70,7 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
   Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
   Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen
 - `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
-  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Orange
+  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Grün
   und das eigene Speed2Lead-Bildzeichen. Beide vom Inhaber geliefert
   (`assets/Speed2Lead/`), zugeschnitten mit
   `assets/_originals/speed2lead-icons_render.js`.
@@ -78,10 +78,10 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
   die Logos im Header. VDSolutions aus dem eigenen Logo in Blau und Weiß
   (`assets/_originals/vdsolutions-logo-blau-weiss_2171x724.png`), für den
   hellen Header mit dunklem Schriftzug;
-  Speed2Lead aus der gelieferten Fassung weiß und orange auf dunklem Grund
-  (`assets/_originals/speed2lead-logo-dunkel_2172x724.png`) für den
-  anthrazitfarbenen Header, Farben wie im Original, nur der Grund
-  freigestellt. Erzeugt mit `assets/_originals/header-logos_render.js`.
+  Speed2Lead seit 22.10.2026 in Grün (`assets/logos-header/speed2lead-gruen.webp`,
+  aus der gelieferten `assets/_originals/speed2lead_green_flat.png`, nur auf
+  den Inhalt beschnitten); die frühere orange Fassung (`speed2lead.webp`)
+  stammt aus `assets/_originals/speed2lead-logo-dunkel_2172x724.png`. Erzeugt mit `assets/_originals/header-logos_render.js`.
 - Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
   der Buchstabe N in Inter (Copyright 2016 The Inter Project Authors, SIL OFL
   1.1) auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit Name und Rolle in
