@@ -748,12 +748,12 @@ html {
   --cta-blue: var(--cta-base);
   --cta-surface:
     radial-gradient(55% 95% at 50% 125%, var(--cta-glow) 0%, var(--cta-glow-2) 32%, var(--cta-glow-3) 68%),
-    radial-gradient(28% 130% at 50% -30%, rgb(255 255 255 / 0.3) 0%, rgb(255 255 255 / 0) 70%),
+    radial-gradient(28% 130% at 50% -30%, var(--cta-sheen, rgb(255 255 255 / 0.3)) 0%, rgb(255 255 255 / 0) 70%),
     linear-gradient(90deg, var(--cta-edge) 0%, var(--cta-mid) 50%, var(--cta-edge) 100%);
   --cta-shadow:
     0 0 0 1.5px var(--cta-ring),
     0 16px 32px -16px var(--cta-drop),
-    inset 0 1px 0 rgb(255 255 255 / 0.32);
+    inset 0 1px 0 var(--cta-light, rgb(255 255 255 / 0.32));
   --cta-focus: #0050f6;
   --cta-font: "Instrument Sans", system-ui, -apple-system, sans-serif;
   --cta-size: 15.5px;
@@ -857,11 +857,11 @@ html {
   text-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
 }
 
-/* Angekündigt, noch nicht verlinkt: sieht aus wie ein Button, reagiert aber
-   nicht — kein Hüpfer, kein Aufhellen, kein Eindrücken */
+/* Angekündigt, noch nicht verlinkt: sieht aus wie ein Button und hüpft mit
+   (Wunsch vom 23.10.2026), reagiert aber nicht — kein Aufhellen, kein
+   Eindrücken */
 .cta.cta--soon {
   cursor: default;
-  animation: none;
 }
 .cta--soon:hover,
 .cta--soon:active {
@@ -1491,36 +1491,46 @@ body:has(.about-dialog[open]) {
   --enter: 0.83s;
 }
 
-/* Periodischer Hüpfer — zwei Sprünge, der zweite kleiner, dann Ruhe. Der
-   Button trägt die Bewegung selbst; die Einblendung beim Laden sitzt auf
-   dem <li> und kommt sich damit nicht in die Quere. */
+/* Periodische Einladung alle 5 s: der Button hüpft 4 px hoch und federt
+   einmal leicht nach (0–17 % des Takts), direkt danach läuft der
+   Glanzstreifen (siehe „Lichtreflex“), dann Ruhe. Der Button trägt die
+   Bewegung selbst; die Einblendung beim Laden sitzt auf dem <li> und kommt
+   sich damit nicht in die Quere. */
 @keyframes ctaBounce {
-  0%, 68%, 100% {
+  0% {
     transform: translateY(0);
+    animation-timing-function: ease-out;
   }
-  74% {
-    transform: translateY(-7px);
+  5% {
+    transform: translateY(-4px);
+    animation-timing-function: ease-in;
   }
-  80% {
+  10% {
     transform: translateY(0);
+    animation-timing-function: ease-out;
   }
-  86% {
-    transform: translateY(-3px);
+  13.5% {
+    transform: translateY(-1.5px);
+    animation-timing-function: ease-in;
   }
-  92% {
+  17%, 100% {
     transform: translateY(0);
   }
 }
 /* Startet erst, wenn der Aufbau der Seite durch ist (letztes Element ~1,65 s).
-   Beim Zeigen und Drücken setzt er aus, sonst überschreibt er deren transform. */
+   Unter der Maus und beim Drücken setzen Hüpfer und Glanz aus (sonst
+   überschreibt der Hüpfer deren transform) und beginnen danach gemeinsam
+   von vorn. */
 .cta {
-  animation: ctaBounce 4s cubic-bezier(0.34, 1.56, 0.64, 1) 2.6s infinite;
+  animation: ctaBounce 5s 2.6s infinite;
 }
-.cta:active {
+.cta:active,
+.cta:active::after {
   animation: none;
 }
 @media (hover: hover) {
-  .cta:hover {
+  .cta:hover,
+  .cta:hover::after {
     animation: none;
   }
 }
@@ -2492,19 +2502,22 @@ body:has(.about-dialog[open]) {
   }
 }
 
-/* VDSolutions: Termin-Button in Petrol (seit 23.10.2026, nach Vorgabe) —
-   Verlauf #002C38 (Ränder) → #005061 (Mitte), Grundfarbe #003C4B, Schein
-   von unten #E0EDF1 55 %, Kontur #6F9FAD 40 %, Schatten #002C38 50 %.
-   Schrift-Akzente (Nachname) bleiben Grün. Speed2Lead bleibt Orange. */
+/* VDSolutions: Termin-Button in leuchtendem Petrol (nach Vorgabe vom
+   23.10.2026) — Verlauf #0A5566 (Ränder) → #1487A0 (Mitte), Grundfarbe
+   #0D697D, Schein von unten rgba(220,246,252,.62) → rgba(120,205,225,.36),
+   Lichtpunkt oben 26 %, Kontur rgba(140,210,228,.55), Schatten
+   rgba(20,135,160,.45), Lichtkante 28 %. Speed2Lead bleibt Orange. */
 :root[data-brand="vdsolutions"] {
-  --cta-base: #003c4b;
-  --cta-edge: #002c38;
-  --cta-mid: #005061;
-  --cta-glow: rgb(224 237 241 / 0.55);
-  --cta-glow-2: rgb(160 200 212 / 0.25);
-  --cta-glow-3: rgb(111 159 173 / 0);
-  --cta-ring: rgb(111 159 173 / 0.4);
-  --cta-drop: rgb(0 44 56 / 0.5);
+  --cta-base: #0d697d;
+  --cta-edge: #0a5566;
+  --cta-mid: #1487a0;
+  --cta-glow: rgb(220 246 252 / 0.62);
+  --cta-glow-2: rgb(120 205 225 / 0.36);
+  --cta-glow-3: rgb(80 175 200 / 0);
+  --cta-ring: rgb(140 210 228 / 0.55);
+  --cta-drop: rgb(20 135 160 / 0.45);
+  --cta-sheen: rgb(255 255 255 / 0.26);
+  --cta-light: rgb(255 255 255 / 0.28);
   --badge-drop: rgb(0 30 40 / 0.35);
   --badge-drop-2: rgb(0 30 40 / 0.28);
   --badge-tint: rgb(0 60 75 / 0.07);
@@ -2520,13 +2533,13 @@ body:has(.about-dialog[open]) {
   --accent-glow: #1f8199;
 }
 .cta .btn-content--vdsolutions {
-  text-shadow: 0 1px 2px rgb(0 30 40 / 0.4);
+  text-shadow: 0 1px 2px rgb(0 35 45 / 0.4);
 }
 
 /* VDSolutions dunkel: Anthrazit, dunkles Glas, helle Schrift; auch das
    Kundenstimmen-Blatt bleibt dunkel (weiße Logos, helles Gold) */
 :root[data-brand="vdsolutions"] {
-  --focus-ring: #78b6c6;
+  --focus-ring: #99b9c3;
 }
 :root[data-brand="vdsolutions"] body {
   background-color: #141414;
@@ -2550,7 +2563,7 @@ body:has(.about-dialog[open]) {
   color: #d2d2d2;
 }
 :root[data-brand="vdsolutions"] .cta {
-  --cta-focus: #78b6c6;
+  --cta-focus: #99b9c3;
 }
 :root[data-brand="vdsolutions"] .btn-secondary {
   background-color: #242424;
@@ -2566,7 +2579,7 @@ body:has(.about-dialog[open]) {
     0 1px 2px rgb(0 0 0 / 0.4);
 }
 :root[data-brand="vdsolutions"] .btn-secondary:focus-visible {
-  outline-color: #78b6c6;
+  outline-color: #99b9c3;
 }
 :root[data-brand="vdsolutions"] .brand-seg {
   --seg-bg: #1f1f1f;
@@ -2585,16 +2598,16 @@ body:has(.about-dialog[open]) {
 :root[data-brand="vdsolutions"] .voices {
   --v-glow: rgb(31 129 153 / 0.18);
   --v-accent: #78b6c6;
-  --v-play: rgb(0 80 97 / 0.94);
+  --v-play: rgb(13 105 125 / 0.94);
   --v-play-shadow: rgb(0 30 40 / 0.6);
-  --v-focus: #78b6c6;
+  --v-focus: #99b9c3;
 }
 
-/* Lichtreflex auf dem Termin-Button: alle 4 s gleitet ein weicher
-   Glanzstreifen einmal schräg darüber, wie Licht auf Glas. Gleicher Takt
-   wie der Hüpfer, aber früher im Zyklus (15–40 % statt 68–92 %), damit
-   beides nie gleichzeitig passiert. Läuft auch, solange der Button noch
-   keinen Link hat. Bei weniger Bewegung entfällt er. */
+/* Lichtreflex auf dem Termin-Button: alle 5 s gleitet ein weißer
+   Glanzstreifen einmal schräg von links nach rechts darüber, wie Licht auf
+   Glas. Gleicher Takt wie der Hüpfer und direkt danach (17–41 %). Läuft
+   auch, solange der Button noch keinen Link hat. Bei weniger Bewegung
+   entfällt er. */
 .cta {
   position: relative;
 }
@@ -2606,18 +2619,18 @@ body:has(.about-dialog[open]) {
   border-radius: inherit;
   background: linear-gradient(105deg,
     rgb(255 255 255 / 0) 38%,
-    rgb(255 255 255 / 0.26) 50%,
+    rgb(255 255 255 / 0.36) 50%,
     rgb(255 255 255 / 0) 62%) no-repeat;
   background-size: 260% 100%;
   background-position: 160% 0;
   pointer-events: none;
-  animation: ctaShine 4s cubic-bezier(0.45, 0, 0.25, 1) 2.6s infinite;
+  animation: ctaShine 5s cubic-bezier(0.45, 0, 0.25, 1) 2.6s infinite;
 }
 @keyframes ctaShine {
-  0%, 15% {
+  0%, 17% {
     background-position: 160% 0;
   }
-  40%, 100% {
+  41%, 100% {
     background-position: -60% 0;
   }
 }
