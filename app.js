@@ -37,7 +37,7 @@ const BRANDS = {
     primary: {
       label: "Kostenloses Erstgespräch",
       url: CONFIG.calendlyUrl,
-      badge: "assets/icons-btn/calendly-gruen.webp",
+      badge: "assets/icons-btn/calendly-petrol.webp",
     },
     // Weiße Pille mit feiner Kontur — ruhig neben dem blauen Termin-Button
     secondary: {

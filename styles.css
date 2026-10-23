@@ -458,10 +458,10 @@ html {
 .site-header__logo > img {
   height: calc(var(--logo-h) * 1.1);
 }
-/* VDSolutions-Logo (grün): gleich breit wie Speed2Lead (723 : 96 gegenüber
-   612 : 96), damit beide gleich groß wirken */
+/* VDSolutions-Logo (Petrol): gleich breit wie Speed2Lead (763 : 96
+   gegenüber 612 : 96), damit beide gleich groß wirken */
 .site-header__logo > img[data-brand-only="vdsolutions"] {
-  height: calc(var(--logo-h) * 1.1 * 612 / 723);
+  height: calc(var(--logo-h) * 1.1 * 612 / 763);
 }
 @media (max-width: 360px) {
   .site-header {
@@ -1281,11 +1281,11 @@ body:has(.about-dialog[open]) {
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
 /* Farbreihe von hell (Anfang) nach satt (heute) in der Markenfarbe:
-   Grün bei VDSolutions, Orange bei Speed2Lead */
+   Petrol bei VDSolutions, Orange bei Speed2Lead */
 .timeline {
-  --tl-1: #c6eedc; --tl-2: #9fe2c4; --tl-3: #72d1a6; --tl-4: #45ba87;
-  --tl-5: #22a06c; --tl-6: #12855a; --tl-7: #0a6b47;
-  --tl-halo: rgb(15 122 82 / 0.16);
+  --tl-1: #cfe3e8; --tl-2: #a9ccd5; --tl-3: #7fb0bd; --tl-4: #5293a3;
+  --tl-5: #2c778a; --tl-6: #0f5f72; --tl-7: #003c4b;
+  --tl-halo: rgb(0 80 97 / 0.16);
 }
 :root[data-brand="speed2lead"] .timeline {
   --tl-1: #ffdcc8; --tl-2: #ffc09c; --tl-3: #ffa16e; --tl-4: #ff8243;
@@ -2492,36 +2492,41 @@ body:has(.about-dialog[open]) {
   }
 }
 
-/* VDSolutions in Grün (seit 22.10.2026, vorher Blau): Smaragd #0F7A52 für
-   die Buttons, hellere Töne für Schrift auf Anthrazit. Speed2Lead bleibt
-   Orange. */
+/* VDSolutions: Termin-Button in Petrol (seit 23.10.2026, nach Vorgabe) —
+   Verlauf #002C38 (Ränder) → #005061 (Mitte), Grundfarbe #003C4B, Schein
+   von unten #E0EDF1 55 %, Kontur #6F9FAD 40 %, Schatten #002C38 50 %.
+   Schrift-Akzente (Nachname) bleiben Grün. Speed2Lead bleibt Orange. */
 :root[data-brand="vdsolutions"] {
-  --cta-base: #0f7a52;
-  --cta-edge: #0a6141;
-  --cta-mid: #12895c;
-  --cta-glow: rgb(222 255 240 / 0.9);
-  --cta-glow-2: rgb(120 220 170 / 0.45);
-  --cta-glow-3: rgb(60 200 140 / 0);
-  --cta-ring: rgb(90 210 160 / 0.45);
-  --cta-drop: rgb(15 122 82 / 0.45);
-  --badge-drop: rgb(0 50 30 / 0.3);
-  --badge-drop-2: rgb(0 50 30 / 0.24);
-  --badge-tint: rgb(10 110 70 / 0.07);
-  --badge-edge: rgb(0 70 45 / 0.12);
-  --badge-inner: rgb(0 70 45 / 0.08);
-  --name-1: #2fbf86;
-  --name-2: #4fd19c;
-  --name-3: #7fe0b8;
-  --name-4: #36c48c;
+  --cta-base: #003c4b;
+  --cta-edge: #002c38;
+  --cta-mid: #005061;
+  --cta-glow: rgb(224 237 241 / 0.55);
+  --cta-glow-2: rgb(160 200 212 / 0.25);
+  --cta-glow-3: rgb(111 159 173 / 0);
+  --cta-ring: rgb(111 159 173 / 0.4);
+  --cta-drop: rgb(0 44 56 / 0.5);
+  --badge-drop: rgb(0 30 40 / 0.35);
+  --badge-drop-2: rgb(0 30 40 / 0.28);
+  --badge-tint: rgb(0 60 75 / 0.07);
+  --badge-edge: rgb(0 44 56 / 0.12);
+  --badge-inner: rgb(0 44 56 / 0.08);
+  /* Nachname: helle Petroltöne, damit er auf Anthrazit leuchtet */
+  --name-1: #4f97aa;
+  --name-2: #78b6c6;
+  --name-3: #a6d2dd;
+  --name-4: #5ea4b6;
+  /* Schein hinter Block und Abschluss-Button: das Button-Petrol ist dafür
+     zu dunkel */
+  --accent-glow: #1f8199;
 }
 .cta .btn-content--vdsolutions {
-  text-shadow: 0 1px 2px rgb(0 50 30 / 0.35);
+  text-shadow: 0 1px 2px rgb(0 30 40 / 0.4);
 }
 
 /* VDSolutions dunkel: Anthrazit, dunkles Glas, helle Schrift; auch das
    Kundenstimmen-Blatt bleibt dunkel (weiße Logos, helles Gold) */
 :root[data-brand="vdsolutions"] {
-  --focus-ring: #4fd19c;
+  --focus-ring: #78b6c6;
 }
 :root[data-brand="vdsolutions"] body {
   background-color: #141414;
@@ -2545,7 +2550,7 @@ body:has(.about-dialog[open]) {
   color: #d2d2d2;
 }
 :root[data-brand="vdsolutions"] .cta {
-  --cta-focus: #4fd19c;
+  --cta-focus: #78b6c6;
 }
 :root[data-brand="vdsolutions"] .btn-secondary {
   background-color: #242424;
@@ -2561,7 +2566,7 @@ body:has(.about-dialog[open]) {
     0 1px 2px rgb(0 0 0 / 0.4);
 }
 :root[data-brand="vdsolutions"] .btn-secondary:focus-visible {
-  outline-color: #4fd19c;
+  outline-color: #78b6c6;
 }
 :root[data-brand="vdsolutions"] .brand-seg {
   --seg-bg: #1f1f1f;
@@ -2578,11 +2583,11 @@ body:has(.about-dialog[open]) {
   color: #767676;
 }
 :root[data-brand="vdsolutions"] .voices {
-  --v-glow: rgb(18 160 106 / 0.16);
-  --v-accent: #4fd19c;
-  --v-play: rgb(15 122 82 / 0.94);
-  --v-play-shadow: rgb(0 60 35 / 0.6);
-  --v-focus: #4fd19c;
+  --v-glow: rgb(31 129 153 / 0.18);
+  --v-accent: #78b6c6;
+  --v-play: rgb(0 80 97 / 0.94);
+  --v-play-shadow: rgb(0 30 40 / 0.6);
+  --v-focus: #78b6c6;
 }
 
 /* Lichtreflex auf dem Termin-Button: alle 4 s gleitet ein weicher
@@ -2937,8 +2942,8 @@ body:has(.about-dialog[open]) {
   width: min(120%, 720px);
   height: 260px;
   background: radial-gradient(50% 50% at 50% 50%,
-    color-mix(in srgb, var(--cta-base) 26%, transparent) 0%,
-    color-mix(in srgb, var(--cta-base) 8%, transparent) 55%,
+    color-mix(in srgb, var(--accent-glow, var(--cta-base)) 26%, transparent) 0%,
+    color-mix(in srgb, var(--accent-glow, var(--cta-base)) 8%, transparent) 55%,
     transparent 100%);
   filter: blur(8px);
 }
@@ -2960,7 +2965,7 @@ body:has(.about-dialog[open]) {
     pointer-events: none;
     background-image:
       radial-gradient(44% 40% at 50% 50%,
-        color-mix(in srgb, var(--cta-base) 16%, transparent) 0%,
+        color-mix(in srgb, var(--accent-glow, var(--cta-base)) 16%, transparent) 0%,
         transparent 100%),
       linear-gradient(90deg, rgb(255 255 255 / 0.11) 1px, transparent 1px),
       linear-gradient(180deg, rgb(255 255 255 / 0.11) 1px, transparent 1px);
