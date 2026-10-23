@@ -70,7 +70,7 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 - `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
   Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
   Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen (Schriftzug
-  „VDS“ mit grünem V aus `assets/VDS-Logo.svg`; das Calendly-Zeichen in Petrol
+  „VDS“ mit Petrol-V aus `assets/VDS-Logo.svg`; das Calendly-Zeichen in Petrol
   `calendly-petrol.webp` für VDSolutions, umgefärbt aus der grünen Fassung)
 - `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
   dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Orange
