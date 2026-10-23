@@ -37,13 +37,13 @@ const BRANDS = {
     primary: {
       label: "Kostenloses Erstgespräch",
       url: CONFIG.calendlyUrl,
-      badge: "assets/icons-btn/calendly-petrol.webp",
+      badge: "assets/marken/vdsolutions/calendly.webp",
     },
     // Weiße Pille mit feiner Kontur — ruhig neben dem blauen Termin-Button
     secondary: {
       label: "Unsere Website besuchen",
       url: CONFIG.noviqUrl,
-      badge: "assets/icons-btn/vds-icon.webp",
+      badge: "assets/marken/vdsolutions/zeichen.webp",
       // Solange true: reine Ankündigung, nicht klickbar (nach Launch entfernen)
       soon: true,
     },
@@ -55,12 +55,12 @@ const BRANDS = {
     primary: {
       label: "Kostenloses Erstgespräch",
       url: CONFIG.speed2leadCalendlyUrl,
-      badge: "assets/icons-btn/calendly-s2l.webp",
+      badge: "assets/marken/speed2lead/calendly.webp",
     },
     secondary: {
       label: "Unsere Website besuchen",
       url: CONFIG.speed2leadUrl,
-      badge: "assets/icons-btn/s2l-icon.webp",
+      badge: "assets/marken/speed2lead/zeichen.webp",
     },
   },
 };
@@ -84,9 +84,9 @@ const socialLinks = [
    ========================================================= */
 // posterS2l: eigenes Vorschaubild in der Speed2Lead-Ansicht (sonst wie poster)
 const VOICES = [
-  { poster: "assets/voices/platzhalter-1.webp", video: "", name: "", company: "" },
-  { poster: "assets/voices/platzhalter-3.webp", posterS2l: "assets/voices/platzhalter-2.webp", video: "", name: "", company: "" },
-  { poster: "assets/voices/platzhalter-2.webp", posterS2l: "assets/voices/platzhalter-3.webp", video: "", name: "", company: "" },
+  { poster: "assets/kundenstimmen/platzhalter-1.webp", video: "", name: "", company: "" },
+  { poster: "assets/kundenstimmen/platzhalter-3.webp", posterS2l: "assets/kundenstimmen/platzhalter-2.webp", video: "", name: "", company: "" },
+  { poster: "assets/kundenstimmen/platzhalter-2.webp", posterS2l: "assets/kundenstimmen/platzhalter-3.webp", video: "", name: "", company: "" },
 ];
 
 /* =========================================================

@@ -7,14 +7,14 @@
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;
-  src: url("assets/fonts/instrument-sans-variable.woff2") format("woff2");
+  src: url("assets/schriften/instrument-sans-variable.woff2") format("woff2");
 }
 @font-face {
   font-family: "Instrument Sans";
   font-style: italic;
   font-weight: 400 700;
   font-display: swap;
-  src: url("assets/fonts/instrument-sans-italic-variable.woff2") format("woff2");
+  src: url("assets/schriften/instrument-sans-italic-variable.woff2") format("woff2");
 }
 
 :root {
@@ -278,8 +278,8 @@ body {
 /* ---------- Bühnenfoto ----------
    Das ganze Foto mit Bühnenhintergrund, auf dem Handy randlos über die
    volle Breite und ganz oben angesetzt. Nach unten läuft es ins
-   Durchsichtige aus und wird dabei entsättigt (assets/_originals/
-   niclas-hero_render.js) — durchsichtig statt weiß, damit es auch auf dem
+   Durchsichtige aus und wird dabei entsättigt (quellen/skripte/
+   buehnenfoto_erzeugen.js) — durchsichtig statt weiß, damit es auch auf dem
    gebrochenen Weiß von Speed2Lead ausläuft. Ein Klick öffnet den Dialog
    über mich. */
 .hero {

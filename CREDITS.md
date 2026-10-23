@@ -6,9 +6,9 @@ verwendet werden.
 
 ## Schriftart
 
-**Instrument Sans** (variabel, normal und kursiv, Gewichte 400–700) — `assets/fonts/instrument-sans-*.woff2`
+**Instrument Sans** (variabel, normal und kursiv, Gewichte 400–700) — `assets/schriften/instrument-sans-*.woff2`
 Copyright 2022 The Instrument Sans Project Authors, https://github.com/Instrument/instrument-sans
-Lizenz: SIL Open Font License 1.1 — Volltext in [`assets/fonts/OFL-InstrumentSans.txt`](assets/fonts/OFL-InstrumentSans.txt)
+Lizenz: SIL Open Font License 1.1 — Volltext in [`assets/schriften/OFL-InstrumentSans.txt`](assets/schriften/OFL-InstrumentSans.txt)
 Die Dateien werden vom eigenen Server ausgeliefert, nicht über die Google
 Fonts API. Dadurch fließt beim Seitenaufruf keine IP-Adresse an einen
 Drittanbieter ab (vgl. LG München I, 20.01.2022 – 3 O 17493/20).
@@ -33,61 +33,53 @@ Bestimmungshinweis, § 23 Abs. 1 Nr. 2 und 3 MarkenG).
 
 ## Kundenlogos
 
-`assets/logos/*.webp` — Logos von MMD Golf, Laura Hess Social Media
-Agentur, Fast Motors, Ernst Kröger, Maik Scholz Immobilienmakler, balance
-pilates, pure quality, Brinker & Heimann, Hausärztliche
-Gemeinschaftspraxis Dr. med. Lorenz & Dr. med. Jahnke, Restaurant Buon
-Gusto, KFZ-Meisterbetrieb Autohaus Glasstadt und madika Social Media
-Agentur im Laufband oben im Kundenstimmen-Blatt. Vom Inhaber bereitgestellt; die Marken gehören
-den jeweiligen Unternehmen. Für die Seite zugeschnitten und als WebP
-gespeichert (`assets/_originals/kundenlogos_render.js`); auf dem dunklen
+`assets/referenzen/vdsolutions/*.webp` — Logos von MMD Golf, Laura Hess
+Social Media Agentur, Fast Motors, Ernst Kröger, Maik Scholz
+Immobilienmakler, balance pilates, pure quality, Brinker & Heimann,
+Hausärztliche Gemeinschaftspraxis Dr. med. Lorenz & Dr. med. Jahnke,
+Restaurant Buon Gusto, KFZ-Meisterbetrieb Autohaus Glasstadt und madika
+Social Media Agentur im Laufband der VDSolutions-Ansicht. Vom Inhaber
+bereitgestellt (`quellen/referenzen/vdsolutions/`); die Marken gehören den
+jeweiligen Unternehmen. Zugeschnitten und als WebP gespeichert
+(`quellen/skripte/referenzen-vdsolutions_erzeugen.js`); auf dem dunklen
 Grund per CSS einfarbig weiß dargestellt.
 
-`assets/logos-s2l/*.webp` — Referenzlogos von Speed2Lead: Hochbauer
-Immobilien, Kreativ. Webdesign, Lukas Wegerer Personal Coach, Sabine Neumann
-Immobilienmaklerin, Kluger Werbeagentur, Paul Kempf & Partner, MMD Golf und
-Maik Scholz Immobilienmakler im Laufband oben im weißen Speed2Lead-Blatt. Vom
-Inhaber bereitgestellt (`assets/Logos von Referenzunternehmen/Referenzen
-Speed2Lead/`); die Marken gehören den jeweiligen Unternehmen. Einfarbig
-dunkel umgesetzt, Abstufungen mehrfarbiger Logos als Grautöne
-(`assets/_originals/referenzen-s2l_render.js`).
+`assets/referenzen/speed2lead/*.webp` — Referenzlogos von Speed2Lead:
+Hochbauer Immobilien, Kreativ. Webdesign, Lukas Wegerer Personal Coach,
+Sabine Neumann Immobilienmaklerin, Kluger Werbeagentur, Paul Kempf &
+Partner, MMD Golf und Maik Scholz Immobilienmakler im Laufband der
+Speed2Lead-Ansicht. Vom Inhaber bereitgestellt
+(`quellen/referenzen/speed2lead/`); die Marken gehören den jeweiligen
+Unternehmen. Einfarbig umgesetzt
+(`quellen/skripte/referenzen-speed2lead_erzeugen.js`), auf dem dunklen
+Grund per CSS weiß dargestellt.
 
 ## Platzhalter-Vorschaubilder
 
-`assets/voices/platzhalter-*.webp` — KI-generierte Bilder (ChatGPT) als
-vorläufige Vorschaubilder der Kundenstimmen. Sie zeigen keine echten Kunden
-und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
+`assets/kundenstimmen/platzhalter-*.webp` — KI-generierte Bilder (ChatGPT,
+Originale in `quellen/kundenstimmen/`) als vorläufige Vorschaubilder der
+Kundenstimmen. Sie zeigen keine echten Kunden und tragen auf der Seite das
+Schild „Platzhalter“, bis echte Videos da sind.
 
 ## Eigene Inhalte
 
-- `assets/niclas-hero-800.webp`, `assets/niclas-hero-1200.webp` — Bühnenfoto
-  randlos oben auf der Seite, unten ausgeblendet
-  (`assets/_originals/niclas-hero_render.js`); `assets/niclas-avatar.webp` —
-  dasselbe Foto im quadratischen Zuschnitt (Profilbild); `assets/niclas-profil.jpg` — dasselbe als JPG für
-  Suchmaschinen.
-  Die Rechte liegen vor, eine Urhebernennung ist nicht erforderlich
-  (bestätigt am 19.10.2026).
-- `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
-  Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
-  Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen (Schriftzug
-  „VDS“ mit Petrol-V aus `assets/VDS-Logo.svg`; das Calendly-Zeichen in Petrol
-  `calendly-petrol.webp` für VDSolutions, umgefärbt aus der grünen Fassung)
-- `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
-  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Orange
-  und das eigene Speed2Lead-Bildzeichen (beide grün). Beide vom Inhaber geliefert
-  (`assets/Speed2Lead/`), zugeschnitten mit
-  `assets/_originals/speed2lead-icons_render.js`.
-- `assets/logos-header/vdsolutions.webp`, `assets/logos-header/speed2lead.webp` —
-  die Logos im Header. VDSolutions aus dem eigenen Logo mit Petrol-Akzenten
-  (`assets/_originals/vdsolutions-logo-petrol.png`, Schriftzug für den dunklen
-  Header weiß, als `vdsolutions-petrol.webp`);
-  Speed2Lead seit 22.10.2026 in Grün (`assets/logos-header/speed2lead-gruen.webp`,
-  aus der gelieferten `assets/_originals/speed2lead_green_flat.png`, nur auf
-  den Inhalt beschnitten); die frühere orange Fassung (`speed2lead.webp`)
-  stammt aus `assets/_originals/speed2lead-logo-dunkel_2172x724.png`. Erzeugt mit `assets/_originals/header-logos_render.js`.
+- `assets/fotos/niclas-buehne-800.webp`, `assets/fotos/niclas-buehne-1200.webp`
+  — Bühnenfoto oben auf der Seite, unten ausgeblendet
+  (`quellen/skripte/buehnenfoto_erzeugen.js`); `assets/fotos/niclas-profil.jpg`
+  — dasselbe Foto quadratisch als Profilbild für Suchmaschinen. Original:
+  `quellen/fotos/`. Die Rechte liegen vor, eine Urhebernennung ist nicht
+  erforderlich (bestätigt am 19.10.2026).
+- `assets/marken/vdsolutions/` — Logo im Header (eigenes Logo mit
+  Petrol-Akzenten), das VDS-Zeichen und das Calendly-Zeichen in Petrol.
+  `assets/marken/speed2lead/` — Logo (weiß/orange), das eigene
+  Speed2Lead-Bildzeichen und das Calendly-Zeichen in Orange. Alle vom Inhaber
+  geliefert, Originale in `quellen/marken/`. Das Calendly-Logo ist eine Marke
+  der Calendly LLC und steht nur als Hinweis auf die Terminbuchung dort.
 - Favicon und App-Icons (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`,
   `assets/icons/`) — eigenes NV-Monogramm, in Canva gestaltet (Originale in
-  `assets/_originals/icons/nv/`, erzeugt mit `nv-icons_render.js`); `assets/og-image-nv.jpg` — Vorschaubild (Bühnenfoto mit Name und
-  Botschaft in Inter), in Canva gestaltet. Mit der Schrift erzeugte Grafiken fallen nicht unter
-  die OFL (Präambel der Lizenz).
+  `quellen/icons/`, erzeugt mit `quellen/skripte/icons_erzeugen.js`).
+- `assets/vorschau/link-vorschau.jpg` — Vorschaubild für geteilte Links
+  (Bühnenfoto mit Name und Botschaft in Inter), in Canva gestaltet, Original
+  in `quellen/vorschau/`. Mit einer Schrift erzeugte Grafiken fallen nicht
+  unter die OFL (Präambel der Lizenz).
 - Texte, Layout, CSS und JavaScript
