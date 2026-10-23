@@ -1,15 +1,25 @@
 {
   "name": "Niclas van der Straeten",
   "short_name": "van der Straeten",
-  "description": "Erstgespräch buchen, VDSolutions besuchen oder direkt Kontakt aufnehmen.",
+  "description": "Ich mache KI zu Ihrem Wettbewerbsvorteil. Jetzt kostenloses Erstgespräch buchen.",
   "lang": "de",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#141414",
+  "theme_color": "#141414",
   "icons": [
-    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

@@ -83,9 +83,9 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
   aus der gelieferten `assets/_originals/speed2lead_green_flat.png`, nur auf
   den Inhalt beschnitten); die frühere orange Fassung (`speed2lead.webp`)
   stammt aus `assets/_originals/speed2lead-logo-dunkel_2172x724.png`. Erzeugt mit `assets/_originals/header-logos_render.js`.
-- Favicon und App-Icons (`favicon.ico`, `apple-touch-icon.png`, `assets/icons/`) —
-  der Buchstabe N in Inter (Copyright 2016 The Inter Project Authors, SIL OFL
-  1.1) auf Anthrazit; `assets/og-image.jpg` — Bühnenfoto mit Name und Rolle in
-  Inter. Mit der Schrift erzeugte Grafiken fallen nicht unter
+- Favicon und App-Icons (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`,
+  `assets/icons/`) — eigenes NV-Monogramm, in Canva gestaltet (Originale in
+  `assets/_originals/icons/nv/`, erzeugt mit `nv-icons_render.js`); `assets/og-image-nv.jpg` — Vorschaubild (Bühnenfoto mit Name und
+  Botschaft in Inter), in Canva gestaltet. Mit der Schrift erzeugte Grafiken fallen nicht unter
   die OFL (Präambel der Lizenz).
 - Texte, Layout, CSS und JavaScript
