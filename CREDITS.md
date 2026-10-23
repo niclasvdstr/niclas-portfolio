@@ -68,17 +68,17 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
   (bestätigt am 19.10.2026).
 - `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
   Zeichen in den Buttons: das Calendly-Logo (Marke der Calendly LLC, als
-  Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen (blaue
-  Raute aus `assets/VDS-Logo.png.svg`)
+  Hinweis auf die Terminbuchung dort) und das eigene VDS-Zeichen (Schriftzug
+  „VDS“ mit grünem V aus `assets/VDS-Logo.svg`; das grüne Calendly-Zeichen
+  `calendly-gruen.webp` für VDSolutions)
 - `assets/icons-btn/calendly-s2l.webp`, `assets/icons-btn/s2l-icon.webp` —
-  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Grün
+  dieselben Zeichen für den Speed2Lead-Modus: das Calendly-Logo in Orange
   und das eigene Speed2Lead-Bildzeichen (beide grün). Beide vom Inhaber geliefert
   (`assets/Speed2Lead/`), zugeschnitten mit
   `assets/_originals/speed2lead-icons_render.js`.
 - `assets/logos-header/vdsolutions.webp`, `assets/logos-header/speed2lead.webp` —
-  die Logos im Header. VDSolutions aus dem eigenen blauen Logo
-  (`assets/_originals/vdsolutions-logo-blau-neu.png`), für den hellen Header
-  mit dunklem Schriftzug (`vdsolutions-neu-dunkel.webp`);
+  die Logos im Header. VDSolutions aus dem eigenen grünen Logo
+  (`assets/_originals/vdsolutions-logo-gruen.svg`, als `vdsolutions-gruen.webp`);
   Speed2Lead seit 22.10.2026 in Grün (`assets/logos-header/speed2lead-gruen.webp`,
   aus der gelieferten `assets/_originals/speed2lead_green_flat.png`, nur auf
   den Inhalt beschnitten); die frühere orange Fassung (`speed2lead.webp`)

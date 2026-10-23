@@ -35,12 +35,12 @@ const BRANDS = {
   vdsolutions: {
     name: "VDSolutions",
     pageTitle: "Niclas van der Straeten",
-    themeColor: "#ffffff",
+    themeColor: "#141414",
     // Blaue Pille: der eine Termin-Button, der führt
     primary: {
       label: "Kostenloses Erstgespräch",
       url: CONFIG.calendlyUrl,
-      badge: "assets/icons-btn/calendly.webp",
+      badge: "assets/icons-btn/calendly-gruen.webp",
     },
     // Weiße Pille mit feiner Kontur — ruhig neben dem blauen Termin-Button
     secondary: {
