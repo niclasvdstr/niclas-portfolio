@@ -9,9 +9,6 @@ const CONFIG = {
   emailBody: "",
 
   calendlyUrl: "https://calendly.com/niclasvdstr/kostenloses-erstgespraech",
-  // Unterseite auf VDSolutions mit der ausführlichen Vorstellung.
-  // Solange leer, steht der Verweis im Über-mich-Dialog da, ist aber nicht klickbar.
-  aboutUrl: "",
   noviqUrl: "https://www.vdsolutions.ai",
 
   // Speed2Lead — HIER EINTRAGEN, sobald vorhanden. Solange leer, stehen die
@@ -144,7 +141,7 @@ const ARROW_SECONDARY =
 // Zeichen (zwei Bilder übereinander), darüber je Marke Beschriftung und
 // Pfeil. Beim Wechsel blendet CSS um, setBrandLinks() tauscht das Ziel. So
 // bleibt die Pille selbst stehen — kein Neuaufbau, kein Springen.
-function createBrandButton(kind) {
+function createBrandButton(kind, labelOverride) {
   const primary = kind === "primary";
   const li = document.createElement("li");
   const el = document.createElement("a");
@@ -174,7 +171,7 @@ function createBrandButton(kind) {
     content.dataset.brandOnly = id;
     const label = document.createElement("span");
     label.className = primary ? "cta__label" : "btn-secondary__label";
-    label.textContent = cfg.label;
+    label.textContent = labelOverride || cfg.label;
     content.append(label);
     content.insertAdjacentHTML("beforeend", primary ? ARROW : ARROW_SECONDARY + LOCK_SECONDARY);
     el.append(content);
@@ -304,11 +301,6 @@ function wireAboutDialog() {
   openBtn.addEventListener("click", () => dialog.showModal());
   closeBtn.addEventListener("click", () => dialog.close());
 
-  // Ohne href ist der Verweis sichtbar, aber weder klick- noch fokussierbar —
-  // genau das Verhalten, das wir wollen, solange die Zielseite fehlt.
-  const cta = document.getElementById("about-cta");
-  if (CONFIG.aboutUrl) cta.href = CONFIG.aboutUrl;
-
   // Ein Druck neben den Dialog trifft das <dialog> selbst, nie seinen Inhalt.
   // pointerdown statt click: sonst schließt eine im Text begonnene Auswahl,
   // die außerhalb endet, den Dialog gleich wieder.
@@ -321,6 +313,8 @@ function wireAboutDialog() {
 function renderLinks() {
   document.getElementById("main-links").append(createBrandButton("primary"), createBrandButton("secondary"));
   document.getElementById("closing-links").append(createBrandButton("primary"));
+  // Am Ende der Geschichte persönlicher formuliert, gleicher Termin
+  document.getElementById("about-links")?.append(createBrandButton("primary", "Persönlich kennenlernen"));
 }
 
 /* =========================================================

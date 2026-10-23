@@ -1375,10 +1375,10 @@ body:has(.about-dialog[open]) {
   /* erst wenn der Punkt steht, läuft die Linie weiter nach unten */
   animation-delay: calc(var(--enter) + 0.16s);
 }
-.about-cta {
+.about-links {
   animation: timelineRow 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  /* schließt an den letzten Schritt (0.76s) an */
-  animation-delay: 0.92s;
+  /* schließt an den letzten Schritt (0.88s) an */
+  animation-delay: 1s;
 }
 .timeline__step:last-child::after {
   display: none;
@@ -1418,43 +1418,15 @@ body:has(.about-dialog[open]) {
   }
 }
 
-/* Weiterführender Verweis am Ende des Werdegangs. Bewusst als Textzeile mit
-   Trennlinie statt als Kachel: eine erhabene Fläche würde hier mit dem
-   Erstgespräch-CTA auf der Seite darunter um die Aufmerksamkeit konkurrieren. */
-.about-cta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Termin-Button am Ende der Geschichte: Trennlinie darüber, ohne Hüpfer —
+   im Dialog wäre Bewegung aufdringlich, der Lichtreflex bleibt */
+.about-links {
   margin-top: 20px;
-  padding-top: 18px;
+  padding-top: 20px;
   border-top: 1px solid var(--border);
-  color: var(--label-strong);
-  font-size: 0.86rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.18s ease;
 }
-.about-cta svg {
-  width: 16px;
-  height: 16px;
-  /* Pfeil an die rechte Kante, damit die Zeile wie ein Weiter-Ziel liest */
-  margin-left: auto;
-  transition: transform 0.18s ease;
-}
-.about-cta:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-/* Nur mit gesetzter URL reagieren — ohne href ist die Zeile reine Ankündigung */
-@media (hover: hover) and (pointer: fine) {
-  .about-cta[href]:hover {
-    color: var(--text);
-  }
-  .about-cta[href]:hover svg {
-    transform: translateX(3px);
-  }
+.about-links .cta {
+  animation: none;
 }
 
 /* ---------- Staggered entrance (once, on load) ----------
