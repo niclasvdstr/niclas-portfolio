@@ -2943,8 +2943,10 @@ body:has(.about-dialog[open]) {
     linear-gradient(180deg, rgb(255 255 255 / 0.11) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: center;
-  -webkit-mask-image: radial-gradient(min(62vw, 560px) 50% at 50% 50%, #000 0%, rgb(0 0 0 / 0.75) 50%, transparent 100%);
-  mask-image: radial-gradient(min(62vw, 560px) 50% at 50% 50%, #000 0%, rgb(0 0 0 / 0.75) 50%, transparent 100%);
+  /* Läuft nach unten innerhalb des Blatts vollständig aus (das Blatt
+     schneidet sonst ~130 px unter der Buttonmitte hart ab) */
+  -webkit-mask-image: radial-gradient(min(62vw, 560px) 34% at 50% 50%, #000 0%, rgb(0 0 0 / 0.55) 45%, rgb(0 0 0 / 0.15) 75%, transparent 100%);
+  mask-image: radial-gradient(min(62vw, 560px) 34% at 50% 50%, #000 0%, rgb(0 0 0 / 0.55) 45%, rgb(0 0 0 / 0.15) 75%, transparent 100%);
 }
 .closing-cta::after {
   width: min(120%, 720px);
@@ -2981,5 +2983,13 @@ body:has(.about-dialog[open]) {
     background-position: center, center, center;
     -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, #000 0%, rgb(0 0 0 / 0.7) 45%, transparent 100%);
     mask-image: radial-gradient(50% 50% at 50% 50%, #000 0%, rgb(0 0 0 / 0.7) 45%, transparent 100%);
+  }
+}
+
+/* Handy und Tablet: Seite und Blatt sind beide dunkel, der volle
+   Abschnittsabstand wirkte dort wie eine Lücke */
+@media (max-width: 1023px) {
+  .voices {
+    margin-top: 26px;
   }
 }
