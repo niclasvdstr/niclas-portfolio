@@ -1280,12 +1280,25 @@ body:has(.about-dialog[open]) {
 /* Farbverlauf des Werdegangs: je Schritt die eigene Farbe (--dot) und die des
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
-.timeline__step:nth-child(1) { --dot: #bfd4ff; --dot-next: #9ab8fb; --enter: 0.16s; }
-.timeline__step:nth-child(2) { --dot: #9ab8fb; --dot-next: #6e97f4; --enter: 0.28s; }
-.timeline__step:nth-child(3) { --dot: #6e97f4; --dot-next: #4376e9; --enter: 0.40s; }
-.timeline__step:nth-child(4) { --dot: #4376e9; --dot-next: #1d55d8; --enter: 0.52s; }
-.timeline__step:nth-child(5) { --dot: #1d55d8; --dot-next: #0039c4; --enter: 0.64s; }
-.timeline__step:nth-child(6) { --dot: #0039c4;                       --enter: 0.76s; }
+/* Farbreihe von hell (Anfang) nach satt (heute) in der Markenfarbe:
+   Grün bei VDSolutions, Orange bei Speed2Lead */
+.timeline {
+  --tl-1: #c6eedc; --tl-2: #9fe2c4; --tl-3: #72d1a6; --tl-4: #45ba87;
+  --tl-5: #22a06c; --tl-6: #12855a; --tl-7: #0a6b47;
+  --tl-halo: rgb(15 122 82 / 0.16);
+}
+:root[data-brand="speed2lead"] .timeline {
+  --tl-1: #ffdcc8; --tl-2: #ffc09c; --tl-3: #ffa16e; --tl-4: #ff8243;
+  --tl-5: #f76a24; --tl-6: #df5512; --tl-7: #c2410c;
+  --tl-halo: rgb(255 106 36 / 0.18);
+}
+.timeline__step:nth-child(1) { --dot: var(--tl-1); --dot-next: var(--tl-2); --enter: 0.16s; }
+.timeline__step:nth-child(2) { --dot: var(--tl-2); --dot-next: var(--tl-3); --enter: 0.28s; }
+.timeline__step:nth-child(3) { --dot: var(--tl-3); --dot-next: var(--tl-4); --enter: 0.40s; }
+.timeline__step:nth-child(4) { --dot: var(--tl-4); --dot-next: var(--tl-5); --enter: 0.52s; }
+.timeline__step:nth-child(5) { --dot: var(--tl-5); --dot-next: var(--tl-6); --enter: 0.64s; }
+.timeline__step:nth-child(6) { --dot: var(--tl-6); --dot-next: var(--tl-7); --enter: 0.76s; }
+.timeline__step:nth-child(7) { --dot: var(--tl-7);                        --enter: 0.88s; }
 
 /* Punkt */
 .timeline__step::before {
@@ -1372,7 +1385,7 @@ body:has(.about-dialog[open]) {
 }
 /* Heute: Hof um den kräftigsten Punkt, damit das Auge am Ziel hängen bleibt */
 .timeline__step--current::before {
-  box-shadow: 0 0 0 4px rgba(0, 57, 196, 0.14);
+  box-shadow: 0 0 0 4px var(--tl-halo);
 }
 .timeline__year {
   /* gleiche Ziffernbreite, damit die Jahre exakt untereinander stehen */

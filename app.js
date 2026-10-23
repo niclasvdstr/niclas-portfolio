@@ -34,7 +34,7 @@ const CONFIG = {
 const BRANDS = {
   vdsolutions: {
     name: "VDSolutions",
-    pageTitle: "Niclas van der Straeten",
+    pageTitle: "Niclas van der Straeten · KI-Beratung",
     themeColor: "#141414",
     // Blaue Pille: der eine Termin-Button, der führt
     primary: {

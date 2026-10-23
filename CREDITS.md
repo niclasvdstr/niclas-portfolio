@@ -63,7 +63,8 @@ und tragen auf der Seite das Schild „Platzhalter“, bis echte Videos da sind.
 - `assets/niclas-hero-800.webp`, `assets/niclas-hero-1200.webp` — Bühnenfoto
   randlos oben auf der Seite, unten ausgeblendet
   (`assets/_originals/niclas-hero_render.js`); `assets/niclas-avatar.webp` —
-  dasselbe Foto im quadratischen Zuschnitt (Profilbild für Suchmaschinen).
+  dasselbe Foto im quadratischen Zuschnitt (Profilbild); `assets/niclas-profil.jpg` — dasselbe als JPG für
+  Suchmaschinen.
   Die Rechte liegen vor, eine Urhebernennung ist nicht erforderlich
   (bestätigt am 19.10.2026).
 - `assets/icons-btn/calendly.webp`, `assets/icons-btn/vds-icon.webp` — runde
