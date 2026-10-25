@@ -338,15 +338,15 @@ body {
    „sprechen.“ in den Kundenstimmen. */
 .name__accent {
   font-style: italic;
-  font-weight: 700;
-  color: var(--name-4);
+  font-weight: 680;
+  color: var(--name-fallback, var(--name-4));
   /* Platz für den Überhang der Kursiven, ohne den Satz zu verschieben */
   padding-inline: 0.03em 0.09em;
   margin-inline: -0.03em -0.09em;
 }
 @supports (-webkit-background-clip: text) or (background-clip: text) {
   .name__accent {
-    background-image: linear-gradient(100deg, var(--name-1) 0%, var(--name-2) 42%, var(--name-3) 62%, var(--name-4) 100%);
+    background-image: linear-gradient(100deg, var(--name-1) 0%, var(--name-2) 45%, var(--name-3) 65%, var(--name-4) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -417,7 +417,8 @@ body {
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 10;
-  height: var(--header-h);
+  height: calc(var(--header-h) + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
   padding-inline: max(20px, env(safe-area-inset-left)) max(20px, env(safe-area-inset-right));
   display: flex;
   align-items: center;
@@ -437,10 +438,10 @@ body {
 }
 /* Sprungziele und Fokus nicht unter der fixierten Leiste verstecken */
 html {
-  scroll-padding-top: 72px;
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 .site-header__logo {
-  --logo-h: 17px;
+  --logo-h: 17.83px;
   display: grid;
 }
 .site-header__logo > img {
@@ -458,7 +459,7 @@ html {
 .site-header__logo > img {
   height: calc(var(--logo-h) * 1.1);
 }
-/* VDSolutions-Logo (Petrol): gleich breit wie Speed2Lead (750 : 96
+/* VDSolutions-Logo (Kobalt): gleich breit wie Speed2Lead (750 : 96
    gegenüber 612 : 96), damit beide gleich groß wirken */
 .site-header__logo > img[data-brand-only="vdsolutions"] {
   height: calc(var(--logo-h) * 1.1 * 612 / 750);
@@ -473,13 +474,21 @@ html {
 }
 @media (min-width: 768px) {
   :root {
-    --header-h: 64px;
+    --header-h: 68px;
   }
   .site-header {
     padding-inline: max(32px, calc((100vw - 1120px) / 2));
   }
   .site-header__logo {
-    --logo-h: 19.5px;
+    --logo-h: 20.05px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 76px;
+  }
+  .site-header__logo {
+    --logo-h: 22.28px;
   }
 }
 
@@ -1281,11 +1290,11 @@ body:has(.about-dialog[open]) {
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
 /* Farbreihe von hell (Anfang) nach satt (heute) in der Markenfarbe:
-   Petrol bei VDSolutions, Orange bei Speed2Lead */
+   Kobalt bei VDSolutions, Orange bei Speed2Lead */
 .timeline {
-  --tl-1: #cfe3e8; --tl-2: #a9ccd5; --tl-3: #7fb0bd; --tl-4: #5293a3;
-  --tl-5: #2c778a; --tl-6: #0f5f72; --tl-7: #003c4b;
-  --tl-halo: rgb(0 80 97 / 0.16);
+  --tl-1: #d8e7fc; --tl-2: #b7d2f8; --tl-3: #8fb8f3; --tl-4: #5f98ea;
+  --tl-5: #357be3; --tl-6: #1565e0; --tl-7: #0048a4;
+  --tl-halo: rgb(53 123 227 / 0.16);
 }
 :root[data-brand="speed2lead"] .timeline {
   --tl-1: #ffdcc8; --tl-2: #ffc09c; --tl-3: #ffa16e; --tl-4: #ff8243;
@@ -2338,11 +2347,49 @@ body:has(.about-dialog[open]) {
 :root[data-brand="speed2lead"] {
   --focus-ring: #ff8a50;
 }
-:root[data-brand="speed2lead"] .site-header {
-  background-color: rgb(20 20 20 / 0.52);
-  box-shadow:
-    inset 0 -1px 0 rgb(255 255 255 / 0.08),
-    0 10px 30px -20px rgb(0 0 0 / 0.7);
+/* Dunkle Kopfleiste (Vorgabe vom 25.10.2026): ganz oben deckend #1C1D21,
+   eine Spur heller als der Grund #141414, damit sie nicht mit dem Foto
+   verschmilzt; Haarlinie und weicher Schatten nach unten. Beim Scrollen
+   (.is-scrolled, gesetzt in app.js) wird sie zu dunklem Glas. Unten eine
+   Lichtkante in der Markenfarbe, die zu den Rändern ausläuft. */
+:root[data-brand="speed2lead"] .site-header,
+:root[data-brand="vdsolutions"] .site-header {
+  background-color: #1c1d21;
+  background-image: none;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: 0 10px 28px -20px rgb(0 0 0 / 0.9);
+  -webkit-backdrop-filter: saturate(1.5) blur(14px);
+  backdrop-filter: saturate(1.5) blur(14px);
+  transition:
+    background-color 0.35s ease-out,
+    box-shadow 0.35s ease-out;
+}
+:root[data-brand="speed2lead"] .site-header.is-scrolled,
+:root[data-brand="vdsolutions"] .site-header.is-scrolled {
+  background-color: rgb(28 29 33 / 0.72);
+}
+.site-header::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--header-line-1) 30%,
+    var(--header-line-2) 50%,
+    var(--header-line-1) 70%,
+    transparent 100%);
+  pointer-events: none;
+}
+:root {
+  --header-line-1: rgb(53 123 227 / 0.36);
+  --header-line-2: rgb(133 178 246 / 0.5);
+}
+:root[data-brand="speed2lead"] {
+  --header-line-1: rgb(255 106 36 / 0.36);
+  --header-line-2: rgb(255 160 110 / 0.5);
 }
 /* Ohne Weichzeichner (ältere Browser) oder wenn das System weniger
    Transparenz wünscht: fast deckend, damit Logo und Icons lesbar bleiben */
@@ -2350,16 +2397,20 @@ body:has(.about-dialog[open]) {
   .site-header {
     background-color: rgb(255 255 255 / 0.94);
   }
-  :root[data-brand="speed2lead"] .site-header {
-    background-color: rgb(20 20 20 / 0.94);
+  :root[data-brand="speed2lead"] .site-header,
+  :root[data-brand="vdsolutions"] .site-header.is-scrolled,
+  :root[data-brand="speed2lead"] .site-header.is-scrolled {
+    background-color: rgb(28 29 33 / 0.96);
   }
 }
 @media (prefers-reduced-transparency: reduce) {
   .site-header {
     background-color: rgb(255 255 255 / 0.96);
   }
-  :root[data-brand="speed2lead"] .site-header {
-    background-color: rgb(20 20 20 / 0.96);
+  :root[data-brand="speed2lead"] .site-header,
+  :root[data-brand="vdsolutions"] .site-header.is-scrolled,
+  :root[data-brand="speed2lead"] .site-header.is-scrolled {
+    background-color: rgb(28 29 33 / 0.96);
   }
 }
 .name,
@@ -2502,53 +2553,52 @@ body:has(.about-dialog[open]) {
   }
 }
 
-/* VDSolutions: Termin-Button in leuchtendem Petrol (nach Vorgabe vom
-   23.10.2026) — Verlauf #0A5566 (Ränder) → #1487A0 (Mitte), Grundfarbe
-   #0D697D, Schein von unten rgba(220,246,252,.62) → rgba(120,205,225,.36),
-   Lichtpunkt oben 26 %, Kontur rgba(140,210,228,.55), Schatten
-   rgba(20,135,160,.45), Lichtkante 28 %. Speed2Lead bleibt Orange. */
+/* VDSolutions: Farbsystem „Kobalt“ (nach Vorgabe vom 25.10.2026),
+   Variante für dunklen Grund — Verlauf #1565E0 (Ränder) → #3279E6 (Mitte),
+   Grundfarbe #357BE3, Schein von unten rgba(225,236,255,.28) →
+   rgba(136,183,250,.16), Lichtpunkt oben 26 %, Kontur rgba(155,197,255,.55),
+   Schatten rgba(53,123,227,.28), Lichtkante 28 %, Glanzstreifen 24 %.
+   Calendly-Knopf mit Kobalt-Schatten. Speed2Lead bleibt Orange. */
 :root[data-brand="vdsolutions"] {
-  --cta-base: #0d697d;
-  --cta-edge: #0a5566;
-  --cta-mid: #1487a0;
-  --cta-glow: rgb(220 246 252 / 0.62);
-  --cta-glow-2: rgb(120 205 225 / 0.36);
-  --cta-glow-3: rgb(80 175 200 / 0);
-  --cta-ring: rgb(140 210 228 / 0.55);
-  --cta-drop: rgb(20 135 160 / 0.45);
+  --cta-base: #357be3;
+  --cta-edge: #1565e0;
+  --cta-mid: #3279e6;
+  --cta-glow: rgb(225 236 255 / 0.28);
+  --cta-glow-2: rgb(136 183 250 / 0.16);
+  --cta-glow-3: rgb(89 151 241 / 0);
+  --cta-ring: rgb(155 197 255 / 0.55);
+  --cta-drop: rgb(53 123 227 / 0.28);
   --cta-sheen: rgb(255 255 255 / 0.26);
   --cta-light: rgb(255 255 255 / 0.28);
-  --badge-drop: rgb(0 30 40 / 0.35);
-  --badge-drop-2: rgb(0 30 40 / 0.28);
-  --badge-tint: rgb(0 60 75 / 0.07);
-  --badge-edge: rgb(0 44 56 / 0.12);
-  --badge-inner: rgb(0 44 56 / 0.08);
-  /* Nachname: helle Petroltöne, damit er auf Anthrazit leuchtet */
-  --name-1: #4f97aa;
-  --name-2: #78b6c6;
-  --name-3: #a6d2dd;
-  --name-4: #5ea4b6;
-  /* Schein hinter Block und Abschluss-Button: das Button-Petrol ist dafür
-     zu dunkel */
-  --accent-glow: #1f8199;
+  --cta-gloss: rgb(255 255 255 / 0.24);
+  --badge-drop: rgb(0 24 66 / 0.3);
+  --badge-drop-2: rgb(0 24 66 / 0.24);
+  --badge-tint: rgb(22 82 176 / 0.07);
+  --badge-edge: rgb(0 48 121 / 0.12);
+  --badge-inner: rgb(0 48 121 / 0.08);
+  /* Nachname: Kobalt-Textverlauf für dunklen Grund (Vorgabe 25.10.2026),
+     Ersatzfarbe ohne Text-Verlauf #85B2F6 */
+  --name-1: #4497ff;
+  --name-2: #6eb1ff;
+  --name-3: #92c7ff;
+  --name-4: #539dff;
+  --name-fallback: #85b2f6;
+  /* Schein hinter Block und Abschluss-Button */
+  --accent-glow: #2f6fd6;
 }
 .cta .btn-content--vdsolutions {
-  text-shadow: 0 1px 2px rgb(0 35 45 / 0.4);
+  text-shadow: 0 1px 2px rgb(0 30 77 / 0.4);
 }
 
 /* VDSolutions dunkel: Anthrazit, dunkles Glas, helle Schrift; auch das
    Kundenstimmen-Blatt bleibt dunkel (weiße Logos, helles Gold) */
 :root[data-brand="vdsolutions"] {
-  --focus-ring: #99b9c3;
+  --focus-ring: #85b2f6;
 }
 :root[data-brand="vdsolutions"] body {
   background-color: #141414;
 }
 :root[data-brand="vdsolutions"] .site-header {
-  background-color: rgb(20 20 20 / 0.52);
-  box-shadow:
-    inset 0 -1px 0 rgb(255 255 255 / 0.08),
-    0 10px 30px -20px rgb(0 0 0 / 0.7);
   --chip-ink: rgb(255 255 255 / 0.92);
   --chip-fill: rgb(255 255 255 / 0.06);
   --chip-fill-hover: rgb(255 255 255 / 0.12);
@@ -2563,7 +2613,7 @@ body:has(.about-dialog[open]) {
   color: #d2d2d2;
 }
 :root[data-brand="vdsolutions"] .cta {
-  --cta-focus: #99b9c3;
+  --cta-focus: #85b2f6;
 }
 :root[data-brand="vdsolutions"] .btn-secondary {
   background-color: #242424;
@@ -2579,7 +2629,7 @@ body:has(.about-dialog[open]) {
     0 1px 2px rgb(0 0 0 / 0.4);
 }
 :root[data-brand="vdsolutions"] .btn-secondary:focus-visible {
-  outline-color: #99b9c3;
+  outline-color: #85b2f6;
 }
 :root[data-brand="vdsolutions"] .brand-seg {
   --seg-bg: #1f1f1f;
@@ -2596,11 +2646,11 @@ body:has(.about-dialog[open]) {
   color: #767676;
 }
 :root[data-brand="vdsolutions"] .voices {
-  --v-glow: rgb(31 129 153 / 0.18);
-  --v-accent: #78b6c6;
-  --v-play: rgb(13 105 125 / 0.94);
-  --v-play-shadow: rgb(0 30 40 / 0.6);
-  --v-focus: #99b9c3;
+  --v-glow: rgb(53 123 227 / 0.18);
+  --v-accent: #85b2f6;
+  --v-play: rgb(53 123 227 / 0.94);
+  --v-play-shadow: rgb(0 24 66 / 0.6);
+  --v-focus: #85b2f6;
 }
 
 /* Lichtreflex auf dem Termin-Button: alle 5 s gleitet ein weißer
@@ -2617,10 +2667,10 @@ body:has(.about-dialog[open]) {
   inset: 0;
   z-index: 1;
   border-radius: inherit;
-  background: linear-gradient(105deg,
-    rgb(255 255 255 / 0) 38%,
-    rgb(255 255 255 / 0.36) 50%,
-    rgb(255 255 255 / 0) 62%) no-repeat;
+  background: linear-gradient(110deg,
+    rgb(255 255 255 / 0) 30%,
+    var(--cta-gloss, rgb(255 255 255 / 0.36)) 48%,
+    rgb(255 255 255 / 0) 64%) no-repeat;
   background-size: 260% 100%;
   background-position: 160% 0;
   pointer-events: none;
@@ -2853,9 +2903,11 @@ body:has(.about-dialog[open]) {
     line-height: 1.02;
     letter-spacing: -0.045em;
   }
-  /* immer zweizeilig: „Niclas“ / „van der Straeten“ */
+  /* immer zweizeilig: „Niclas“ / „van der Straeten“; am Desktop etwas
+     kräftiger (700 statt 680) */
   .name__accent {
     display: block;
+    font-weight: 700;
   }
   .bio {
     grid-area: bio;

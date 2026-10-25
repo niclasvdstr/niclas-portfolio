@@ -309,6 +309,15 @@ function wireAboutDialog() {
   });
 }
 
+// Kopfleiste: ganz oben deckend, sobald gescrollt wird dunkles Glas
+function wireHeaderScroll() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const update = () => header.classList.toggle("is-scrolled", window.scrollY > 4);
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+}
+
 // Buttons bauen: oben beide, am Ende des dunklen Blatts nur der Termin-Button
 function renderLinks() {
   document.getElementById("main-links").append(createBrandButton("primary"), createBrandButton("secondary"));
@@ -567,5 +576,6 @@ buildVoices();
 renderLinks();
 updateVoiceTexts();
 wireAboutDialog();
+wireHeaderScroll();
 applyBrand(brandFromUrl(), { animate: false });
 wireBrandSwitch();
