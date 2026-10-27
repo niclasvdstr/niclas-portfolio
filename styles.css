@@ -136,13 +136,14 @@
   --badge-tint: rgb(18 160 106 / 0.07);
   --badge-edge: rgb(6 70 45 / 0.12);
   --badge-inner: rgb(6 70 45 / 0.08);
-  /* Akzente in Champagner-Gold (seit 26.10.2026), abgestimmt auf das
-     goldene „sprechen.“; Grün bleibt den Aktionen (Button, Play, Logo) */
-  --name-1: #e0b65a;
-  --name-2: #f1d48e;
-  --name-3: #f6dd9a;
-  --name-4: #dcb463;
-  --accent-glow: #c99a3e;
+  /* Akzente in der Markenfarbe wie bei VDSolutions: Nachname als heller
+     Grünverlauf, damit er auf Anthrazit leuchtet. Gold bleibt nur bei
+     „sprechen.“ und der Haarlinie im Kundenstimmen-Blatt. */
+  --name-1: #1fc184;
+  --name-2: #4fd39e;
+  --name-3: #82e2bb;
+  --name-4: #2fc98d;
+  --accent-glow: #12a06a;
 }
 
 * {
@@ -1292,16 +1293,16 @@ body:has(.about-dialog[open]) {
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
 /* Farbreihe von hell (Anfang) nach satt (heute) in der Markenfarbe:
-   Kobalt bei VDSolutions, Gold bei Speed2Lead (wie der Name) */
+   Kobalt bei VDSolutions, Grün bei Speed2Lead */
 .timeline {
   --tl-1: #d8e7fc; --tl-2: #b7d2f8; --tl-3: #8fb8f3; --tl-4: #5f98ea;
   --tl-5: #357be3; --tl-6: #1565e0; --tl-7: #0048a4;
   --tl-halo: rgb(53 123 227 / 0.16);
 }
 :root[data-brand="speed2lead"] .timeline {
-  --tl-1: #fbf0d4; --tl-2: #f6dd9a; --tl-3: #ecc97a; --tl-4: #e0b65a;
-  --tl-5: #c99a3e; --tl-6: #a97c2a; --tl-7: #85601c;
-  --tl-halo: rgb(224 182 90 / 0.16);
+  --tl-1: #d6f5e7; --tl-2: #ade9cf; --tl-3: #7fdcb6; --tl-4: #4fcc9a;
+  --tl-5: #1fc184; --tl-6: #12a06a; --tl-7: #0e8a5b;
+  --tl-halo: rgb(18 160 106 / 0.16);
 }
 .timeline__step:nth-child(1) { --dot: var(--tl-1); --dot-next: var(--tl-2); --enter: 0.16s; }
 .timeline__step:nth-child(2) { --dot: var(--tl-2); --dot-next: var(--tl-3); --enter: 0.28s; }
@@ -2392,8 +2393,8 @@ body:has(.about-dialog[open]) {
   --header-line-2: rgb(133 178 246 / 0.5);
 }
 :root[data-brand="speed2lead"] {
-  --header-line-1: rgb(224 182 90 / 0.36);
-  --header-line-2: rgb(246 221 154 / 0.5);
+  --header-line-1: rgb(18 160 106 / 0.36);
+  --header-line-2: rgb(79 211 158 / 0.5);
 }
 /* Ohne Weichzeichner (ältere Browser) oder wenn das System weniger
    Transparenz wünscht: fast deckend, damit Logo und Icons lesbar bleiben */
@@ -2457,8 +2458,8 @@ body:has(.about-dialog[open]) {
    Wie bei VDSolutions bleibt das Kundenstimmen-Blatt dunkel; Akzente in
    Grün, „sprechen.“ und die Haarlinie im hellen Hochglanzgold. */
 :root[data-brand="speed2lead"] .voices {
-  --v-glow: rgb(224 182 90 / 0.12);
-  --v-accent: #e0b65a;
+  --v-glow: rgb(18 160 106 / 0.14);
+  --v-accent: #1fc184;
   --v-play: rgb(18 160 106 / 0.94);
   --v-play-shadow: rgb(5 60 38 / 0.6);
   --v-focus: #1fc184;
