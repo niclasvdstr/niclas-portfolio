@@ -64,15 +64,15 @@ Schild „Platzhalter“, bis echte Videos da sind.
 ## Eigene Inhalte
 
 - `assets/fotos/niclas-buehne-800.webp`, `assets/fotos/niclas-buehne-1200.webp`
-  — Bühnenfoto oben auf der Seite (seit 25.10.2026 mit blauem Bühnenlicht),
-  unten ausgeblendet (`quellen/skripte/buehnenfoto_erzeugen.js`);
-  `assets/fotos/niclas-profil.jpg` — das frühere Bühnenfoto quadratisch als
-  Profilbild für Suchmaschinen. Originale: `quellen/fotos/`. Die Rechte liegen vor, eine Urhebernennung ist nicht
+  — Bühnenfoto oben auf der Seite, unten ausgeblendet
+  (`quellen/skripte/buehnenfoto_erzeugen.js`); `assets/fotos/niclas-profil.jpg`
+  — dasselbe Foto quadratisch als Profilbild für Suchmaschinen. Original:
+  `quellen/fotos/`. Die Rechte liegen vor, eine Urhebernennung ist nicht
   erforderlich (bestätigt am 19.10.2026).
 - `assets/marken/vdsolutions/` — Logo im Header (eigenes Logo, Akzente
   in Kobalt umgefärbt), das VDS-Zeichen und das Calendly-Zeichen in Kobalt.
-  `assets/marken/speed2lead/` — Logo (weiß/orange), das eigene
-  Speed2Lead-Bildzeichen und das Calendly-Zeichen in Orange. Alle vom Inhaber
+  `assets/marken/speed2lead/` — Logo (weiß/grün), das eigene
+  Speed2Lead-Bildzeichen und das Calendly-Zeichen in Grün. Alle vom Inhaber
   geliefert, Originale in `quellen/marken/`. Das Calendly-Logo ist eine Marke
   der Calendly LLC und steht nur als Hinweis auf die Terminbuchung dort.
 - Favicon und App-Icons (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`,

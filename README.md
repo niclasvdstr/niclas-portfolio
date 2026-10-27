@@ -1,7 +1,7 @@
 # niclasvanderstraeten.com
 
 Linkseite von Niclas van der Straeten mit zwei Marken: **VDSolutions**
-(Standard, Kobalt) und **Speed2Lead** (Orange, `?brand=speed2lead`).
+(Standard, Kobalt #0050F6) und **Speed2Lead** (Smaragdgrün #12A06A, `?brand=speed2lead`).
 Reines HTML/CSS/JS ohne Build. Jeder Push auf `main` geht über Vercel live.
 
 ## Ordnerstruktur

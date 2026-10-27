@@ -338,12 +338,12 @@ const BRAND_MORPH = { duration: 480, easing: "cubic-bezier(0.32, 0.72, 0, 1)" };
 // größtenteils ausgeblendet ist — sonst schnitte sie eine noch sichtbare
 // Zeile mittendurch (z. B. die zweite Zeile der Botschaft bei 320 px)
 const BRAND_COLLAPSE = { ...BRAND_MORPH, delay: 140, fill: "backwards" };
-// Blau und Orange treffen sich auf halbem Weg in einem dunklen Mauve, einer
-// dritten Farbe, die keiner der beiden Marken gehört. Termin-Buttons, Name
-// und Play-Knöpfe verlieren genau dann kurz ihre Sättigung und werden eine
-// Spur heller: Das Blau löst sich ins Neutrale auf, aus dem das Orange
-// kommt. Der Tiefpunkt (80 ms) liegt dort, wo die Farbe gerade die Mitte
-// durchläuft.
+// Blau und Grün treffen sich auf halbem Weg in einem dunklen Blaugrün, einer
+// Farbe, die keiner der beiden Marken gehört. Termin-Buttons, Name und
+// Play-Knöpfe verlieren genau dann kurz ihre Sättigung und werden eine Spur
+// heller: Das Blau löst sich ins Neutrale auf, aus dem das Grün kommt. Der
+// Tiefpunkt (80 ms) liegt dort, wo die Farbe gerade die Mitte durchläuft.
+// (Seit 27.10.2026 Grün statt Orange; Ablauf und Dauer unverändert.)
 const BRAND_DIP = {
   keyframes: [
     { filter: "saturate(1) brightness(1)" },

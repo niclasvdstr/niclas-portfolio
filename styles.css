@@ -57,10 +57,11 @@
 }
 
 /* ---------- Markenwechsel: Farben ----------
-   Eine Seite, zwei Marken: VDSolutions (Blau, Standard) und Speed2Lead
-   (Orange). Die Marke steht als data-brand am <html>. Jede Farbe, die sich
-   beim Wechsel ändert, ist hier registriert — nur so laufen auch Verläufe
-   und Schatten fließend von Blau nach Orange, statt umzuspringen. Ohne
+   Eine Seite, zwei Marken: VDSolutions (Kobaltblau, Standard) und Speed2Lead
+   (Smaragdgrün, seit 27.10.2026; vorher Orange). Die Marke steht als
+   data-brand am <html>. Jede Farbe, die sich beim Wechsel ändert, ist hier
+   registriert — nur so laufen auch Verläufe und Schatten fließend von Blau
+   nach Grün, statt umzuspringen. Ohne
    @property-Unterstützung wechseln die Farben sofort, alles andere bleibt
    gleich. Die VDSolutions-Werte sind exakt die bisherigen Farben. */
 @property --cta-base { syntax: "<color>"; inherits: true; initial-value: #0050f6; }
@@ -117,30 +118,31 @@
   transition-timing-function: var(--brand-ease);
 }
 
-/* Speed2Lead: Orange #FF6A24, Anthrazit #141414, Off-White #F7F7F5. Der
-   Button bekommt dieselben drei Lichtebenen wie der blaue, nur warm. */
+/* Speed2Lead: Smaragdgrün #12A06A (hell #1FC184, dunkel #0E8A5B),
+   Anthrazit #141414 (seit 27.10.2026, vorher Orange #FF6A24). Der Button
+   bekommt dieselben drei Lichtebenen wie der blaue, nur grün. */
 :root[data-brand="speed2lead"] {
-  --cta-base: #ff6a24;
-  --cta-edge: #f25812;
-  /* Mitte im reinen Markenorange statt heller: darauf liest sich die weiße
-     Schrift besser */
-  --cta-mid: #ff6a24;
-  --cta-glow: rgb(255 238 226 / 0.95);
-  --cta-glow-2: rgb(255 188 148 / 0.5);
-  --cta-glow-3: rgb(255 150 96 / 0);
-  --cta-ring: rgb(255 150 100 / 0.5);
-  --cta-drop: rgb(255 106 36 / 0.42);
-  --badge-drop: rgb(130 46 0 / 0.3);
-  --badge-drop-2: rgb(130 46 0 / 0.24);
-  --badge-tint: rgb(220 90 20 / 0.07);
-  --badge-edge: rgb(150 55 0 / 0.12);
-  --badge-inner: rgb(150 55 0 / 0.08);
-  /* Nachname auf Anthrazit: dieselben hellen Orangetöne wie „bleiben.“ im
-     dunklen Blatt */
-  --name-1: #ff6a24;
-  --name-2: #ff8a4c;
-  --name-3: #ffa36f;
-  --name-4: #ff7433;
+  --cta-base: #12a06a;
+  /* Rand eine Spur dunkler: die dunkle Schrift bleibt dort über 4,5 : 1 */
+  --cta-edge: #0f9461;
+  --cta-mid: #12a06a;
+  --cta-glow: rgb(234 248 241 / 0.95);
+  --cta-glow-2: rgb(150 225 192 / 0.5);
+  --cta-glow-3: rgb(31 193 132 / 0);
+  --cta-ring: rgb(31 193 132 / 0.5);
+  --cta-drop: rgb(18 160 106 / 0.42);
+  --badge-drop: rgb(5 60 38 / 0.3);
+  --badge-drop-2: rgb(5 60 38 / 0.24);
+  --badge-tint: rgb(18 160 106 / 0.07);
+  --badge-edge: rgb(6 70 45 / 0.12);
+  --badge-inner: rgb(6 70 45 / 0.08);
+  /* Akzente in Champagner-Gold (seit 26.10.2026), abgestimmt auf das
+     goldene „sprechen.“; Grün bleibt den Aktionen (Button, Play, Logo) */
+  --name-1: #e0b65a;
+  --name-2: #f1d48e;
+  --name-3: #f6dd9a;
+  --name-4: #dcb463;
+  --accent-glow: #c99a3e;
 }
 
 * {
@@ -752,7 +754,7 @@ html {
    von unten, Lichtpunkt oben in der Mitte, zu den Seiten dunkleres Blau,
    darüber Kontur, Schatten und eine Lichtkante. Wiederverwendbar als <a>. */
 .cta {
-  /* Farben aus dem Abschnitt „Markenwechsel“: Blau bei VDSolutions, Orange
+  /* Farben aus dem Abschnitt „Markenwechsel“: Blau bei VDSolutions, Grün
      bei Speed2Lead, dazwischen fließend */
   --cta-blue: var(--cta-base);
   --cta-surface:
@@ -1290,16 +1292,16 @@ body:has(.about-dialog[open]) {
    folgenden (--dot-next). Der Strich blendet zwischen beiden über, dadurch
    wirkt die Kette trotz einzeln gefärbter Abschnitte wie ein Verlauf. */
 /* Farbreihe von hell (Anfang) nach satt (heute) in der Markenfarbe:
-   Kobalt bei VDSolutions, Orange bei Speed2Lead */
+   Kobalt bei VDSolutions, Gold bei Speed2Lead (wie der Name) */
 .timeline {
   --tl-1: #d8e7fc; --tl-2: #b7d2f8; --tl-3: #8fb8f3; --tl-4: #5f98ea;
   --tl-5: #357be3; --tl-6: #1565e0; --tl-7: #0048a4;
   --tl-halo: rgb(53 123 227 / 0.16);
 }
 :root[data-brand="speed2lead"] .timeline {
-  --tl-1: #ffdcc8; --tl-2: #ffc09c; --tl-3: #ffa16e; --tl-4: #ff8243;
-  --tl-5: #f76a24; --tl-6: #df5512; --tl-7: #c2410c;
-  --tl-halo: rgb(255 106 36 / 0.18);
+  --tl-1: #fbf0d4; --tl-2: #f6dd9a; --tl-3: #ecc97a; --tl-4: #e0b65a;
+  --tl-5: #c99a3e; --tl-6: #a97c2a; --tl-7: #85601c;
+  --tl-halo: rgb(224 182 90 / 0.16);
 }
 .timeline__step:nth-child(1) { --dot: var(--tl-1); --dot-next: var(--tl-2); --enter: 0.16s; }
 .timeline__step:nth-child(2) { --dot: var(--tl-2); --dot-next: var(--tl-3); --enter: 0.28s; }
@@ -2196,8 +2198,8 @@ body:has(.about-dialog[open]) {
 
 /* ---------- Markenwechsler ----------
    Klein und ruhig über den Buttons, rechtsbündig: ein Hinweis auf die
-   zweite Marke, kein dritter Button. Schon bei VDSolutions in zartem
-   Orange, weil er dorthin führt. Beide Beschriftungen liegen im selben
+   zweite Marke, kein dritter Button. Schon bei VDSolutions mit dem
+   grünen Speed2Lead-Zeichen, weil er dorthin führt. Beide Beschriftungen liegen im selben
    Rasterfeld — die Pille behält beim Wechsel ihre Breite. */
 .brand-switch-row {
   display: flex;
@@ -2309,23 +2311,25 @@ body:has(.about-dialog[open]) {
   gap: inherit;
   padding: inherit;
 }
-/* Speed2Lead-Termin: weiße Schrift wie beim blauen Button, mit einem warmen
-   Schatten statt des blauen, damit sie sich vom Orange abhebt */
+/* Speed2Lead-Termin: Schrift und Pfeil in Anthrazit, weil Weiß auf dem
+   Grün #12A06A nur 3,4 : 1 erreicht (Anthrazit 5,5 : 1, WCAG AA); dazu ein
+   heller statt eines dunklen Schattens (seit 27.10.2026) */
 .cta .btn-content--speed2lead {
-  text-shadow: 0 1px 2px rgb(120 40 0 / 0.35);
+  color: #141414;
+  text-shadow: 0 1px 0 rgb(255 255 255 / 0.22);
 }
 :root[data-brand="speed2lead"] .cta {
-  --cta-focus: #ff8a50;
+  --cta-focus: #1fc184;
 }
 @media (hover: hover) {
   :root[data-brand="speed2lead"] .btn-secondary[href]:hover {
     box-shadow:
-      0 0 0 1px rgb(255 106 36 / 0.45),
+      0 0 0 1px rgb(18 160 106 / 0.45),
       0 12px 26px -16px rgb(0 0 0 / 0.6);
   }
 }
 :root[data-brand="speed2lead"] .btn-secondary:focus-visible {
-  outline-color: #ff8a50;
+  outline-color: #1fc184;
 }
 /* Zeichen links: Das Speed2Lead-Bild liegt oben und blendet über das
    VDSolutions-Bild, das erst danach verschwindet — die Scheibe wird dabei
@@ -2342,10 +2346,10 @@ body:has(.about-dialog[open]) {
    VDSolutions bleibt weiß; Speed2Lead steht ganz in Anthrazit #141414 —
    dasselbe wie das dunkle Blatt, Seite und Blatt gehen nahtlos ineinander
    über. Schrift weiß und in den Grautönen aus der Speed2Lead-Palette
-   (#AFAFAF), der Zweitbutton als dunkle Fläche #242424, damit der orange
+   (#AFAFAF), der Zweitbutton als dunkle Fläche #242424, damit der grüne
    Termin-Button allein vorn bleibt. Die Farben laufen im Takt des Wechsels. */
 :root[data-brand="speed2lead"] {
-  --focus-ring: #ff8a50;
+  --focus-ring: #1fc184;
 }
 /* Dunkle Kopfleiste (Vorgabe vom 25.10.2026): ganz oben deckend #1C1D21,
    eine Spur heller als der Grund #141414, damit sie nicht mit dem Foto
@@ -2388,8 +2392,8 @@ body:has(.about-dialog[open]) {
   --header-line-2: rgb(133 178 246 / 0.5);
 }
 :root[data-brand="speed2lead"] {
-  --header-line-1: rgb(255 106 36 / 0.36);
-  --header-line-2: rgb(255 160 110 / 0.5);
+  --header-line-1: rgb(224 182 90 / 0.36);
+  --header-line-2: rgb(246 221 154 / 0.5);
 }
 /* Ohne Weichzeichner (ältere Browser) oder wenn das System weniger
    Transparenz wünscht: fast deckend, damit Logo und Icons lesbar bleiben */
@@ -2451,16 +2455,16 @@ body:has(.about-dialog[open]) {
 
 /* ---------- Speed2Lead: dunkles Blatt ----------
    Wie bei VDSolutions bleibt das Kundenstimmen-Blatt dunkel; Akzente in
-   Orange, „sprechen.“ und die Haarlinie im hellen Hochglanzgold. */
+   Grün, „sprechen.“ und die Haarlinie im hellen Hochglanzgold. */
 :root[data-brand="speed2lead"] .voices {
-  --v-glow: rgb(255 106 36 / 0.14);
-  --v-accent: #ff7b38;
-  --v-play: rgb(255 106 36 / 0.94);
-  --v-play-shadow: rgb(150 50 0 / 0.6);
-  --v-focus: #ff8a50;
+  --v-glow: rgb(224 182 90 / 0.12);
+  --v-accent: #e0b65a;
+  --v-play: rgb(18 160 106 / 0.94);
+  --v-play-shadow: rgb(5 60 38 / 0.6);
+  --v-focus: #1fc184;
 }
 :root[data-brand="speed2lead"] .voices .cta {
-  --cta-focus: #ff8a50;
+  --cta-focus: #1fc184;
 }
 /* Referenzen von Speed2Lead: per Filter weiß auf dem dunklen Blatt.
    Acht statt zwölf Logos — kürzere Spur, deshalb kürzere Dauer bei gleichem
@@ -2558,7 +2562,7 @@ body:has(.about-dialog[open]) {
    Grundfarbe #357BE3, Schein von unten rgba(225,236,255,.28) →
    rgba(136,183,250,.16), Lichtpunkt oben 26 %, Kontur rgba(155,197,255,.55),
    Schatten rgba(53,123,227,.28), Lichtkante 28 %, Glanzstreifen 24 %.
-   Calendly-Knopf mit Kobalt-Schatten. Speed2Lead bleibt Orange. */
+   Calendly-Knopf mit Kobalt-Schatten. Speed2Lead hat eigene Werte (Grün). */
 :root[data-brand="vdsolutions"] {
   --cta-base: #357be3;
   --cta-edge: #1565e0;
